@@ -3467,11 +3467,15 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   border-bottom: 0;
 }
 #cart-page .items-holder .cart-item .title {
-  padding: 17px 0 0 0;
+  padding: 15px 0px 15px 0px;
+  letter-spacing: -1px;
+  color: #3D3D3D;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 25px;
 }
 #cart-page .items-holder .cart-item .title a {
   line-height: 15px;
-  font-size: 16px;
   text-transform: capitalize;
   font-weight: 700;
   color: #0E53A5;

@@ -3459,6 +3459,22 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 #cart-page .items-holder .cart-item {
   border-bottom: 1px solid #e0e0e0;
   padding: 27px 0 24px;
+  /*.brand{
+                font-size: 10px;
+                line-height: 27px;
+                .uppercase;
+            }
+            
+            .quantity{
+                margin: 11px 0 0 30px;
+            }
+            
+            .price{
+                font-weight: 700;
+                font-size: 18px;
+                padding: 28px 0;
+                text-align: center;
+            }*/
 }
 #cart-page .items-holder .cart-item:first-child {
   padding-top: 0;
@@ -3480,19 +3496,9 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   font-weight: 700;
   color: #0E53A5;
 }
-#cart-page .items-holder .cart-item .brand {
-  font-size: 10px;
-  line-height: 27px;
-  text-transform: uppercase;
-}
-#cart-page .items-holder .cart-item .quantity {
-  margin: 11px 0 0 30px;
-}
-#cart-page .items-holder .cart-item .price {
-  font-weight: 700;
-  font-size: 18px;
-  padding: 28px 0;
-  text-align: center;
+#cart-page .items-holder .cart-item .le-button {
+  margin-top: 15px;
+  width: 80%;
 }
 /*===================================================================================*/
 /*  Checkout Page
@@ -4749,6 +4755,10 @@ select.top-drop-menu {
   #owl-single-product-thumbnails .owl-item .horizontal-thumb {
     border-right-width: 1px;
   }
+  #cart-page .le-button {
+    margin-right: 5px;
+    width: 40%;
+  }
   #footer .widgets-row > div {
     margin-left: 0;
     padding-left: 0;
@@ -4885,6 +4895,10 @@ select.top-drop-menu {
   #cart-page .widget {
     margin: 0 0 25px;
     padding: 0;
+  }
+  #cart-page .le-button {
+    margin-right: 10px;
+    width: 25%;
   }
   .sidebar {
     width: 100%!important;

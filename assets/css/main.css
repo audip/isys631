@@ -3695,6 +3695,33 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   line-height: 22px;
   font-weight: 600 !important;
 }
+.cf-style-1 .content {
+  font-size: 14px;
+  color: #333;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 0;
+}
+.cf-style-1 .dateSelection .form-control {
+  width: 30%;
+  margin-right: 5px;
+  display: inline-block;
+}
+.cf-style-1 .dateSelection .le-input {
+  width: 30%;
+  display: inline-block;
+}
+.cf-style-1 .state {
+  display: inline-block;
+  width: 30%;
+  margin-right: 5px;
+}
+.cf-style-1 .postcode {
+  display: inline-block;
+  width: 30%;
+}
+.cf-style-1 .radio-inline {
+  display: inline-block;
+}
 .cf-style-1 .le-input {
   background-color: #f6f6f6;
   border-radius: 0;

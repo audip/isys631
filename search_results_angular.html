@@ -38,16 +38,11 @@
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
         
-        
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
@@ -57,18 +52,17 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         
     <script src="./scripts/angularController.js"></script>
-        
-        
+
 	</head>
 <body>
 
-<div class="wrapper">
-
+	<div class="wrapper">
+		<!-- ============================================================= TOP NAVIGATION ============================================================= -->
 <nav class="top-bar animate-dropdown">
     <div class="container">
         <div class="col-xs-12 col-sm-6 no-margin">
 					<a href="index.html"><img src="./assets/images/custom/text_logo.gif" height = "30px"></a>
-        </div>
+        </div><!-- /.col -->
 
         <div class="col-xs-12 col-sm-6 no-margin">
             <ul class="right">
@@ -84,13 +78,15 @@
 							</li>
                 <li><a href="authentication.html">Login</a></li>
             </ul>
-        </div>
-    </div>
-</nav>
+        </div><!-- /.col -->
+    </div><!-- /.container -->
+</nav><!-- /.top-bar -->
+<!-- ============================================================= TOP NAVIGATION : END ============================================================= -->		<!-- ============================================================= HEADER ============================================================= -->
 <header>
 	<div class="container no-padding">
 
 		<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+			<!-- ============================================================= LOGO ============================================================= -->
 <div class="logo">
 		<table>
 		<tr><td><img src="./assets/images/custom/panda_logo_top.jpg" width="150"></td></tr>
@@ -101,9 +97,10 @@ Here's what I found!
 		</td></tr>
 		<tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="150"></td></tr>
 		</table>
-</div></div>
+</div><!-- /.logo -->
+<!-- ============================================================= LOGO : END ============================================================= -->		</div><!-- /.logo-holder -->
 
-<div class="col-xs-12 col-sm-12 col-md-9 top-search-holder no-margin">
+		<div class="col-xs-12 col-sm-12 col-md-9 top-search-holder no-margin">
 			<div class="contact-row">
     <div class="phone inline">
         <i class="fa fa-phone"></i> (+800) 123 456 7890
@@ -111,8 +108,8 @@ Here's what I found!
     <div class="contact inline">
         <i class="fa fa-envelope"></i> contact@<span class="le-color">betterdoctors.me</span>
     </div>
-</div>
-
+</div><!-- /.contact-row -->
+<!-- ============================================================= SEARCH AREA ============================================================= -->
 <div class="search-area">
     <form>
         <div class="control-group">
@@ -136,24 +133,152 @@ Here's what I found!
 
         </div>
     </form>
-</div></div>
-</div>
+</div><!-- /.search-area -->
+<!-- ============================================================= SEARCH AREA : END ============================================================= -->		</div><!-- /.top-search-holder -->
+
+
+<!-- ============================================================= SHOPPING CART DROPDOWN : END ============================================================= -->		</div><!-- /.top-cart-row -->
 
 </header>
-<!-- BODY GOES HERE -->
-<div ng-app="myApp">  
-<main class="container">
-<div ng-view></div>
-</main>
+<!-- ============================================================= HEADER : END ============================================================= -->		<div id="top-banner-and-menu">
+
+
+    <!-- ========================================= SIDEBAR ========================================= -->
+<div class="container" ng-app="myApp" ng-controller="search_resultsCntrl">
+    <div class="col-xs-12 col-sm-3 no-margin sidebar narrow">
+
+        <!-- ========================================= PRODUCT FILTER ========================================= -->
+<div class="widget">
+    <br>
+<h1>Search Filter</h1>
+<div class="body bordered">
+
+    <div class="category-filter">
+        <h2>Filter</h2>
+        <hr>
+        <ul>
+            <li><input checked="checked" class="le-checkbox" type="checkbox"  /> <label>All doctors</label> <span class="pull-right">(2)</span></li>
+            <li><input  class="le-checkbox" type="checkbox" /> <label>5+ years experience</label> <span class="pull-right">(8)</span></li>
+            <li><input  class="le-checkbox" type="checkbox" /> <label>Well rated</label> <span class="pull-right">(1)</span></li>
+            <li><input  class="le-checkbox" type="checkbox" /> <label>Available this week</label> <span class="pull-right">(5)</span></li>
+        </ul>
+    </div><!-- /.category-filter -->
+
+    <div class="price-filter">
+        <h2>Distance</h2>
+        <hr>
+        <div class="price-range-holder">
+
+            <input type="text" class="price-slider" value="" >
+
+            <span class="min-max">
+                Distance: 5 - 100 miles
+            </span>
+            <span class="filter-button">
+                <a href="#">Filter</a>
+            </span>
+        </div>
+    </div><!-- /.price-filter -->
+
+</div><!-- /.body -->
+</div><!-- /.widget -->
+<!-- ========================================= PRODUCT FILTER : END ========================================= -->
+
 </div>
-<!-- END BODY -->
+
+<!-- ========================================= SIDEBAR : END ========================================= -->
+
+<!-- ========================================= CONTENT ========================================= -->
+<div class="col-xs-12 col-sm-9 no-margin wide sidebar">
+<section id="search_result">
+  <div class="grid-list-products">
+      <h2 class="section-title">Search Results for : '{{searchTerm}}'</h2>
+      <div class="control-bar">
+          <div id="popularity-sort" class="le-select" >
+              <select data-placeholder="sort by popularity">
+                  <option value="1">Popularity: Ascending</option>
+                  <option value="2">Popularity: Descending</option>
+                  <option value="3">Consultation Fee: Ascending</option>
+                  <option value="3">Consultation Fee: Descending</option>
+              </select>
+          </div>
+      </div><!-- /.control-bar -->
+
+      <div>
+          <div>
+                  <div ng-repeat="doctor in doctorList">
+                  <div class="product-item product-item-holder">
+                      <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
+                              <div>
+                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
+                              </div>
+                    </div><!-- /.image-holder -->
+                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
+                              <div class="body">
+                                  <div class="title">
+                                      <a href="single-product.html">{{doctor.name}}</a>
+                                  </div>
+                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">{{doctor.address}}</div>
+                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
+                                      <p>{{doctor.qualification}} </p>
+                                  </div>
+                              </div>
+                    </div><!-- /.body-holder -->
+                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
+                              <div class="right-clmn">
+                                  <div class="price-current">{{doctor.experience}} years expereience</div>
+                                  <div class="star-holder inline" style="cursor: not-allowed"><div class="star" data-score={{doctor.rating}} style="cursor: not-allowed; width: 80px;">
+                                </div></div>
+                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
+                                  <a class="le-button" href="#">See Profile</a>
+                                  
+                              </div>
+                          </div><!-- /.price-area -->
+                    </div><!-- /.row -->
+                  </div><!-- /.product-item -->
+                  </div>
+                  
+              </div>
+
+              <div class="pagination-holder">
+                  <div class="row">
+                      <div class="col-xs-12 col-sm-6 text-left">
+                          <ul class="pagination">
+                              <li class="current"><a  href="#">1</a></li>
+                              <li><a href="#">2</a></li>
+                              <li><a href="#">3</a></li>
+                              <li><a href="#">4</a></li>
+                              <li><a href="#">next</a></li>
+                          </ul>
+                      </div>
+                      <div class="col-xs-12 col-sm-6">
+                          <div class="result-counter">
+                              Showing <span>1-9</span> of <span>11</span> results
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+    </section></div>
+
+</div>
+
+
+ </div> 
     
+<!--============================================-->
+
 <footer id="footer" class="color-bg">
     <div class="container">
 
 <div class="link-list-row">
         <div class="container no-padding">
             <div class="col-xs-12 col-md-4 ">
+
 <div class="contact-info">
     <div class="footer-logo">
     <img src="./assets/images/custom/text_logo.gif" width="200">
@@ -173,7 +298,7 @@ Here's what I found!
             <li><a href="#" class="fa fa-twitter"></a></li>
             <li><a href="#" class="fa fa-linkedin"></a></li>
         </ul>
-    </div><!-- /.social-icons -->
+    </div>
 
 </div>
 </div>
@@ -215,9 +340,8 @@ Here's what I found!
 
         </div>
     </div>
-    </div>
+</div>
 </footer>
-    
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
 	<script src="assets/js/jquery-1.10.2.min.js"></script>
 	<script src="assets/js/jquery-migrate-1.2.1.js"></script>
@@ -235,9 +359,9 @@ Here's what I found!
     <script src="assets/js/jquery.customSelect.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
-    
+
 
 	<script src="http://w.sharethis.com/button/buttons.js"></script>
-    </div> 
+        </div>
 </body>
 </html>

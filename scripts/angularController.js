@@ -1,33 +1,21 @@
 'use strict';
 
 var app = angular.module("myApp", ["ngRoute","ngMaterial","ng-sortable","ngMessages"]);
+
+function VariableData() {
+    this.username = '';
+    this.password = '';
+    this.searchTerm = '';
+    this.searchLocation = "Houston";
+    this.searchResult = "";
+};
      
 app.service('appDataService', function(){
     var username = '';
     var password = '';
-    var searchTerm = "Orthopaedic";
-    var searchResult = {
-	'success': true,
-	'search': [{
-						'doctor_id': 3546,
-						'photo_url': './assets/images/custom/doctor_image_1.jpg',
-						'name': 'Gaurav Diwanji',
-						'qualification': 'ENT Specialist',
-						'experience': 5,
-						'address': '4302 College Main St. Apt 319, Bryan, Tx - 77801',
-						'rating': 5
-					},
-					{
-						'doctor_id': 3547,
-						'photo_url': './assets/images/custom/doctor_image_1.jpg',
-						'name': 'Lijun Wang',
-						'qualification': 'Gyneacologist',
-						'experience': 3,
-						'address': 'Scnadia, College Station, Tx - 77843',
-						'rating': 4
-					}],
-	'error': ''
-    };
+    var searchTerm = '';
+    var searchLocation = "Houston";
+    var searchResult = "";
     
     this.clearData = function(value){
         this.username = '';
@@ -62,6 +50,54 @@ app.service('appDataService', function(){
             return searchResult;
         };
     
+    this.setSearchLocation = function(value){
+                searchLocation=value;
+        };
+    this.getSearchLocation = function() {
+            return searchLocation;
+        };
+    
+    this.saveVariableData = function (){
+    
+    console.log('Inside save state');
+        
+    var variableData = new VariableData();
+    variableData.username = username;
+    variableData.password = password ;
+    variableData.searchTerm = searchTerm;
+    variableData.searchLocation = searchLocation;
+    variableData.searchResult = searchResult;
+    
+    sessionStorage.setItem('applicationState', JSON.stringify(variableData));
+    console.log("ITEM SAVED");
+        
+    var temp = sessionStorage.getItem('applicationState');
+    var variableData = $.parseJSON(temp);
+    console.log("Item: "+variableData);
+    
+    };
+    
+    this.loadVariableData = function() {
+    var temp = sessionStorage.getItem('applicationState');
+    var variableData = $.parseJSON(temp);
+    console.log(variableData);
+    if(variableData != null)
+    {
+    username = variableData.username;
+    password = variableData.password;
+    searchTerm = variableData.searchTerm;
+    searchLocation = variableData.searchLocation;
+    searchResult = variableData.searchResult;
+    }
+    else {
+    username = '';
+    password = '';
+    searchTerm = '';
+    searchLocation = 'Hosuton';
+    searchResult = '';       
+    }
+    };
+    
 });
 
 app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,appDataService) {
@@ -70,7 +106,7 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     var restUrl = "https://doctorsforme-api.herokuapp.com"; 
     
     dataFactory.getSearchResult = function (city, type){
-        return $http.get(restUrl+'/search/?city='+city+'&type='+type).then(function(response){
+        return $http.get(restUrl+'/search?city='+city+'&type='+type).then(function(response){
             return response.data;})
     };
     
@@ -89,17 +125,35 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
 //        });
 //    });
 
-app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','dataFactory',function($scope, $location,appDataService,dataFactory) {
+app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
+    
+    appDataService.loadVariableData();
     
     $scope.searchTerm = appDataService.getSearchTerm();
+    $scope.searchLocation = appDataService.getSearchLocation();
     
-    $scope.searchResult = appDataService.getSearchResult();
-    
+    var searchResult = dataFactory.getSearchResult($scope.searchLocation,$scope.searchTerm);
+    searchResult.then(function(result){
+    $scope.searchResult = result;
+        
+    appDataService.setSearchResult($scope.searchResult);
+        
     if ($scope.searchResult.success == true){
     $scope.doctorList = $scope.searchResult.search;  
     };
     
-    $scope.buttonClick = function () {
+    });
+    
+    
+    $scope.locationButtonClick = function (location) {
+    $scope.searchLocation = location;
+    appDataService.setSearchLocation(location);
+    };
+    
+    $scope.searchButtonClick = function () {
+    appDataService.setSearchTerm($scope.searchTerm);
+    appDataService.saveVariableData();
+    $window.location.href = './search_results_angular.html';
     };
     
 }]);

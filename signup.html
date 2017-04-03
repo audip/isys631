@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="assets/css/animate.min.css">
 
 		<link rel="stylesheet" href="assets/css/config.css">
-		<link rel="stylesheet" href="assets/css/custom-dfm.css">
+		 <link rel="stylesheet" href="assets/css/custom-dfm.css">
 		<link href="assets/css/blue.css" rel="stylesheet" title="Blue color">
 
 	    <!-- Fonts -->
@@ -112,103 +112,108 @@
 	</div>
 </div><!-- /.container 
 </header> -->
-<!-- ============================================================= HEADER : END ============================================================= -->		<div id="top-banner-and-menu">
+<!-- ============================================================= HEADER : END ============================================================= -->		
+<div id="top-banner-and-menu">
 <main id="authentication" class="inner-bottom-md">
 	<div class="container">
 		<div class="row">
 			<div class="row-eq-height">
 				<div class="col-md-4">
-					<div class="logo" style="margin: 10% auto">
+					<div class="logo" style="margin: 0 auto">
 				
-						<table style="margin: 0 auto; height:100%">
+						<table style="margin: 10% auto; height:100%">
 						<tr style="height:100%"><td><img src="./assets/images/custom/panda_logo_top.jpg" width="250"></td></tr>
 						<tr><td>
 						<span style="color:#94918f">
-							Its awesome to see you again !
+							Its awesome to have you around!
 						</span>
 						</td></tr>
 						<tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="250"></td></tr>
 						</table>
-				<!-- <img src="./assets/images/custom/panda_logo.jpg" width="170"> -->
-		<!-- </a> -->
+				
 					</div>
+				<div class="section register inner-left-xs" style="margin: 10px auto">
+					<h2 class="semi-bold">Sign up today and you'll be able to :</h2>
+					<br/>
+					<ul class="list-unstyled list-benefits">
+						<li><i class="fa fa-check primary-color"></i> Book appointments instantly</li>
+						<li><i class="fa fa-check primary-color"></i> Review doctors</li>
+						<li><i class="fa fa-check primary-color"></i> Get email notification</li>
+						<li><i class="fa fa-check primary-color"></i> Get updates about your appointments</li>
+					</ul>
 				</div>
 			</div>
+		</div>
 			<div class="row-eq-height">
 				<div class="col-md-8">
-					<section class="section sign-in inner-right-xs">
-						<h2 class="bordered">Log In</h2>
-						<p>Hello, Welcome to your account</p>
-
-						<div class="social-auth-buttons">
-							<!--<div class="row">
-								<div class="col-md-6">
-									<button class="btn-block btn-lg btn btn-facebook"><i class="fa fa-facebook"></i> Sign In with Facebook</button>
-								</div>
-								<div class="col-md-6">
-									<button class="btn-block btn-lg btn btn-twitter"><i class="fa fa-twitter"></i> Sign In with Twitter</button>
-								</div>
-							</div> -->
-						</div>
-
-						<form role="form" class="login-form cf-style-1">
-							<div class="field-row">
-								<label>User Name</label>
-								<input type="text" class="le-input">
-							</div><!-- /.field-row -->
-
-							<div class="field-row">
-								<label>Password</label>
-								<input type="password" class="le-input">
-							</div><!-- /.field-row -->
-
-							<div class="field-row clearfix">
-								<span class="pull-left">
-									<label class="content-color"><input type="checkbox" class="le-checbox auto-width inline"> <span class="bold">Remember me</span></label>
-								</span>
-								<span class="pull-right">
-									<a href="#" class="content-color bold">Forgotten Password ?</a>
-								</span>
-							</div>
-
-							<div class="buttons-holder" style="margin: 0 auto; text-align:center">
-								<button type="submit" class="le-button huge">Secure Sign In</button>
-							</div><!-- /.buttons-holder -->
-						</form><!-- /.cf-style-1 -->
-
-					</section><!-- /.sign-in -->
-				</div><!-- /.col -->
-			</div>
-<!--
-			<div class="col-md-6">
-				<section class="section register inner-left-xs">
+					<section class="section register inner-left-xs">
 					<h2 class="bordered">Create New Account</h2>
 					<p>Create your own account</p>
 
 					<form role="form" class="register-form cf-style-1">
 						<div class="field-row">
-                            <label>Email</label>
-                            <input type="text" class="le-input">
-                        </div><!-- /.field-row 
-
+                            <label for="full_name">Full Name</label>
+                            <input type="text" class="le-input" id="full_name" placeholder="Enter Name">
+                        </div><!-- /.field-row -->
+						<div class="field-row">
+                            <label for="email">Email</label>
+                            <input type="email" class="le-input" id="email" placeholder="john@xyz.com">
+                        </div><!-- /.field-row -->
+						<div class="field-row">
+                            <label for="user_name">User Name</label>
+                            <input type="text" class="le-input" id="user_name" placeholder="Enter user name">
+                        </div><!-- /.field-row -->
+						<div class="field-row">
+                            <label for="password">Password</label>
+                            <input type="password" class="le-input" id="password">
+                        </div><!-- /.field-row -->
+						<div class="field-row">
+                            <label for="phone">Phone</label>
+                            <input type="tel" class="le-input" id="phone">
+                        </div><!-- /.field-row -->
+						
+						<div class="field-row">
+                            <label for="st_address">Street Address</label>
+                            <input type="text" class="le-input" id="st_address">
+                        </div><!-- /.field-row -->
+						<div class="field-row">
+                            <label for="city">City</label>
+                            <input type="text" class="le-input" id="city">
+                        </div><!-- /.field-row -->
+						<div class="field-row">
+                            <label for="state">State</label>
+                            <input type="text" class="le-input" id="state">
+                        </div><!-- /.field-row -->
+						<div class="field-row">
+                            <label for="country">Country</label>
+                            <input type="text" class="le-input" id="country">
+                        </div><!-- /.field-row -->
+						
+						<div class="field-row">
+                            <label>User Type</label>
+							<label class="radio-inline">
+							  <input type="radio" name="user_type">Patient
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="user_type">Doctor
+							</label>
+							
+					
+						
+                        </div><!-- /.field-row -->
+						
+						
                         <div class="buttons-holder">
                             <button type="submit" class="le-button huge">Sign Up</button>
-                        </div><!-- /.buttons-holder 
+                        </div><!-- /.buttons-holder -->
 					</form>
 
-					<h2 class="semi-bold">Sign up today and you'll be able to :</h2>
+					
 
-					<ul class="list-unstyled list-benefits">
-						<li><i class="fa fa-check primary-color"></i> Book appointments instantly</li>
-						<li><i class="fa fa-check primary-color"></i> Review doctors</li>
-						<li><i class="fa fa-check primary-color"></i> Get email notification and updates about your appointments</li>
-					</ul>
+				</section><!-- /.sign-in -->
+				</div><!-- /.col -->
+			</div>
 
-				</section><!-- /.register 
-
-			</div><!-- /.col 
-
-		</div><!-- /.row -->
 	</div><!-- /.container -->
 </main><!-- /.authentication -->
 <!-- ============================================================= FOOTER ============================================================= -->

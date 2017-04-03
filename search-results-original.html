@@ -37,24 +37,9 @@
 			<script src="assets/js/html5shiv.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
-        
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
-    <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
-    <script src="http://rubaxa.github.io/Sortable/ng-sortable.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        
-    <script src="./scripts/angularController.js"></script>
 
 	</head>
-<body ng-app="myApp" ng-controller="search_resultsCntrl">
+<body>
 
 	<div class="wrapper">
 		<!-- ============================================================= TOP NAVIGATION ============================================================= -->
@@ -113,23 +98,23 @@ Here's what I found!
 <div class="search-area">
     <form>
         <div class="control-group">
-            <input class="search-field" placeholder="Search for doctors" ng-model = "searchTerm" />
+            <input class="search-field" placeholder="Search for doctors" />
 
             <ul class="categories-filter animate-dropdown">
                 <li class="dropdown">
 
-                    <a class="dropdown-toggle"  data-toggle="dropdown" ng-model = "searchLocation"><i class="fa fa-location-arrow" style = "color: #bdbbba"></i>&nbsp;&nbsp;{{searchLocation}}</a>
+                    <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html"><i class="fa fa-location-arrow" style = "color: #bdbbba"></i>&nbsp;&nbsp;Location</a>
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="locationButtonClick('Cincinnati');">Cincinnati</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="locationButtonClick('Houston');">Houston</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="locationButtonClick('Austin');">Austin</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="locationButtonClick('Dallas');">Dallas</a></li>
+                    <ul class="dropdown-menu" role="menu" >
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Current location</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Houston</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Austin</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Dallas</a></li>
                     </ul>
                 </li>
             </ul>
 
-            <a class="search-button" ng-click = "searchButtonClick();" ></a>
+            <a class="search-button" href="#" ></a>
 
         </div>
     </form>
@@ -192,7 +177,7 @@ Here's what I found!
 <div class="col-xs-12 col-sm-9 no-margin wide sidebar">
 <section id="search_result">
   <div class="grid-list-products">
-      <h2 class="section-title">Search Results for : '{{searchTerm}}'</h2>
+      <h2 class="section-title">Search Resulsts for : 'Orthopedic'</h2>
       <div class="control-bar">
           <div id="popularity-sort" class="le-select" >
               <select data-placeholder="sort by popularity">
@@ -206,7 +191,7 @@ Here's what I found!
 
       <div>
           <div>
-                  <div ng-repeat="doctor in doctorList">
+              <div class="products-list">
                   <div class="product-item product-item-holder">
                       <div class="row">
                     <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
@@ -217,19 +202,18 @@ Here's what I found!
                     <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
                               <div class="body">
                                   <div class="title">
-                                      <a href="single-product.html">{{doctor.name}}</a>
+                                      <a href="single-product.html">Dr. Panda</a>
                                   </div>
-                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">{{doctor.address}}</div>
+                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
                                   <div class="excerpt" style = "font-size:12px; padding-top:10px;">
-                                      <p>{{doctor.qualification}} </p>
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
                                   </div>
                               </div>
                     </div><!-- /.body-holder -->
                     <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
                               <div class="right-clmn">
-                                  <div class="price-current">{{doctor.experience}} years expereience</div>
-                                  <div class="star-holder inline" style="cursor: not-allowed"><div class="star" data-score={{doctor.rating}} style="cursor: not-allowed; width: 80px;">
-                                </div></div>
+                                  <div class="price-current">4 miles away</div>
+                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
                                   <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
                                   <a class="le-button" href="#">See Profile</a>
                                   
@@ -237,9 +221,130 @@ Here's what I found!
                           </div><!-- /.price-area -->
                     </div><!-- /.row -->
                   </div><!-- /.product-item -->
-                  </div>
                   
-              </div>
+                  <div class="product-item product-item-holder">
+                      <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
+                              <div>
+                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
+                              </div>
+                    </div><!-- /.image-holder -->
+                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
+                              <div class="body">
+                                  <div class="title">
+                                      <a href="single-product.html">Dr. Panda</a>
+                                  </div>
+                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
+                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
+                                  </div>
+                              </div>
+                    </div><!-- /.body-holder -->
+                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
+                              <div class="right-clmn">
+                                  <div class="price-current">4 miles away</div>
+                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
+                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
+                                  <a class="le-button" href="#">See Profile</a>
+                                  
+                              </div>
+                          </div><!-- /.price-area -->
+                    </div><!-- /.row -->
+                  </div><!-- /.product-item -->
+                  
+                  <div class="product-item product-item-holder">
+                      <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
+                              <div>
+                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
+                              </div>
+                    </div><!-- /.image-holder -->
+                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
+                              <div class="body">
+                                  <div class="title">
+                                      <a href="single-product.html">Dr. Panda</a>
+                                  </div>
+                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
+                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
+                                  </div>
+                              </div>
+                    </div><!-- /.body-holder -->
+                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
+                              <div class="right-clmn">
+                                  <div class="price-current">4 miles away</div>
+                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
+                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
+                                  <a class="le-button" href="#">See Profile</a>
+                                  
+                              </div>
+                          </div><!-- /.price-area -->
+                    </div><!-- /.row -->
+                  </div><!-- /.product-item -->
+                  
+                  <div class="product-item product-item-holder">
+                      <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
+                              <div>
+                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
+                              </div>
+                    </div><!-- /.image-holder -->
+                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
+                              <div class="body">
+                                  <div class="title">
+                                      <a href="single-product.html">Dr. Panda</a>
+                                  </div>
+                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
+                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
+                                  </div>
+                              </div>
+                    </div><!-- /.body-holder -->
+                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
+                              <div class="right-clmn">
+                                  <div class="price-current">4 miles away</div>
+                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
+                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
+                                  <a class="le-button" href="#">See Profile</a>
+                                  
+                              </div>
+                          </div><!-- /.price-area -->
+                    </div><!-- /.row -->
+                  </div><!-- /.product-item -->
+                  
+                  <div class="product-item product-item-holder">
+                      <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
+                              <div>
+                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
+                              </div>
+                    </div><!-- /.image-holder -->
+                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
+                              <div class="body">
+                                  <div class="title">
+                                      <a href="single-product.html">Dr. Panda</a>
+                                  </div>
+                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
+                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
+                                  </div>
+                              </div>
+                    </div><!-- /.body-holder -->
+                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
+                              <div class="right-clmn">
+                                  <div class="price-current">4 miles away</div>
+                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
+                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
+                                  <a class="le-button" href="#">See Profile</a>
+                                  
+                              </div>
+                          </div><!-- /.price-area -->
+                    </div><!-- /.row -->
+                  </div><!-- /.product-item -->
+
+                  
+
+              </div><!-- /.products-list -->
 
               <div class="pagination-holder">
                   <div class="row">
@@ -250,35 +355,35 @@ Here's what I found!
                               <li><a href="#">3</a></li>
                               <li><a href="#">4</a></li>
                               <li><a href="#">next</a></li>
-                          </ul>
+                          </ul><!-- /.pagination -->
                       </div>
                       <div class="col-xs-12 col-sm-6">
                           <div class="result-counter">
                               Showing <span>1-9</span> of <span>11</span> results
-                          </div>
+                          </div><!-- /.result-counter -->
                       </div>
-                  </div>
-              </div>
+                  </div><!-- /.row -->
+              </div><!-- /.pagination-holder -->
 
-          </div>
+          </div><!-- /.products-grid #list-view -->
 
-      </div>
-    </section></div>
+      </div><!-- /.tab-content -->
+  </div><!-- /.grid-list-products -->
+
+</section><!-- /#gaming -->
 
 </div>
+<!-- ========================================= CONTENT :END========================================= -->
 
-
- </div> 
-    
-<!--============================================-->
-
+ </div> <!--End Container -->
+<!-- ============================================================= FOOTER ============================================================= -->
 <footer id="footer" class="color-bg">
     <div class="container">
 
 <div class="link-list-row">
         <div class="container no-padding">
             <div class="col-xs-12 col-md-4 ">
-
+                <!-- ============================================================= CONTACT INFO ============================================================= -->
 <div class="contact-info">
     <div class="footer-logo">
     <img src="./assets/images/custom/text_logo.gif" width="200">
@@ -298,12 +403,13 @@ Here's what I found!
             <li><a href="#" class="fa fa-twitter"></a></li>
             <li><a href="#" class="fa fa-linkedin"></a></li>
         </ul>
-    </div>
+    </div><!-- /.social-icons -->
 
 </div>
-</div>
+<!-- ============================================================= CONTACT INFO : END ============================================================= -->            </div>
 
 <div class="col-xs-12 col-md-8 no-margin">
+                <!-- ============================================================= LINKS FOOTER ============================================================= -->
 <div class="link-widget">
     <div class="widget">
     </div><!-- /.widget -->
@@ -325,23 +431,27 @@ Here's what I found!
             <li><a href="category-grid.html">FAQs</a></li>
             <li><a href="category-grid.html">About Us</a></li>
         </ul>
-    </div>
-</div> </div>
-</div>
-</div>
+    </div><!-- /.widget -->
+</div><!-- /.link-widget -->
+<!-- ============================================================= LINKS FOOTER : END ============================================================= -->            </div>
+        </div><!-- /.container -->
+    </div><!-- /.link-list-row -->
 <img src="./assets/images/custom/panda_peeping.gif" width="150" style=" z-index: -100;">
     <div class="copyright-bar">
         <div class="container">
             <div class="col-xs-12 col-sm-6 no-margin">
                 <div class="copyright">
                     &copy; <a href="index.html">DoctorsFor.me</a> - all rights reserved
-                </div>
+                </div><!-- /.copyright -->
             </div>
 
-        </div>
-    </div>
+        </div><!-- /.container -->
+    </div><!-- /.copyright-bar -->
 </div>
-</footer>
+</footer><!-- /#footer -->
+<!-- ============================================================= FOOTER : END ============================================================= -->	<!-- /.wrapper -->
+
+
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
 	<script src="assets/js/jquery-1.10.2.min.js"></script>
 	<script src="assets/js/jquery-migrate-1.2.1.js"></script>
@@ -362,6 +472,6 @@ Here's what I found!
 
 
 	<script src="http://w.sharethis.com/button/buttons.js"></script>
-        </div>
+
 </body>
 </html>

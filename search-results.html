@@ -21,6 +21,8 @@
 		<link rel="stylesheet" href="assets/css/animate.min.css">
 
 		<link rel="stylesheet" href="assets/css/config.css">
+    <link rel="stylesheet" href="assets/css/custom-dfm.css"> <!-- Local CSS file -->
+
 		<link href="assets/css/blue.css" rel="stylesheet" title="Blue color">
 
 	    <!-- Fonts -->
@@ -37,94 +39,95 @@
 			<script src="assets/js/html5shiv.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+        
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+    <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
+    <script src="http://rubaxa.github.io/Sortable/ng-sortable.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        
+    <script src="./scripts/angularController.js"></script>
 
 	</head>
-<body>
+<body ng-app="myApp" ng-controller="search_resultsCntrl">
 
 	<div class="wrapper">
 		<!-- ============================================================= TOP NAVIGATION ============================================================= -->
 <nav class="top-bar animate-dropdown">
-    <div class="container">
-        <div class="col-xs-12 col-sm-6 no-margin">
-					<a href="index.html"><img src="./assets/images/custom/text_logo.gif" height = "30px"></a>
-        </div><!-- /.col -->
-
-        <div class="col-xs-12 col-sm-6 no-margin">
-            <ul class="right">
-							<li class="dropdown">
-									<a class="dropdown-toggle"  data-toggle="dropdown" href="#change-language">Welcome, Guest!</a>
-									<ul class="dropdown-menu" role="menu" >
-											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Create account</a></li>
-											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Appointments</a></li>
-											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Reviews</a></li>
-											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account settings</a></li>
-											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Log out</a></li>
-									</ul>
-							</li>
-                <li><a href="authentication.html">Login</a></li>
-            </ul>
-        </div><!-- /.col -->
-    </div><!-- /.container -->
-</nav><!-- /.top-bar -->
+                <div class="container">
+                    <div class="col-xs-12 col-md-4 no-margin">
+                        <a href="index.html"><img src="./assets/images/custom/text_logo.gif" height = "45px"></a>
+                    </div><!-- /.col -->
+                    <div class="col-xs-12 col-md-8 no-margin">
+                        <ul class="right">
+                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
+                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
+                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-edit" aria-hidden="true"></i> Reviews</a></li>
+                            <li class="nav-li"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+                            <li class="nav-li"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
+                        </ul>
+                    </div><!-- /.col -->
+                </div><!-- /.container -->
+            </nav><!-- /.top-bar -->
 <!-- ============================================================= TOP NAVIGATION : END ============================================================= -->		<!-- ============================================================= HEADER ============================================================= -->
 <header>
-	<div class="container no-padding">
-
-		<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
-			<!-- ============================================================= LOGO ============================================================= -->
-<div class="logo">
-		<table>
-		<tr><td><img src="./assets/images/custom/panda_logo_top.jpg" width="150"></td></tr>
-		<tr><td>
-		<span style="color:#94918f">
-Here's what I found!
-		</span>
-		</td></tr>
-		<tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="150"></td></tr>
-		</table>
-</div><!-- /.logo -->
-<!-- ============================================================= LOGO : END ============================================================= -->		</div><!-- /.logo-holder -->
-
-		<div class="col-xs-12 col-sm-12 col-md-9 top-search-holder no-margin">
-			<div class="contact-row">
-    <div class="phone inline">
-        <i class="fa fa-phone"></i> (+800) 123 456 7890
-    </div>
-    <div class="contact inline">
-        <i class="fa fa-envelope"></i> contact@<span class="le-color">betterdoctors.me</span>
-    </div>
-</div><!-- /.contact-row -->
-<!-- ============================================================= SEARCH AREA ============================================================= -->
-<div class="search-area">
-    <form>
-        <div class="control-group">
-            <input class="search-field" placeholder="Search for doctors" />
-
-            <ul class="categories-filter animate-dropdown">
-                <li class="dropdown">
-
-                    <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html"><i class="fa fa-location-arrow" style = "color: #bdbbba"></i>&nbsp;&nbsp;Location</a>
-
-                    <ul class="dropdown-menu" role="menu" >
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Current location</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Houston</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Austin</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Dallas</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <a class="search-button" href="#" ></a>
-
-        </div>
-    </form>
-</div><!-- /.search-area -->
-<!-- ============================================================= SEARCH AREA : END ============================================================= -->		</div><!-- /.top-search-holder -->
-
-
-<!-- ============================================================= SHOPPING CART DROPDOWN : END ============================================================= -->		</div><!-- /.top-cart-row -->
-
-</header>
+                                <div class="container no-padding search-div">
+                                    <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+                                        <!-- ============================================================= LOGO ============================================================= -->
+                                        <div class="logo" style="margin: 5% auto">
+                                            <!-- <a href="index.html"> -->
+                                            <table style="margin: 0 auto; height: 100%">
+                                                <tr><td><img src="./assets/images/custom/panda_logo_top.jpg" width="150"></td></tr>
+                                                <tr><td>
+                                                    <span style="color:#94918f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        Lets find some doctors for you!
+                                                    </span>
+                                                </td></tr>
+                                                <tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="150"></td></tr>
+                                            </table>
+                                            <!-- <img src="./assets/images/custom/panda_logo.jpg" width="170"> -->
+                                            <!-- </a> -->
+                                            </div><!-- /.logo -->
+                                            <!-- ============================================================= LOGO : END ============================================================= -->     </div><!-- /.logo-holder -->
+                                            <div class="col-xs-12 col-sm-12 col-md-9 top-search-holder no-margin">
+                                                <div class="contact-row">
+                                                    <!-- <div class="phone inline">
+                                                        <i class="fa fa-phone"></i> (+800) 123 456 7890
+                                                    </div>
+                                                    <div class="contact inline">
+                                                        <i class="fa fa-envelope"></i> contact@<span class="le-color">betterdoctors.me</span>
+                                                    </div> -->
+                                                    </div><!-- /.contact-row -->
+                                                    <!-- ============================================================= SEARCH AREA ============================================================= -->
+                                                    <div class="search-area">
+                                                        <form>
+                                                            <div class="control-group">
+                                                                <input class="search-field" placeholder="Search for doctors" ng-model = "searchTerm" />
+                                                                <ul class="categories-filter animate-dropdown">
+                                                                    <li class="dropdown">
+                                                                        <a class="dropdown-toggle"  data-toggle="dropdown" ng-model = "searchLocation"><i class="fa fa-location-arrow" style = "color: #bdbbba"></i>&nbsp;&nbsp;{{searchLocation}}</a>
+                                                                        <ul class="dropdown-menu" role="menu">
+                                                                            <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="locationButtonClick('Cincinnati');">Cincinnati</a></li>
+                                                                            <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="locationButtonClick('Houston');">Houston</a></li>
+                                                                            <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="locationButtonClick('Austin');">Austin</a></li>
+                                                                            <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="locationButtonClick('Dallas');">Dallas</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                                <a class="search-button" ng-click = "searchButtonClick();" ></a>
+                                                            </div>
+                                                        </form>
+                                                        </div><!-- /.search-area -->
+                                                        <!-- ============================================================= SEARCH AREA : END ============================================================= -->      </div><!-- /.top-search-holder -->
+                                                        <!-- ============================================================= SHOPPING CART DROPDOWN : END ============================================================= -->       </div><!-- /.top-cart-row -->
+                                                    </header>
 <!-- ============================================================= HEADER : END ============================================================= -->		<div id="top-banner-and-menu">
 
 
@@ -149,7 +152,7 @@ Here's what I found!
         </ul>
     </div><!-- /.category-filter -->
 
-    <div class="price-filter">
+    <!-- <div class="price-filter">
         <h2>Distance</h2>
         <hr>
         <div class="price-range-holder">
@@ -163,7 +166,7 @@ Here's what I found!
                 <a href="#">Filter</a>
             </span>
         </div>
-    </div><!-- /.price-filter -->
+    </div> --><!-- /.price-filter -->
 
 </div><!-- /.body -->
 </div><!-- /.widget -->
@@ -177,7 +180,7 @@ Here's what I found!
 <div class="col-xs-12 col-sm-9 no-margin wide sidebar">
 <section id="search_result">
   <div class="grid-list-products">
-      <h2 class="section-title">Search Resulsts for : 'Orthopedic'</h2>
+      <h2 class="section-title">Search Results for : '{{searchTerm}}'</h2>
       <div class="control-bar">
           <div id="popularity-sort" class="le-select" >
               <select data-placeholder="sort by popularity">
@@ -191,7 +194,7 @@ Here's what I found!
 
       <div>
           <div>
-              <div class="products-list">
+                  <div ng-repeat="doctor in doctorList">
                   <div class="product-item product-item-holder">
                       <div class="row">
                     <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
@@ -202,18 +205,19 @@ Here's what I found!
                     <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
                               <div class="body">
                                   <div class="title">
-                                      <a href="single-product.html">Dr. Panda</a>
+                                      <a href="single-product.html">{{doctor.name}}</a>
                                   </div>
-                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
+                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">{{doctor.address}}</div>
                                   <div class="excerpt" style = "font-size:12px; padding-top:10px;">
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
+                                      <p>{{doctor.qualification}} </p>
                                   </div>
                               </div>
                     </div><!-- /.body-holder -->
                     <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
                               <div class="right-clmn">
-                                  <div class="price-current">4 miles away</div>
-                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
+                                  <div class="price-current">{{doctor.experience}} years expereience</div>
+                                  <div class="star-holder inline" style="cursor: not-allowed"><div class="star" data-score={{doctor.rating}} style="cursor: not-allowed; width: 80px;">
+                                </div></div>
                                   <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
                                   <a class="le-button" href="#">See Profile</a>
                                   
@@ -221,130 +225,9 @@ Here's what I found!
                           </div><!-- /.price-area -->
                     </div><!-- /.row -->
                   </div><!-- /.product-item -->
+                  </div>
                   
-                  <div class="product-item product-item-holder">
-                      <div class="row">
-                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
-                              <div>
-                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
-                              </div>
-                    </div><!-- /.image-holder -->
-                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
-                              <div class="body">
-                                  <div class="title">
-                                      <a href="single-product.html">Dr. Panda</a>
-                                  </div>
-                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
-                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
-                                  </div>
-                              </div>
-                    </div><!-- /.body-holder -->
-                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
-                              <div class="right-clmn">
-                                  <div class="price-current">4 miles away</div>
-                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
-                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
-                                  <a class="le-button" href="#">See Profile</a>
-                                  
-                              </div>
-                          </div><!-- /.price-area -->
-                    </div><!-- /.row -->
-                  </div><!-- /.product-item -->
-                  
-                  <div class="product-item product-item-holder">
-                      <div class="row">
-                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
-                              <div>
-                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
-                              </div>
-                    </div><!-- /.image-holder -->
-                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
-                              <div class="body">
-                                  <div class="title">
-                                      <a href="single-product.html">Dr. Panda</a>
-                                  </div>
-                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
-                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
-                                  </div>
-                              </div>
-                    </div><!-- /.body-holder -->
-                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
-                              <div class="right-clmn">
-                                  <div class="price-current">4 miles away</div>
-                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
-                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
-                                  <a class="le-button" href="#">See Profile</a>
-                                  
-                              </div>
-                          </div><!-- /.price-area -->
-                    </div><!-- /.row -->
-                  </div><!-- /.product-item -->
-                  
-                  <div class="product-item product-item-holder">
-                      <div class="row">
-                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
-                              <div>
-                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
-                              </div>
-                    </div><!-- /.image-holder -->
-                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
-                              <div class="body">
-                                  <div class="title">
-                                      <a href="single-product.html">Dr. Panda</a>
-                                  </div>
-                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
-                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
-                                  </div>
-                              </div>
-                    </div><!-- /.body-holder -->
-                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
-                              <div class="right-clmn">
-                                  <div class="price-current">4 miles away</div>
-                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
-                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
-                                  <a class="le-button" href="#">See Profile</a>
-                                  
-                              </div>
-                          </div><!-- /.price-area -->
-                    </div><!-- /.row -->
-                  </div><!-- /.product-item -->
-                  
-                  <div class="product-item product-item-holder">
-                      <div class="row">
-                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
-                              <div>
-                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>
-                              </div>
-                    </div><!-- /.image-holder -->
-                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
-                              <div class="body">
-                                  <div class="title">
-                                      <a href="single-product.html">Dr. Panda</a>
-                                  </div>
-                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">Administration Building, 400 Bizzell St, College Station, TX 77843</div>
-                                  <div class="excerpt" style = "font-size:12px; padding-top:10px;">
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
-                                  </div>
-                              </div>
-                    </div><!-- /.body-holder -->
-                    <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
-                              <div class="right-clmn">
-                                  <div class="price-current">4 miles away</div>
-                                  <div class="star-holder inline"><div class="star" data-score="4" style="cursor: pointer; width: 80px;"><input type="hidden" name="score" value="3"></div></div>
-                                  <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
-                                  <a class="le-button" href="#">See Profile</a>
-                                  
-                              </div>
-                          </div><!-- /.price-area -->
-                    </div><!-- /.row -->
-                  </div><!-- /.product-item -->
-
-                  
-
-              </div><!-- /.products-list -->
+              </div>
 
               <div class="pagination-holder">
                   <div class="row">
@@ -355,103 +238,67 @@ Here's what I found!
                               <li><a href="#">3</a></li>
                               <li><a href="#">4</a></li>
                               <li><a href="#">next</a></li>
-                          </ul><!-- /.pagination -->
+                          </ul>
                       </div>
                       <div class="col-xs-12 col-sm-6">
                           <div class="result-counter">
                               Showing <span>1-9</span> of <span>11</span> results
-                          </div><!-- /.result-counter -->
+                          </div>
                       </div>
-                  </div><!-- /.row -->
-              </div><!-- /.pagination-holder -->
+                  </div>
+              </div>
 
-          </div><!-- /.products-grid #list-view -->
+          </div>
 
-      </div><!-- /.tab-content -->
-  </div><!-- /.grid-list-products -->
-
-</section><!-- /#gaming -->
+      </div>
+    </section></div>
 
 </div>
-<!-- ========================================= CONTENT :END========================================= -->
 
- </div> <!--End Container -->
-<!-- ============================================================= FOOTER ============================================================= -->
+
+ </div> 
+    
 <footer id="footer" class="color-bg">
-    <div class="container">
-
-<div class="link-list-row">
-        <div class="container no-padding">
-            <div class="col-xs-12 col-md-4 ">
-                <!-- ============================================================= CONTACT INFO ============================================================= -->
-<div class="contact-info">
-    <div class="footer-logo">
-    <img src="./assets/images/custom/text_logo.gif" width="200">
-    </div><!-- /.footer-logo -->
-
-    <p class="regular-bold"> Feel free to contact us via phone,email or just send us mail.</p>
-
-    <p>
-        Administration Building, 400 Bizzell St,
-				College Station, TX 77843
-    </p>
-
-    <div class="social-icons">
-        <h3>Get in touch</h3>
-        <ul>
-            <li><a href="http://facebook.com/transvelo" class="fa fa-facebook"></a></li>
-            <li><a href="#" class="fa fa-twitter"></a></li>
-            <li><a href="#" class="fa fa-linkedin"></a></li>
-        </ul>
-    </div><!-- /.social-icons -->
-
-</div>
-<!-- ============================================================= CONTACT INFO : END ============================================================= -->            </div>
-
-<div class="col-xs-12 col-md-8 no-margin">
-                <!-- ============================================================= LINKS FOOTER ============================================================= -->
-<div class="link-widget">
-    <div class="widget">
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-
-<div class="link-widget">
-    <div class="widget">
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-
-<div class="link-widget">
-    <div class="widget">
-        <h3>Information</h3>
-        <ul>
-            <li><a href="category-grid.html">My Account</a></li>
-            <li><a href="category-grid.html">Appointment</a></li>
-            <li><a href="category-grid.html">Reviews</a></li>
-            <li><a href="category-grid.html">Customer Service</a></li>
-            <li><a href="category-grid.html">FAQs</a></li>
-            <li><a href="category-grid.html">About Us</a></li>
-        </ul>
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-<!-- ============================================================= LINKS FOOTER : END ============================================================= -->            </div>
-        </div><!-- /.container -->
-    </div><!-- /.link-list-row -->
-<img src="./assets/images/custom/panda_peeping.gif" width="150" style=" z-index: -100;">
-    <div class="copyright-bar">
-        <div class="container">
-            <div class="col-xs-12 col-sm-6 no-margin">
-                <div class="copyright">
-                    &copy; <a href="index.html">DoctorsFor.me</a> - all rights reserved
-                </div><!-- /.copyright -->
-            </div>
-
-        </div><!-- /.container -->
-    </div><!-- /.copyright-bar -->
-</div>
-</footer><!-- /#footer -->
-<!-- ============================================================= FOOTER : END ============================================================= -->	<!-- /.wrapper -->
-
-
+                                                        <div class="container">
+                                                            <!-- <div class="link-list-row"> -->
+                                                            <div class="container no-padding">
+                                                                <div class="col-xs-12 col-md-12 ">
+                                                                    <!-- ============================================================= CONTACT INFO ============================================================= -->
+                                                                    <img src="./assets/images/custom/panda_peeping.gif" width="120" style=" z-index: -100;" style="max-width:50%">
+                                                                    <div class="contact-info" style="width:50%;float:right">
+                                                                        <div class="footer-logo">
+                                                                            <img src="./assets/images/custom/text_logo.gif" width="200">
+                                                                            </div> <!-- /.footer-logo  -->
+                                                                            <br/>
+                                                                            <p class="regular-bold"> Office address:</p>
+                                                                            <p>
+                                                                                Administration Building, 400 Bizzell St,
+                                                                                College Station, TX 77843
+                                                                            </p>
+                                                                            <!-- /.social-icons -->
+                                                                        </div>
+                                                                        <!-- ============================================================= CONTACT INFO : END ============================================================= -->            </div>
+                                                                        <div class="col-xs-12 col-md-8 no-margin">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="copyright-bar">
+                                                                        <div class="container">
+                                                                            <div class="col-xs-12 col-sm-11 no-margin">
+                                                                                <div class="copyright">
+                                                                                    &copy; <a href="index.html">DoctorsFor.me</a> - all rights reserved
+                                                                                    <ul class="footer-social" style="text-align: center">
+                                                                                        <li><a href="http://facebook.com" class="fa fa-facebook"></a></li>
+                                                                                        <li><a href="#" class="fa fa-twitter"></a></li>
+                                                                                        <li><a href="#" class="fa fa-linkedin"></a></li>
+                                                                                    </ul>
+                                                                                </div><!-- /.copyright -->
+                                                                            </div>
+                                                                        </div><!-- /.container -->
+                                                                    </div><!-- /.copyright-bar -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </footer><!-- /#footer -->
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
 	<script src="assets/js/jquery-1.10.2.min.js"></script>
 	<script src="assets/js/jquery-migrate-1.2.1.js"></script>
@@ -472,6 +319,6 @@ Here's what I found!
 
 
 	<script src="http://w.sharethis.com/button/buttons.js"></script>
-
+        </div>
 </body>
 </html>

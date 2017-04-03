@@ -1,0 +1,42 @@
+.body{
+background-color: white;
+}
+.top-bar{
+margin: 10px 10px;
+background-color: white;
+}
+.top-bar ul {
+display: block;
+}
+.top-bar ul li{
+background-color: white;
+padding: 10px 0px;
+/*width: 18%;*/
+text-align: center;
+}
+#top-banner-and-menu{
+margin: 0px 0px;
+}
+.search-div {
+height: 80%;
+}
+.header, .body {
+height: 50%;
+min-height: 80%;
+}
+.footer-social {
+float: right;
+}
+.footer-social li {
+display:inline;
+padding: 0px 10px;
+}
+@media (max-width: 768px){
+    .footer-social li{
+    text-align: center
+    }
+    .footer-social {
+    width: 100%;
+    color: white;
+    }
+}

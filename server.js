@@ -1,13 +1,10 @@
-var http = require('http');
+var express = require('express');
+var app = express();
 
-var finalhandler = require('finalhandler');
-var serveStatic = require('serve-static');
+app.use(express.static(__dirname + '/app'));
 
-var serve = serveStatic("./app");
-
-var server = http.createServer(function(req, res) {
-  var done = finalhandler(req, res);
-  serve(req, res, done);
+app.get('/', function(req, res){
+  res.redirect('index.html');
 });
 
-server.listen(process.env.PORT || 8000);
+app.listen(process.env.PORT || 8000);

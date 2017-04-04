@@ -93,7 +93,7 @@ app.service('appDataService', function(){
     username = '';
     password = '';
     searchTerm = '';
-    searchLocation = 'Hosuton';
+    searchLocation = 'Austin';
     searchResult = '';       
     }
     };

@@ -1,0 +1,20 @@
+{
+  "name":"frontend-doctorsforme",
+  "version":"1.0.0",
+  "description": "Search portal for doctors",
+  "main":"server.js",
+  "author":"Team 5",
+  "dependencies": {
+    "angular": "^1.6.3",
+    "express": "^4.15.2",
+    "body-parser": "^1.14.2",
+    "mime": "~1.2.7"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "6.9.2",
+    "npm": "3.10.9"
+  }
+}

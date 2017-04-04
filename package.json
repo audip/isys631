@@ -1,13 +1,15 @@
 {
-  "version":"1.0.0",
+  "version": "1.0.0",
   "description": "Search portal for doctors",
-  "main":"server.js",
-  "author":"Team 5",
+  "main": "server.js",
+  "author": "Team 5",
   "dependencies": {
     "angular": "^1.6.3",
-    "express": "^4.15.2",
     "body-parser": "^1.14.2",
-    "mime": "~1.2.7"
+    "express": "^4.15.2",
+    "finalhandler": "^1.0.1",
+    "mime": "~1.2.7",
+    "serve-static": "^1.12.1"
   },
   "scripts": {
     "start": "node server.js"

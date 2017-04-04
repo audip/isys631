@@ -153,7 +153,7 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     $scope.searchButtonClick = function () {
     appDataService.setSearchTerm($scope.searchTerm);
     appDataService.saveVariableData();
-    $window.location.href = './search_results_angular.html';
+    $window.location.href = './search-results.html';
     };
     
 }]);

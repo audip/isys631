@@ -1,5 +1,4 @@
 {
-  "name":"frontend-doctorsforme",
   "version":"1.0.0",
   "description": "Search portal for doctors",
   "main":"server.js",

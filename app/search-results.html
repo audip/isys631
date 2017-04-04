@@ -200,17 +200,19 @@
                     <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
                               <div>
 <!--                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>-->
-                                  <img alt="" src={{doctor.photo_url}}/>
+                                  <img alt="" src={{doctor.photo_url}} style="margin-left: 7%"/>
                               </div>
                     </div><!-- /.image-holder -->
                     <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
                               <div class="body">
                                   <div class="title">
-                                      <a href="single-product.html">{{doctor.name}}</a>
+                                      <a href="#"><h1>{{doctor.name}}</h1></a>
                                   </div>
-                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0;">{{doctor.address}}</div>
+                                  <div class="brand" style="border-bottom: 1px solid #e0e0e0; text-transform: none;">
+                                  <h4>{{doctor.qualification}} </h4>
+                                  </div>
                                   <div class="excerpt" style = "font-size:12px; padding-top:10px;">
-                                      <p>{{doctor.qualification}} </p>
+                                      <h4>{{doctor.address}}</h4>
                                   </div>
                               </div>
                     </div><!-- /.body-holder -->

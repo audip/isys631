@@ -50,16 +50,16 @@
         <script src="https://rubaxa.github.io/Sortable/Sortable.js"></script>
         <script src="https://rubaxa.github.io/Sortable/ng-sortable.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        
+        <script src="assets/scripts/angularController.js"></script>
         <style>
-            button:disabled{
+            /*button:disabled{
                 background-color: #cccccc;
                 color: #666666;
-            }
-            button:disabled:hover{
+            }*/
+            /*button:disabled:hover{
                 background-color: #cccccc;
                 color: #666666;
-            }
+            }*/
             .register-form span{
                 color: #cc0000;
             }
@@ -107,7 +107,7 @@
 						</table>
 				
 					</div>
-				<div class="section register inner-left-xs" style="margin: 10px auto">
+				<div class="section register inner-left-xs mobile-disable" style="margin: 10px auto">
 					<h2 class="semi-bold">Sign up today and you'll be able to :</h2>
 					<br/>
 					<ul class="list-unstyled list-benefits">
@@ -189,7 +189,7 @@
 					
 						
                         </div><!-- /.field-row -->						
-                        <div class="buttons-holder">
+                        <div class="buttons-holder" style="margin: auto;text-align: center">
                             <button type="submit" class="le-button huge" ng-click="signupButtonClick();" ng-disabled=registerForm.$invalid>Sign Up</button>
                         </div><!-- /.buttons-holder -->
 					</form>
@@ -248,7 +248,6 @@
         </div></div>
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
-    <script src="assets/scripts/angularController.js"></script>
     <script src="assets/js/jquery-1.10.2.min.js"></script>
 	<script src="assets/js/jquery-migrate-1.2.1.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>

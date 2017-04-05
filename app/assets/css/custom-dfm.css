@@ -82,7 +82,7 @@ float: right;
 .padding-left {
     padding-left: 20px;
 }
-.list-benefits li{
+.list-inline li{
     display: inline;
     width: 33%;
     float: left;

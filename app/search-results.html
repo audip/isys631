@@ -45,6 +45,31 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
     <script src="assets/scripts/angularController.js"></script>
+   <!-- <style>
+        .rating {
+    color: #a9a9a9;
+    margin: 0;
+    padding: 0;
+}
+ul.rating {
+    display: inline-block;
+}
+.rating li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 1px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size:20px;
+}
+.rating .filled {
+    color: #ffd208;
+}
+.clear{
+  margin-top:20px;
+}
+      </style>-->
   </head>
   <body ng-app="myApp" ng-controller="search_resultsCntrl">
     <div class="wrapper">
@@ -196,8 +221,7 @@
                                                           <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
                                                             <div class="right-clmn">
                                                               <div class="price-current">{{doctor.experience}} years experience</div>
-                                                              <div class="star-holder inline" style="cursor: not-allowed"><div class="star" data-score={{doctor.rating}} style="cursor: not-allowed; width: 80px;">
-                                                              </div></div>
+                                                            <div star-rating rating-value=doctor.rating max=5></div>
                                                               <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
                                                               <a class="le-button" style="color:white" href="book-appointment.html"><i class="fa fa-bolt" aria-hidden="true"></i> Book Appointment</a>
                                                               

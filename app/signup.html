@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 	<head>
 		<!-- Meta -->
 		<meta charset="utf-8">
@@ -38,7 +38,19 @@
 			<script src="assets/js/html5shiv.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
-
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+        <script src="https://rubaxa.github.io/Sortable/Sortable.js"></script>
+        <script src="https://rubaxa.github.io/Sortable/ng-sortable.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="assets/scripts/angularController.js"></script>
 	</head>
 <body>
 
@@ -150,49 +162,59 @@
 					<h2 class="bordered">Create New Account</h2>
 					<p>Create your own account</p>
 
-					<form role="form" class="register-form cf-style-1">
+					<form role="form" class="register-form cf-style-1" name="registerForm" novalidate>
 						<div class="field-row">
                             <label for="full_name">Full Name</label>
-                            <input type="text" class="le-input" id="full_name" placeholder="Enter Name">
+                            <input type="text" class="le-input" id="full_name" placeholder="Enter Name" name="full_name" ng-model="user.full_name" required>
+                            <span ng-show="registerForm.full_name.$error.required && !registerForm.full_name.$pristine" class="help-block">Your First name is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="email">Email</label>
-                            <input type="email" class="le-input" id="email" placeholder="john@xyz.com">
+                            <input type="email" class="le-input" id="email" placeholder="john@xyz.com" name="email" ng-model="user.email" required>
+                            <span ng-show="registerForm.email.$invalid && !registerForm.email.$pristine" class="help-block">Please enter a valid email address.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="user_name">User Name</label>
-                            <input type="text" class="le-input" id="user_name" placeholder="Enter user name">
+                            <input type="text" class="le-input" id="user_name" placeholder="Enter user name" name="user_name" ng-model="user.user_name" required>
+                            <span ng-show="registerForm.user_name.$error.required && !registerForm.user_name.$pristine" class="help-block">Your user name is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="password">Password</label>
-                            <input type="password" class="le-input" id="password">
+                            <input type="password" class="le-input" id="password" name="password" ng-model="user.password" required>
+                            <span ng-show="registerForm.password.$error.required && !registerForm.password.$pristine" class="help-block">Your password is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="phone">Phone</label>
-                            <input type="tel" class="le-input" id="phone">
+                            <input type="tel" class="le-input" id="phone" name="phone" ng-model="user.phone" required>
+                            <span ng-show="registerForm.phone.$error.required && !registerForm.phone.$pristine" class="help-block">Your phone number is required.</span>
                         </div><!-- /.field-row -->
 						
 						<div class="field-row">
                             <label for="st_address">Street Address</label>
-                            <input type="text" class="le-input" id="st_address">
+                            <input type="text" class="le-input" id="st_address" name="st_address" ng-model="user.st_address" required>
+                            <span ng-show="registerForm.st_address.$error.required && !registerForm.st_address.$pristine" class="help-block">Your street address is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="city">City</label>
-                            <input type="text" class="le-input" id="city">
+                            <input type="text" class="le-input" id="city" name="city" ng-model="user.city" required>
+                             <span ng-show="registerForm.city.$error.required && !registerForm.city.$pristine" class="help-block">City is required.</span>
+                            
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="state">State</label>
-                            <input type="text" class="le-input" id="state">
+                            <input type="text" class="le-input" id="state" name="state" ng-model="user.state" required>
+                            <span ng-show="registerForm.state.$error.required && !registerForm.state.$pristine" class="help-block">State is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="country">Country</label>
-                            <input type="text" class="le-input" id="country">
+                            <input type="text" class="le-input" id="country" name="country" ng-model="user.country" required>
+                             <span ng-show="registerForm.country.$error.required && !registerForm.country.$pristine" class="help-block">Country is required.</span>
                         </div><!-- /.field-row -->
 						
 						<div class="field-row">
                             <label>User Type</label>
 							<label class="radio-inline">
-							  <input type="radio" name="user_type">Patient
+							  <input type="radio" name="user_type" checked="checked">Patient
 							</label>
 							<label class="radio-inline">
 							  <input type="radio" name="user_type">Doctor
@@ -328,7 +350,7 @@
 
 	<!-- For demo purposes – can be removed on production -->
 
-	<script src="switchstylesheet/switchstylesheet.js"></script>
+<!--	<script src="switchstylesheet/switchstylesheet.js"></script>-->
 
 	<script>
 		$(document).ready(function(){

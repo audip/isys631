@@ -3331,6 +3331,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+    
 }
 .le-input:focus,
 .le-input:hover {

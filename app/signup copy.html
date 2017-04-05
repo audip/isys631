@@ -64,10 +64,15 @@
             .register-form span{
                 color: #cc0000;
             }
+            .notransition{
+                -webkit-transition: none;
+                -moz-transition: none;
+                -o-transition: color 0 ease-in;
+                transition: none;
+            }
         </style>
 	</head>
-
-<body ng-app="myApp" ng-controller="signupCntrl">
+<body>
 
 	<div class="wrapper">
 		<!-- ============================================================= TOP NAVIGATION ============================================================= -->
@@ -87,7 +92,58 @@
                     </div><!-- /.col -->
                 </div><!-- /.container -->
             </nav><!-- /.top-bar -->
+<!-- ============================================================= TOP NAVIGATION : END ============================================================= 		-->
+<!-- ============================================================= HEADER ============================================================= 
+<header>
+	<div class="container no-padding">
 
+		<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+			<!-- ============================================================= LOGO ============================================================= 
+<!-- /.logo 
+<!-- ============================================================= LOGO : END ============================================================= -->		</div><!-- /.logo-holder 
+<!--
+		<div class="col-xs-12 col-sm-12 col-md-9 top-search-holder no-margin">
+			<div class="contact-row">
+    <div class="phone inline">
+        <i class="fa fa-phone"></i> (+800) 123 456 7890
+    </div>
+    <div class="contact inline">
+        <i class="fa fa-envelope"></i> contact@<span class="le-color">betterdoctors.me</span>
+    </div>
+</div> /.contact-row 
+<!-- ============================================================= SEARCH AREA ============================================================= 
+<div class="search-area">
+    <form>
+        <div class="control-group">
+            <input class="search-field" placeholder="Search for doctors" />
+
+            <ul class="categories-filter animate-dropdown">
+                <li class="dropdown">
+
+                    <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html"><i class="fa fa-location-arrow" style = "color: #bdbbba"></i>&nbsp;&nbsp;Location</a>
+
+                    <ul class="dropdown-menu" role="menu" >
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Current location</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Houston</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Austin</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Dallas</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <a class="search-button" href="./search-results.html" ></a>
+
+        </div>
+    </form>
+</div> /.search-area --> 
+<!-- ============================================================= SEARCH AREA : END ============================================================= -->		</div><!-- /.top-search-holder 
+
+
+<!-- ============================================================= SHOPPING CART DROPDOWN : END ============================================================= -->		</div><!-- /.top-cart-row 
+
+	</div>
+</div><!-- /.container 
+</header> -->
 <!-- ============================================================= HEADER : END ============================================================= -->		
 <div id="top-banner-and-menu">
 <main id="authentication" class="inner-bottom-md">
@@ -125,14 +181,11 @@
 					<section class="section register inner-left-xs">
 					<h2 class="bordered">Create New Account</h2>
 					<p>Create your own account</p>
-                    <span ng-show="errorFlag"><br>
-                        <p style="color:red">{{errorMessage}}</p>
-                        </span>
 
 					<form role="form" class="register-form cf-style-1" name="registerForm" novalidate>
 						<div class="field-row">
                             <label for="full_name">Full Name</label>
-                            <input type="text" class="le-input" id="full_name" placeholder="Enter Name" name="full_name" ng-model="user.name" required>
+                            <input type="text" class="le-input notransition" id="full_name" placeholder="Enter Name" name="full_name" ng-model="user.full_name" required>
                             <span ng-show="registerForm.full_name.$error.required && !registerForm.full_name.$untouched" class="help-block">Your First name is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
@@ -142,7 +195,7 @@
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="user_name">User Name</label>
-                            <input type="text" class="le-input" id="user_name" placeholder="Enter user name" name="user_name" ng-model="user.username" required>
+                            <input type="text" class="le-input" id="user_name" placeholder="Enter user name" name="user_name" ng-model="user.user_name" required>
                             <span ng-show="registerForm.user_name.$error.required && !registerForm.user_name.$untouched" class="help-block">Your user name is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
@@ -158,7 +211,7 @@
 						
 						<div class="field-row">
                             <label for="st_address">Street Address</label>
-                            <input type="text" class="le-input" id="st_address" name="st_address" ng-model="user.address" required>
+                            <input type="text" class="le-input" id="st_address" name="st_address" ng-model="user.st_address" required>
                             <span ng-show="registerForm.st_address.$error.required && !registerForm.st_address.$untouched" class="help-block">Your street address is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
@@ -181,17 +234,19 @@
 						<div class="field-row">
                             <label>User Type</label>
 							<label class="radio-inline">
-							  <input type="radio" name="user_type" checked="checked" value="PATIENT" ng-model="user.user_type">Patient
+							  <input type="radio" name="user_type" checked="checked">Patient
 							</label>
 							<label class="radio-inline">
-							  <input type="radio" name="user_type"  value="DOCTOR" ng-model="user.user_type">Doctor
+							  <input type="radio" name="user_type">Doctor
 							</label>
 							
 					
 						
-                        </div><!-- /.field-row -->						
+                        </div><!-- /.field-row -->
+						
+						
                         <div class="buttons-holder">
-                            <button type="submit" class="le-button huge" ng-click="signupButtonClick();" ng-disabled=registerForm.$invalid>Sign Up</button>
+                            <button type="submit" class="le-button huge" ng-disabled=registerForm.$invalid>Sign Up</button>
                         </div><!-- /.buttons-holder -->
 					</form>
 
@@ -200,7 +255,7 @@
 				</section><!-- /.sign-in -->
 				</div><!-- /.col -->
 			</div>
-        </div>
+
 	</div><!-- /.container -->
 </main><!-- /.authentication -->
 <!-- ============================================================= FOOTER ============================================================= -->
@@ -242,8 +297,58 @@
                                                                         </div><!-- /.container -->
                                                                     </div><!-- /.copyright-bar -->
                                                                 </div>
-                                                    </footer>
-        </div></div>
+                                                            </div>
+                                                        </div>
+                                                    </footer><!-- /#footer -->
+<!-- ============================================================= FOOTER : END ============================================================= -->	</div><!-- /.wrapper -->
+
+	<!-- For demo purposes – can be removed on production -->
+
+	<!-- <div class="config open">
+		<div class="config-options">
+			<h4>Pages</h4>
+			<ul class="list-unstyled animate-dropdown">
+				<li class="dropdown">
+					<button class="dropdown-toggle btn le-button btn-block" data-toggle="dropdown">View Pages</button>
+					<ul class="dropdown-menu">
+												<li><a href="index.html">Home</a></li>
+												<li><a href="index-2.html">Home Alt</a></li>
+												<li><a href="category-grid.html">Category - Grid/List</a></li>
+												<li><a href="category-grid-2.html">Category 2 - Grid/List</a></li>
+												<li><a href="single-product.html">Single Product</a></li>
+												<li><a href="single-product-sidebar.html">Single Product with Sidebar</a></li>
+												<li><a href="cart.html">Shopping Cart</a></li>
+												<li><a href="checkout.html">Checkout</a></li>
+												<li><a href="about.html">About Us</a></li>
+												<li><a href="contact.html">Contact Us</a></li>
+												<li><a href="blog.html">Blog</a></li>
+												<li><a href="blog-fullwidth.html">Blog Full Width</a></li>
+												<li><a href="blog-post.html">Blog Post</a></li>
+												<li><a href="faq.html">FAQ</a></li>
+												<li><a href="terms.html">Terms & Conditions</a></li>
+												<li><a href="authentication.html">Login/Register</a></li>
+											</ul>
+				</li>
+			</ul>
+			<h4>Header Styles</h4>
+			<ul class="list-unstyled">
+				<li><a href="index.html1">Header 1</a></li>
+				<li><a href="index.html">Header 2</a></li>
+			</ul>
+			<h4>Colors</h4>
+			<ul class="list-unstyled">
+				<li><a class="changecolor green-text" href="#" title="Green color">Green</a></li>
+                <li><a class="changecolor blue-text" href="#" title="Blue color">Blue</a></li>
+                <li><a class="changecolor red-text" href="#" title="Red color">Red</a></li>
+                <li><a class="changecolor orange-text" href="#" title="Orange color">Orange</a></li>
+                <li><a class="changecolor navy-text" href="#" title="Navy color">Navy</a></li>
+                <li><a class="changecolor dark-green-text" href="#" title="Darkgreen color">Dark Green</a></li>
+			</ul>
+		</div>
+		<a class="show-theme-options" href="#"><i class="fa fa-wrench"></i></a>
+	</div> -->
+
+	<!-- For demo purposes – can be removed on production : End -->
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
 	<script src="assets/js/jquery-1.10.2.min.js"></script>
@@ -262,7 +367,27 @@
     <script src="assets/js/jquery.customSelect.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
+
+	<!-- For demo purposes – can be removed on production -->
+
+<!--	<script src="switchstylesheet/switchstylesheet.js"></script>-->
+
+	<script>
+		$(document).ready(function(){
+			$(".changecolor").switchstylesheet( { seperator:"color"} );
+			$('.show-theme-options').click(function(){
+				$(this).parent().toggleClass('open');
+				return false;
+			});
+		});
+
+		$(window).bind("load", function() {
+		   $('.show-theme-options').delay(2000).trigger('click');
+		});
+	</script>
+	<!-- For demo purposes – can be removed on production : End -->
+
 	<script src="http://w.sharethis.com/button/buttons.js"></script>
-    
+
 </body>
 </html>

@@ -64,9 +64,7 @@ float: right;
     font-family: Times;
     /*font-family: 'Roboto', sans-serif;*/
     color: #3498db;
-/*    text-shadow: 1px 1px 0px #fff, 3px 3px 0px rgba(189, 195, 199,1.0);
-*/
-    text-shadow: 2.5px 2.5px 0px rgba(189, 195, 199,1.0);
+    /*text-shadow: 2.5px 2.5px 0px rgba(189, 195, 199,1.0);*/
 }
 .logo-main a:hover, .footer-logo a:hover{
     opacity: 0.8;

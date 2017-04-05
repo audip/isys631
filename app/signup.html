@@ -118,7 +118,7 @@
 					<form role="form" class="register-form cf-style-1" name="registerForm" novalidate>
 						<div class="field-row">
                             <label for="full_name">Full Name</label>
-                            <input type="text" class="le-input" id="full_name" placeholder="Enter Name" name="full_name" ng-model="user.full_name" required>
+                            <input type="text" class="le-input" id="full_name" placeholder="Enter Name" name="full_name" ng-model="user.name" required>
                             <span ng-show="registerForm.full_name.$error.required && !registerForm.full_name.$pristine" class="help-block">Your First name is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
@@ -128,7 +128,7 @@
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="user_name">User Name</label>
-                            <input type="text" class="le-input" id="user_name" placeholder="Enter user name" name="user_name" ng-model="user.user_name" required>
+                            <input type="text" class="le-input" id="user_name" placeholder="Enter user name" name="user_name" ng-model="user.username" required>
                             <span ng-show="registerForm.user_name.$error.required && !registerForm.user_name.$pristine" class="help-block">Your user name is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
@@ -144,7 +144,7 @@
 						
 						<div class="field-row">
                             <label for="st_address">Street Address</label>
-                            <input type="text" class="le-input" id="st_address" name="st_address" ng-model="user.st_address" required>
+                            <input type="text" class="le-input" id="st_address" name="st_address" ng-model="user.address" required>
                             <span ng-show="registerForm.st_address.$error.required && !registerForm.st_address.$pristine" class="help-block">Your street address is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">

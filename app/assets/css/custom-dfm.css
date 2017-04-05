@@ -82,9 +82,14 @@ float: right;
 .padding-left {
     padding-left: 20px;
 }
-.list-benefits{
-    margin-top: 10px;
-    padding-left: 40px;
+.list-benefits li{
+    display: inline;
+    width: 33%;
+    float: left;
+    padding: 20px auto; 
+}
+.search-area{
+    margin-left: 10%;
 }
 @media (max-width: 768px){
     .footer-social li{

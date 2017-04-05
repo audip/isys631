@@ -264,25 +264,44 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
            
 }]);
 
-app.controller('signUpCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
+app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
+    
+    $scope.errorFlag = true;
+    $scope.errorMessage = "";
+    $scope.reply = "";
     
     $scope.signupButtonClick = function (){
     
-    var searchResult = dataFactory.postSignup($scope.name, 
-                                              $scope.username, 
-                                              $scope.password, 
-                                              $scope.email, 
-                                              $scope.phone, 
-                                              $scope.address, 
-                                              $scope.city, 
-                                              $scope.state, 
-                                              $scope.country, 
-                                              $scope.user_type)
+    var searchResult = dataFactory.postSignup($scope.user.name, 
+                                              $scope.user.username, 
+                                              $scope.user.password, 
+                                              $scope.user.email, 
+                                              $scope.user.phone, 
+                                              $scope.user.address, 
+                                              $scope.user.city, 
+                                              $scope.user.state, 
+                                              $scope.user.country, 
+                                              $scope.user.user_type) 
     {
-    
     searchResult.then(function(result){
     $scope.reply = result;
-          
+    console.log($scope.reply);
+    
+    if($scope.reply.success == true){
+    //appDataService.setUserId($scope.reply.profile_id);
+    appDataService.setUsername($scope.username);
+    appDataService.setPassword($scope.password);
+    appDataService.setFullName($scope.user.name);
+    appDataService.setUserType($scope.reply.user_type);
+    $window.location.href = './index.html';
+    }
+    else{
+    
+    $scope.errorFlag = true;
+    $scope.user = "";
+    $scope.errorMessage = $scope.reply.error;
+    }
+        
     });
         
     };

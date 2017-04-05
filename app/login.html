@@ -38,9 +38,23 @@
 			<script src="assets/js/html5shiv.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+        <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
+        <script src="http://rubaxa.github.io/Sortable/ng-sortable.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="./assets/scripts/angularController.js"></script>
 
 	</head>
-<body>
+<body  ng-app="myApp" ng-controller="loginCntrl">
 
 	<div class="wrapper">
 		<!-- ============================================================= TOP NAVIGATION ============================================================= -->
@@ -51,68 +65,16 @@
                     </div><!-- /.col -->
                     <div class="col-xs-12 col-md-8 no-margin">
                         <ul class="right">
-                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
-                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="view-appointments.html"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
-                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="reviews.html"><i class="fa fa-edit" aria-hidden="true"></i> Reviews</a></li>
+                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
+                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
+                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-edit" aria-hidden="true"></i> Reviews</a></li>
                             <li class="nav-li"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                             <li class="nav-li"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
                         </ul>
-                    </div><!-- /.col -->
-                </div><!-- /.container -->
-            </nav><!-- /.top-bar -->
-<!-- ============================================================= TOP NAVIGATION : END ============================================================= 		-->
-<!-- ============================================================= HEADER ============================================================= 
-<header>
-	<div class="container no-padding">
-
-		<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
-			<!-- ============================================================= LOGO ============================================================= 
-<!-- /.logo 
-<!-- ============================================================= LOGO : END ============================================================= -->		</div><!-- /.logo-holder 
-<!--
-		<div class="col-xs-12 col-sm-12 col-md-9 top-search-holder no-margin">
-			<div class="contact-row">
-    <div class="phone inline">
-        <i class="fa fa-phone"></i> (+800) 123 456 7890
-    </div>
-    <div class="contact inline">
-        <i class="fa fa-envelope"></i> contact@<span class="le-color">betterdoctors.me</span>
-    </div>
-</div> /.contact-row 
-<!-- ============================================================= SEARCH AREA ============================================================= 
-<div class="search-area">
-    <form>
-        <div class="control-group">
-            <input class="search-field" placeholder="Search for doctors" />
-
-            <ul class="categories-filter animate-dropdown">
-                <li class="dropdown">
-
-                    <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html"><i class="fa fa-location-arrow" style = "color: #bdbbba"></i>&nbsp;&nbsp;Location</a>
-
-                    <ul class="dropdown-menu" role="menu" >
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Current location</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Houston</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Austin</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Dallas</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <a class="search-button" href="./search-results.html" ></a>
-
-        </div>
-    </form>
-</div> /.search-area --> 
-<!-- ============================================================= SEARCH AREA : END ============================================================= -->		</div><!-- /.top-search-holder 
-
-
-<!-- ============================================================= SHOPPING CART DROPDOWN : END ============================================================= -->		</div><!-- /.top-cart-row 
-
-	</div>
-</div><!-- /.container 
-</header> -->
-<!-- ============================================================= HEADER : END ============================================================= -->		<div id="top-banner-and-menu">
+                    </div>
+                </div>
+            </nav>
+<div id="top-banner-and-menu">
 <main id="authentication" class="inner-bottom-md">
 	<div class="container">
 		<div class="row">
@@ -139,6 +101,10 @@
 					<section class="section sign-in inner-right-xs">
 						<h2 class="bordered">Log In</h2>
 						<p>Hello, Welcome to your account</p>
+                        <br>
+                        <span ng-show="errorFlag">
+                        <p style="color:red">There seemed to be a problem with your username/password. Please try again.</p>
+                        </span>
 
 						<div class="social-auth-buttons">
 							<!--<div class="row">
@@ -150,16 +116,15 @@
 								</div>
 							</div> -->
 						</div>
-
 						<form role="form" class="login-form cf-style-1">
 							<div class="field-row">
 								<label>User Name</label>
-								<input type="text" class="le-input">
+								<input type="text" class="le-input" ng-model="username">
 							</div><!-- /.field-row -->
 
 							<div class="field-row">
 								<label>Password</label>
-								<input type="password" class="le-input">
+								<input type="password" class="le-input" ng-model="password">
 							</div><!-- /.field-row -->
 
 							<div class="field-row clearfix">
@@ -172,7 +137,7 @@
 							</div>
 
 							<div class="buttons-holder" style="margin: 0 auto; text-align:center">
-								<button type="submit" class="le-button huge">Secure Sign In</button>
+								<button type="submit" class="le-button huge" ng-click="loginButtonClick();">Secure Sign In</button>
 							</div><!-- /.buttons-holder -->
 						</form><!-- /.cf-style-1 -->
 
@@ -320,25 +285,6 @@
     <script src="assets/js/jquery.customSelect.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
-
-	<!-- For demo purposes – can be removed on production -->
-
-	<script src="switchstylesheet/switchstylesheet.js"></script>
-
-	<script>
-		$(document).ready(function(){
-			$(".changecolor").switchstylesheet( { seperator:"color"} );
-			$('.show-theme-options').click(function(){
-				$(this).parent().toggleClass('open');
-				return false;
-			});
-		});
-
-		$(window).bind("load", function() {
-		   $('.show-theme-options').delay(2000).trigger('click');
-		});
-	</script>
-	<!-- For demo purposes – can be removed on production : End -->
 
 	<script src="http://w.sharethis.com/button/buttons.js"></script>
 

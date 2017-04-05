@@ -5,9 +5,12 @@ var app = angular.module("myApp", ["ngRoute","ngMaterial","ng-sortable","ngMessa
 function VariableData() {
     this.username = '';
     this.password = '';
+    this.userId = '';
+    this.userType = '';
     this.searchTerm = '';
     this.searchLocation = "Houston";
     this.searchResult = "";
+    this.fullName = ""
 };
      
 app.service('appDataService', function(){
@@ -16,6 +19,9 @@ app.service('appDataService', function(){
     var searchTerm = '';
     var searchLocation = "Houston";
     var searchResult = "";
+    var fullName = "";
+    var userId = "";
+    var userType = "";
     
     this.clearData = function(value){
         this.username = '';
@@ -34,6 +40,27 @@ app.service('appDataService', function(){
         };
     this.getPassword = function() {
             return password;
+        };
+    
+    this.setUserId = function(value){
+                userId=value;
+        };
+    this.getUserId = function() {
+            return userId;
+        };
+    
+    this.setUserType = function(value){
+                userType=value;
+        };
+    this.getUserType = function() {
+            return userType;
+        };
+    
+    this.setFullName = function(value){
+                fullName=value;
+        };
+    this.getFullName = function() {
+            return fullName;
         };
     
     this.setSearchTerm = function(value){
@@ -67,6 +94,9 @@ app.service('appDataService', function(){
     variableData.searchTerm = searchTerm;
     variableData.searchLocation = searchLocation;
     variableData.searchResult = searchResult;
+    variableData.userType = userType;
+    variableData.fullName = fullName;
+        
     
     sessionStorage.setItem('applicationState', JSON.stringify(variableData));
     console.log("ITEM SAVED");
@@ -88,13 +118,18 @@ app.service('appDataService', function(){
     searchTerm = variableData.searchTerm;
     searchLocation = variableData.searchLocation;
     searchResult = variableData.searchResult;
+    userType = variableData.userType;
+    fullName = variableData.fullName;
     }
     else {
     username = '';
     password = '';
     searchTerm = '';
-    searchLocation = 'Austin';
-    searchResult = '';       
+    searchLocation = 'Hosuton';
+    searchResult = '';
+    fullName = '';
+    userId = '';
+    userType = '';
     }
     };
     
@@ -110,20 +145,50 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
             return response.data;})
     };
     
+    dataFactory.getLogin = function (Input_username,Input_password){
+    return $http({
+    method: 'POST',
+    url: restUrl+'/login',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    },
+    data: {username: Input_username, password: Input_password}
+    }).then(function (response) { return response.data;} );
+};
+    
+    dataFactory.postSignup = function (name, username, password, email, phone, address, city, state, country, user_type){
+    return $http({
+    method: 'POST',
+    url: restUrl+'/user',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    },
+    data: {
+        name: name, 
+        username: username, 
+        password: password, 
+        email: email, 
+        phone: phone, 
+        address: address, 
+        city: city, 
+        state: state, 
+        country: country, 
+        user_type: user_type
+    }
+    }).then(function (response) { return response.data;} );
+};
+    
     return dataFactory;
 }]);
                 
-//app.config(function($routeProvider) {
-//        $routeProvider
-//        .when("/search_results", {
-//            controller: 'search_resultsCntrl',
-//            templateUrl : "./partial-search_results.html"
-//        })
-//        .otherwise({
-//            controller: 'search_resultsCntrl',
-//            templateUrl : "./partial-search_results.html"
-//        });
-//    });
 
 app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
     
@@ -159,42 +224,69 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
 }]);
 
 
-app.directive('starRating', function () {
-    return {
-        restrict: 'A',
-        template: '<ul class="rating">' +
-            '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
-            '\u2605' +
-            '</li>' +
-            '</ul>',
-        scope: {
-            ratingValue: '=',
-            max: '=',
-            onRatingSelected: '&'
-        },
-        link: function (scope, elem, attrs) {
-
-            var updateStars = function () {
-                scope.stars = [];
-                for (var i = 0; i < scope.max; i++) {
-                    scope.stars.push({
-                        filled: i < scope.ratingValue
-                    });
-                }
-            };
-
-            scope.toggle = function (index) {
-                scope.ratingValue = index + 1;
-                scope.onRatingSelected({
-                    rating: index + 1
-                });
-            };
-
-            scope.$watch('ratingValue', function (oldVal, newVal) {
-                if (newVal) {
-                    updateStars();
-                }
-            });
-        }
+app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
+    
+    appDataService.loadVariableData();
+    
+    $scope.username = "";
+    $scope.password = "";
+    
+    $scope.reply = "";
+    
+    
+    $scope.errorFlag = false;
+    
+    $scope.loginButtonClick = function (){
+        
+        
+    var searchResult = dataFactory.getLogin($scope.username,$scope.password);
+    searchResult.then(function(result){
+    $scope.reply = result;
+        
+    if($scope.reply.success == true){
+    appDataService.setUserId($scope.reply.profile_id);
+    appDataService.setUsername($scope.username);
+    appDataService.setPassword($scope.password);
+    appDataService.setFullName($scope.reply.full_name);
+    appDataService.setUserType($scope.reply.user_type);
+    $window.location.href = './index.html';
     }
-});
+    else{
+    $scope.errorFlag = true;
+    $scope.username = "";
+    $scope.password = "";
+    $scope.reply = "";
+    }    
+    });
+
+       
+    };
+           
+}]);
+
+app.controller('signUpCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
+    
+    $scope.signupButtonClick = function (){
+    
+    var searchResult = dataFactory.postSignup($scope.name, 
+                                              $scope.username, 
+                                              $scope.password, 
+                                              $scope.email, 
+                                              $scope.phone, 
+                                              $scope.address, 
+                                              $scope.city, 
+                                              $scope.state, 
+                                              $scope.country, 
+                                              $scope.user_type)
+    {
+    
+    searchResult.then(function(result){
+    $scope.reply = result;
+          
+    });
+        
+    };
+    
+};
+    
+}]);

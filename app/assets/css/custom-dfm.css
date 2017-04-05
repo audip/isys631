@@ -28,15 +28,35 @@ min-height: 80%;
 float: right;
 }
 .footer-social li {
-display:inline;
-padding: 0px 10px;
+    display:inline;
+    padding: 0px 10px;
+}
+.mobile-search{
+    display: none
 }
 @media (max-width: 768px){
     .footer-social li{
-    text-align: center
+        text-align: center
     }
     .footer-social {
-    width: 100%;
-    color: white;
+        width: 100%;
+        color: white;
+    }
+    .search-button {
+        visibility: hidden;
+    }
+    .mobile-search {
+        display: block;
+        /*visibility: visible; */
+        color: white;
+        font-size: 1.5em;
+        background-color: #3498db;
+        margin: 10px auto -10px; 
+        padding: 5px 30px;
+        border-radius: 5px;
+        border: 0px;
+        text-align: center;
+        min-width: 30%;
+        width: 40%;
     }
 }

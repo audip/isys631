@@ -194,6 +194,13 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     
     appDataService.loadVariableData();
     
+    $scope.name = appDataService.getFullName();
+    
+    if($scope.name = "")
+    $scope.namedMessage = false;
+    else
+    $scope.namedMessage = true;   
+    
     $scope.searchTerm = appDataService.getSearchTerm();
     $scope.searchLocation = appDataService.getSearchLocation();
     

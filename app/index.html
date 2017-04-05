@@ -97,7 +97,7 @@
                                                         <form>
                                                             <div class="control-group">
                                                                 <input class="search-field" placeholder="Search for doctors" ng-model = "searchTerm" />
-                                                                <ul class="categories-filter animate-dropdown">
+                                                                <ul class="categories-filter animate-dropdown" style="position: relative; z-index: 1;">
                                                                     <li class="dropdown">
                                                                         <a class="dropdown-toggle"  data-toggle="dropdown" ng-model = "searchLocation"><i class="fa fa-location-arrow" style = "color: #bdbbba"></i>&nbsp;&nbsp;{{searchLocation}}</a>
                                                                         <ul class="dropdown-menu" role="menu">
@@ -108,7 +108,7 @@
                                                                         </ul>
                                                                     </li>
                                                                 </ul>
-                                                                <a class="search-button" ng-click = "searchButtonClick();" ></a>
+                                                                <a class="search-button" ng-click = "searchButtonClick();" style="position: relative; z-index: 3;"></a>
                                                             </div>
 
                                                         </form>

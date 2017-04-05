@@ -756,7 +756,7 @@ img[src="assets/images/blank.gif"] {
 /*  Header
 /*===================================================================================*/
 header {
-  padding: 40px 0 31px 0;
+  padding: 50px 0 31px 0;
   border-bottom: 1px solid #e0e0e0;
 }
 header.ver2 {
@@ -4371,7 +4371,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 /*  Footer
 /*===================================================================================*/
 #footer {
-  padding: 54px 0 0 0;
+  padding: 150px 0 0 0;
 }
 #footer h2 {
   text-transform: capitalize;
@@ -4588,6 +4588,13 @@ select.top-drop-menu {
 }
 /* Extra small devices (phones, less than 768px) */
 @media (max-width: 767px) {
+    
+    header{
+        padding: 0 0 10% 0;
+    }
+    #footer{
+        padding: 20% 0 0 0;
+    }
   #top-megamenu-nav .nav .dropdown {
     border-right: none;
     width: 100%;

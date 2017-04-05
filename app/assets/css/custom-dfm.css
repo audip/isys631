@@ -2,17 +2,35 @@
 background-color: white;
 }
 .top-bar{
-margin: 10px 10px;
-background-color: white;
+    margin: 10px 10px;
+    background-color: white;
 }
 .top-bar ul {
-display: block;
+    display: block;
 }
 .top-bar ul li{
-background-color: white;
-padding: 10px 0px;
-/*width: 18%;*/
-text-align: center;
+    background-color: #3498db;
+    padding: 10px 5px 10px 0px;
+    /*width: 18%;*/
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin: 4px 5px;
+    display: inline-block;
+    min-width: 10%;
+}
+.top-bar ul > li a {
+    border-right: none;
+    color: white;
+}
+.top-bar ul.right > li a:hover {
+    color: white;
+}
+.right .nav-li:hover {
+    border: 1px solid white;
+    cursor: pointer;
+    background-color: #3498db;
+    opacity: 0.8;
 }
 #top-banner-and-menu{
 margin: 0px 0px;
@@ -79,5 +97,8 @@ float: right;
         width: 60%;
         float: left;
         padding: 0px 2%;
+    }
+    .widget {
+        display: none;
     }
 }

@@ -34,6 +34,12 @@ float: right;
 .mobile-search{
     display: none
 }
+.listing-main h2{
+    font-size: 1.8em;
+}
+.listing-center, .listing-main {
+    text-align: left;
+}
 @media (max-width: 768px){
     .footer-social li{
         text-align: center
@@ -58,5 +64,20 @@ float: right;
         text-align: center;
         min-width: 30%;
         width: 40%;
+    }
+    .listing-doctor {
+        padding-left: 10px; 
+    }
+    .listing-center, .listing-main {
+        text-align: center;
+    }
+    .listing-main h2{
+        font-size: 1.625em;
+    }
+    .price-current {
+        max-width: 60%;
+        width: 60%;
+        float: left;
+        padding: 0px 2%;
     }
 }

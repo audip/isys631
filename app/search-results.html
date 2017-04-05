@@ -45,16 +45,16 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
     <script src="assets/scripts/angularController.js"></script>
-   <!-- <style>
-        .rating {
+    <!-- <style>
+    .rating {
     color: #a9a9a9;
     margin: 0;
     padding: 0;
-}
-ul.rating {
+    }
+    ul.rating {
     display: inline-block;
-}
-.rating li {
+    }
+    .rating li {
     list-style-type: none;
     display: inline-block;
     padding: 1px;
@@ -62,14 +62,14 @@ ul.rating {
     font-weight: bold;
     cursor: pointer;
     font-size:20px;
-}
-.rating .filled {
+    }
+    .rating .filled {
     color: #ffd208;
-}
-.clear{
-  margin-top:20px;
-}
-      </style>-->
+    }
+    .clear{
+    margin-top:20px;
+    }
+    </style>-->
   </head>
   <body ng-app="myApp" ng-controller="search_resultsCntrl">
     <div class="wrapper">
@@ -200,31 +200,31 @@ ul.rating {
                                                 <div ng-repeat="doctor in doctorList">
                                                   <div class="product-item product-item-holder">
                                                     <div class="row">
-                                                      <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding: 19px;">
+                                                      <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 listing-center" style = "padding: 10px 19px 0px;">
                                                         <div>
                                                           <!--                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>-->
-                                                          <img alt="" src={{doctor.photo_url}} style="margin-left: 7%"/>
+                                                          <img alt="" src={{doctor.photo_url}} />
                                                         </div>
                                                         </div><!-- /.image-holder -->
-                                                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 19px; font-size:15px;">
+                                                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style = "padding: 0px 19px; font-size:15px;">
                                                           <div class="body">
-                                                            <div class="title">
-                                                              <a href="#"><h1>{{doctor.name}}</h1></a>
+                                                            <div class="title listing-main">
+                                                              <a href="#"><h2>{{doctor.name}}</h2></a>
                                                             </div>
-                                                            <div class="brand" style="border-bottom: 1px solid #e0e0e0; text-transform: none;">
-                                                              <h4>{{doctor.qualification}} </h4>
+                                                            <div class="brand listing-center" style="border-bottom: 1px solid #e0e0e0; text-transform: none; padding-bottom: 5px">
+                                                              <h4>Qualification: {{doctor.qualification}} </h4>
                                                             </div>
-                                                            <div class="excerpt" style = "font-size:8px; padding-top:10px;">
-                                                              <h4>{{doctor.address}}</h4>
+                                                            <div class="excerpt listing-center" style = "font-size:8px; padding-top:10px;">
+                                                              <h5>{{doctor.address}}</h5>
                                                             </div>
                                                           </div>
                                                           </div><!-- /.body-holder -->
-                                                          <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px;">
-                                                            <div class="right-clmn">
+                                                          <div class="no-margin col-lg-3 col-md-3 col-xs-12 col-sm-12" style = "padding:19px 0px;">
+                                                            <div class="right-clmn listing-doctor listing-center">
                                                               <div class="price-current">{{doctor.experience}}+ years experience</div>
-                                                            <div star-rating rating-value=doctor.rating max=5></div>
-                                                              <div class="availability"><label>availability:</label><span class="available">  Available this week</span></div>
-                                                              <a class="le-button" style="color:white" href="book-appointment.html"><i class="fa fa-bolt" aria-hidden="true"></i> Book Appointment</a>
+                                                              <div star-rating rating-value=doctor.rating max=5></div>
+                                                              <div class="availability listing-center"><label>availability:</label><span class="available">  Available this week</span></div>
+                                                              <a class="le-button listing-center" style="color:white" href="book-appointment.html"><i class="fa fa-bolt" aria-hidden="true"></i> Book Appointment</a>
                                                               
                                                             </div>
                                                             </div><!-- /.price-area -->

@@ -145,6 +145,21 @@ app.service('appDataService', function(){
     }
     };
     
+    this.resetVariableData = function(){
+    username = '';
+    password = '';
+    searchTerm = '';
+    searchLocation = "Austin";
+    searchResult = "";
+    fullName = "";
+    userId = "";
+    userType = "";
+    loggedInFlag = false;
+    
+    this.saveVariableData();
+        
+    };
+    
 });
 
 app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,appDataService) {
@@ -248,6 +263,11 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     appDataService.setSearchTerm($scope.searchTerm);
     appDataService.saveVariableData();
     $window.location.href = './search-results.html';
+    };
+    
+    $scope.signoutButtonClick = function () {
+    appDataService.resetVariableData();
+    $window.location.href = './index.html';
     };
     
 }]);

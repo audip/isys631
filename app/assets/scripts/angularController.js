@@ -10,7 +10,8 @@ function VariableData() {
     this.searchTerm = '';
     this.searchLocation = "Houston";
     this.searchResult = "";
-    this.fullName = ""
+    this.fullName = "";
+    this.loggedInFlag = false;
 };
      
 app.service('appDataService', function(){
@@ -22,6 +23,7 @@ app.service('appDataService', function(){
     var fullName = "";
     var userId = "";
     var userType = "";
+    var loggedInFlag = false;
     
     this.clearData = function(value){
         this.username = '';
@@ -84,6 +86,13 @@ app.service('appDataService', function(){
             return searchLocation;
         };
     
+    this.setLoggedInFlag = function(value){
+                loggedInFlag=value;
+        };
+    this.getLoggedInFlag = function() {
+            return loggedInFlag;
+        };
+    
     this.saveVariableData = function (){
     
     console.log('Inside save state');
@@ -96,6 +105,7 @@ app.service('appDataService', function(){
     variableData.searchResult = searchResult;
     variableData.userType = userType;
     variableData.fullName = fullName;
+    variableData.loggedInFlag = loggedInFlag;
         
     
     sessionStorage.setItem('applicationState', JSON.stringify(variableData));
@@ -120,6 +130,7 @@ app.service('appDataService', function(){
     searchResult = variableData.searchResult;
     userType = variableData.userType;
     fullName = variableData.fullName;
+    loggedInFlag = variableData.loggedInFlag;
     }
     else {
     username = '';
@@ -130,6 +141,7 @@ app.service('appDataService', function(){
     fullName = '';
     userId = '';
     userType = '';
+    loggedInFlag = false;
     }
     };
     
@@ -195,13 +207,14 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     appDataService.loadVariableData();
     
     $scope.name = appDataService.getFullName();
-    $scope.loggedIn = false;
+    $scope.loggedIn = appDataService.getLoggedInFlag();
+    console.log('LoggedInFlag:'+$scope.loggedIn);
     $scope.username = '';
-   /* var temp = sessionStorage.getItem('applicationState').;
-    $scope.username = $.parseJSON(temp).username;*/
-    if(appDataService.getUsername != ""){
-        $scope.loggedIn = true;
-        $scope.username = appDataService.getUsername();
+
+    if(appDataService.getLoggedInFlag()){
+        $scope.fullname = appDataService.getFullName();
+        //@Silvia Can use this variable in the front end
+        console.log('Full Name received:'+ $scope.fullname);
     }
     
     
@@ -265,6 +278,8 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     appDataService.setPassword($scope.password);
     appDataService.setFullName($scope.reply.full_name);
     appDataService.setUserType($scope.reply.user_type);
+    appDataService.setLoggedInFlag(true);
+    appDataService.saveVariableData();
     $window.location.href = './index.html';
     }
     else{
@@ -272,6 +287,7 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     $scope.username = "";
     $scope.password = "";
     $scope.reply = "";
+    appDataService.saveVariableData();
     }    
     });
 
@@ -309,6 +325,8 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     appDataService.setPassword($scope.password);
     appDataService.setFullName($scope.user.name);
     appDataService.setUserType($scope.reply.user_type);
+    appDataService.setLoggedInFlag(true);
+    appDataService.saveVariableData();
     $window.location.href = './index.html';
     }
     else{
@@ -316,6 +334,7 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     $scope.errorFlag = true;
     $scope.user = "";
     $scope.errorMessage = $scope.reply.error;
+    appDataService.saveVariableData();
     }
         
     });

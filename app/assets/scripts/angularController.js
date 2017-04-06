@@ -195,6 +195,15 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     appDataService.loadVariableData();
     
     $scope.name = appDataService.getFullName();
+    $scope.loggedIn = false;
+    $scope.username = '';
+   /* var temp = sessionStorage.getItem('applicationState').;
+    $scope.username = $.parseJSON(temp).username;*/
+    if(appDataService.getUsername != ""){
+        $scope.loggedIn = true;
+        $scope.username = appDataService.getUsername();
+    }
+    
     
     if($scope.name = "")
     $scope.namedMessage = false;

@@ -523,10 +523,29 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
 }]);
 
 //Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant. Load user data from the appdataservice
-app.controller('appointmentController',['$scope','AppFactory',function($scope,AppFactory){
+app.controller('appointmentController',['$scope','AppFactory','appDataService','$window',function($scope,AppFactory,appDataService,$window){
+    //verify login
+    $scope.userId;
+    $scope.userType;
+    $scope.init = function()
+     {
+        appDataService.loadVariableData();
+        if(appDataService.getLoggedInFlag()){
+        $scope.userId=appDataService.getUserId();
+        $scope.userType=appDataService.getUserType();
+        console.log($scope.userId+" "+$scope.userType);
+        }
+        else{
+        $window.location.href = './login.html';
+        console.log("please log in");
+    }
+     }
+
+     $scope.init(); 
+    
     //get appointments
     $scope.appList=[];
-    AppFactory.getApp()
+    AppFactory.getApp($scope.userId,$scope.userType)
     .then(
         function(response){
             $scope.appList = response.data.appointments;
@@ -539,7 +558,7 @@ app.controller('appointmentController',['$scope','AppFactory',function($scope,Ap
     
     $scope.selectedIndex;
     $scope.formShow = false;
-    $scopr.successReviewShow = false;
+    $scope.successReviewShow = false;
     
     //form variables
     $scope.review={id:142,user_type:"patient",doctor_id:142,score:5,comment:""};

@@ -218,40 +218,23 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
 
 app.factory('AppFactory',['$http',function($http){
     var appFac = {};
-    var date1 = new Date(2016,9,7,12,0);
-    //var date1 = new Date();
-    var date2 = new Date(2017,9,7,12,0);
-    //var date2 = new Date();
-    var date3 = new Date(2015,10,7,12,0);
-    var dString1 = date1.toJSON();
-    var dString2 = date2.toJSON();
-    var dString3 = date3.toJSON();
-    var appList=[
-        {
-        "appID": 123,
-        "userID": 1234,
-        "Doctor": "Dr. Panda",
-        "Address": "dadafafaf",
-        "date": dString1
-    },
-        {
-            "appID": 124,
-            "userID": 1234,
-            "Doctor": "Dr. Panda",
-            "Address": "dadafafaf",
-            "date": dString2
-        },
-        {
-            "appID": 125,
-            "userID": 1234,
-            "Doctor": "Dr. Panda",
-            "Address": "dadafafaf",
-            "date": dString3
-        }
-    ];
+    var baseUrl="https://doctorsforme-api.herokuapp.com/";
     
+    //get appointments
     appFac.getApp = function(){
-        return appList;
+        //return appList;
+        var config = {
+            params: {
+                id: 159,
+                user_type: "patient"
+            }
+        }
+
+        return $http.get(baseUrl+"appointment", config);
+    }
+    
+    appFac.creatReview = function(data){
+        return $http.post(baseUrl+"review",data);
     }
     
     return appFac;
@@ -407,14 +390,44 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
 }]);
 
 app.controller('appointmentController',['$scope','AppFactory',function($scope,AppFactory){
-    $scope.appList = AppFactory.getApp();
+    //get appointments
+    $scope.appList=[];
+    AppFactory.getApp()
+    .then(
+        function(response){
+            $scope.appList = response.data.appointments;
+        },
+        //error handling
+        function(response){
+            console.log(response);
+        }
+    );
+    
     $scope.selectedIndex;
     $scope.formShow = false;
+    $scopr.successReviewShow = false;
+    
     //form variables
-    $scope.review={name:"",email:"",rating:5,feedback:""};
-    //$scope.review={};
+    $scope.review={id:142,user_type:"patient",doctor_id:142,score:5,comment:""};
+    
+    
     $scope.sendReview = function(){
-        console.log($scope.review);
+        //console.log($scope.review);
+        AppFactory.creatReview($scope.review)
+        .then(
+            function(response){
+                if(response.status){
+                    console.log(response);
+                    formShow=false;
+                    successReviewShow=true;
+                }
+                //error handling
+                else{
+                    console.log(response);
+                }
+                
+            }
+        );
     }
 }]);
 
@@ -423,8 +436,10 @@ app.filter('futureFilter',function(){
         var curDate = new Date();
         var array=[];
         for(var i=0; i<items.length;i++){
-            var date = new Date(items[i].date);
-            if(date > curDate){
+            var date=items[i].date.split("-");
+            var time=items[i].time;
+            var appDate = new Date(date[0],date[1]-1,date[2],time,0);
+            if(appDate > curDate){
                 array.push(items[i]);
             }
         }
@@ -437,12 +452,76 @@ app.filter('pastFilter',function(){
         var curDate = new Date();
         var array=[];
         for(var i=0; i<items.length;i++){
-            var date = new Date(items[i].date);
-            if(date <= curDate){
+            var date=items[i].date.split("-");
+            var time=items[i].time;
+            var appDate = new Date(date[0],date[1]-1,date[2],time,0);
+            if(appDate <= curDate){
                 array.push(items[i]);
             }
         }
         return array;
+    }
+});
+
+app.filter('dateFilter',function(){
+   return function (item){
+       var date=item.split("-");
+       var month;
+       switch(date[1]) {
+            case "1":
+                month="Jan"
+                break;
+            case "2":
+                month="Feb"
+                break;
+            case "3":
+                month="Mar"
+                break;
+            case "4":
+                month="Apr"
+                break;
+            case "5":
+                month="May"
+                break;
+            case "6":
+                month="Jun"
+                break;
+            case "7":
+                month="Jul"
+                break;
+            case "8":
+                month="Aug"
+                break;
+            case "9":
+                month="Sep"
+                break;
+            case "10":
+                month="Oct"
+                break;
+            case "11":
+                month="Nov"
+                break;
+            case "12":
+                month="Dec"
+                break;
+            default:
+                "Jan"
+        }
+       return month+" "+date[2]+", "+date[0];
+   } 
+});
+
+app.filter('timeFilter',function(){
+    return function(item){
+        if(item<"12"){
+            return item+":00 AM";
+        }
+        else if(item=="12"){
+                return item+":00 PM"
+                }
+        else{
+            return item-12+":00 PM"
+        }
     }
 });
 

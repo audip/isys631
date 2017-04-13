@@ -142,11 +142,11 @@ Lets find some doctors for you!
         <div class="col-xs-12 items-holder no-margin" ng-repeat="app in appList | futureFilter">   
         <div class="row no-margin cart-item">
             <div class="col-sm-12 col-md-10">
-                <div class="title">Appointment with <a href="#">{{app.Doctor}}</a></div>
+                <div class="title">Appointment with <a href="#">{{app.name}}</a></div>
 
                 <div class="a-details">
-                    <label>Time:&nbsp</label>{{app.date|date:'medium'}}<br>
-                    <label>Location:&nbsp</label>{{app.Address}}
+                    <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
+                    <label>Location:&nbsp</label>{{app.address}}
                     <a href="#">Get directions</a>
                     <!-- <section class="google-map map-holder">
                         <div id="map" class="map center"></div>
@@ -173,11 +173,11 @@ Lets find some doctors for you!
         <div class="col-xs-12 items-holder no-margin" ng-repeat="app in appList | pastFilter">   
         <div class="row no-margin cart-item">
             <div class="col-sm-12 col-md-10">
-                <div class="title">Appointment with <a href="#">{{app.Doctor}}</a></div>
+                <div class="title">Appointment with <a href="#">{{app.name}}</a></div>
 
                 <div class="a-details">
-                    <label>Time:&nbsp</label>{{app.date|date:'medium'}}<br>
-                    <label>Location:&nbsp</label>{{app.Address}}
+                    <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
+                    <label>Location:&nbsp</label>{{app.address}}
                     <a href="#">Get directions</a>
                     <!-- <section class="google-map map-holder">
                         <div id="map" class="map center"></div>
@@ -198,7 +198,7 @@ Lets find some doctors for you!
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 <form id="contact-form" class="contact-form" method="post" >
-                                    <div class="row field-row">
+                                    <!--<div class="row field-row">
                                         <div class="col-xs-12 col-sm-6">
                                             <label>Name</label>
                                             <input class="le-input" ng-model="review.name">
@@ -207,24 +207,30 @@ Lets find some doctors for you!
                                             <label>Email</label>
                                             <input class="le-input" ng-model="review.email">
                                         </div>
-                                    </div>
+                                    </div>-->
                                     
                                     <div class="field-row">
                                         <label>Your rating</label>
-                                        <div star-rating rating-value="review.rating" max=5></div>
+                                        <div star-rating rating-value="review.score" max=5></div>
                                     </div>
 
                                     <div class="field-row">
                                         <label>Your feedback</label>
-                                        <textarea rows="8" class="le-input" ng-model="review.feedback"></textarea>
+                                        <textarea rows="8" class="le-input" ng-model="review.comment"></textarea>
                                     </div>
 
                                     <div class="buttons-holder">
-                                        <button type="submit" class="le-button huge" ng-click=sendReview()>submit</button>
+                                        <button type="submit" class="le-button huge" ng-click="review.doctor_id=142;sendReview()">submit</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
+                    </div>
+                    <div ng-show="successReviewShow">
+                        <h4>You have successfully submitted your review!</h4>
+                        <button type="button" class="close" aria-label="Close" ng-click="successReviewShow=false">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                     </div>
                     <!-- feedback form ends here -->
         </div>

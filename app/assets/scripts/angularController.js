@@ -12,8 +12,10 @@ function VariableData() {
     this.searchResult = "";
     this.fullName = "";
     this.loggedInFlag = false;
+    this.selectedDoctorId = '';
 };
-     
+
+//To save/load application state
 app.service('appDataService', function(){
     var username = '';
     var password = '';
@@ -24,6 +26,7 @@ app.service('appDataService', function(){
     var userId = "";
     var userType = "";
     var loggedInFlag = false;
+    var selectedDoctorId = '';
     
     this.clearData = function(value){
         this.username = '';
@@ -93,6 +96,13 @@ app.service('appDataService', function(){
             return loggedInFlag;
         };
     
+    this.setSelectedDoctorID = function(value){
+                selectedDoctorId=value;
+        };
+    this.getSelectedDoctorID = function() {
+            return selectedDoctorId;
+        };
+    
     this.saveVariableData = function (){
     
     console.log('Inside save state');
@@ -104,8 +114,10 @@ app.service('appDataService', function(){
     variableData.searchLocation = searchLocation;
     variableData.searchResult = searchResult;
     variableData.userType = userType;
+    variableData.userId = userId;
     variableData.fullName = fullName;
     variableData.loggedInFlag = loggedInFlag;
+    variableData.selectedDoctorId = selectedDoctorId;
         
     
     sessionStorage.setItem('applicationState', JSON.stringify(variableData));
@@ -129,8 +141,10 @@ app.service('appDataService', function(){
     searchLocation = variableData.searchLocation;
     searchResult = variableData.searchResult;
     userType = variableData.userType;
+    userId = variableData.userId;
     fullName = variableData.fullName;
     loggedInFlag = variableData.loggedInFlag;
+    selectedDoctorId = variableData.selectedDoctorId;
     }
     else {
     username = '';
@@ -142,6 +156,7 @@ app.service('appDataService', function(){
     userId = '';
     userType = '';
     loggedInFlag = false;
+    selectedDoctorId = '';
     }
     };
     
@@ -155,6 +170,7 @@ app.service('appDataService', function(){
     userId = "";
     userType = "";
     loggedInFlag = false;
+    selectedDoctorId = '';
     
     this.saveVariableData();
         
@@ -162,6 +178,7 @@ app.service('appDataService', function(){
     
 });
 
+//To make REST API Calls
 app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,appDataService) {
     var dataFactory = {};
     
@@ -213,9 +230,46 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     }).then(function (response) { return response.data;} );
 };
     
+    dataFactory.getPatientInfo = function (patient_id){
+        return $http.get(restUrl+'/user?id='+patient_id+'&user_type=patient').then(function(response){
+            return response.data;})
+    };
+    
+    dataFactory.getDoctorInfo = function (doctor_id){
+        return $http.get(restUrl+'/user?id='+doctor_id+'&user_type=doctor').then(function(response){
+            return response.data;})
+    };
+    
+    dataFactory.getDoctorAvailability = function (doctor_id){
+        return $http.get(restUrl+'/availability?id='+doctor_id+'&user_type=doctor').then(function(response){
+            return response.data;})
+    };
+    
+    dataFactory.postAppointment = function (patientId, doctorId, dateInput, timeslot){
+    return $http({
+    method: 'POST',
+    url: restUrl+'/appointment',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    },
+    data: {
+        customer_id: patientId, 
+        doctor_id: doctorId, 
+        date: dateInput, 
+        time: timeslot
+    }
+    }).then(function (response) { return response.data;} );
+    };
+    
+    
     return dataFactory;
 }]);
 
+//Should be consolidated into dataFactory
 app.factory('AppFactory',['$http',function($http){
     var appFac = {};
     var baseUrl="https://doctorsforme-api.herokuapp.com/";
@@ -240,8 +294,8 @@ app.factory('AppFactory',['$http',function($http){
     return appFac;
 }]);
                 
-
 app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
+    
     
     appDataService.loadVariableData();
     
@@ -249,6 +303,8 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     $scope.loggedIn = appDataService.getLoggedInFlag();
     console.log('LoggedInFlag:'+$scope.loggedIn);
     $scope.username = '';
+    
+    console.log("UserID:"+appDataService.getUserId());
 
     if(appDataService.getLoggedInFlag()){
         $scope.fullname = appDataService.getFullName();
@@ -277,7 +333,6 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     
     });
     
-    
     $scope.locationButtonClick = function (location) {
     $scope.searchLocation = location;
     appDataService.setSearchLocation(location);
@@ -294,8 +349,20 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     $window.location.href = './index.html';
     };
     
+    $scope.bookAppointmentClick = function (value) {
+    if(appDataService.getUserId == '')
+    {
+     $window.location.href = './login.html';   
+    }
+    else{
+    console.log('Doctor Id:'+value);
+    appDataService.setSelectedDoctorID(value);
+    appDataService.saveVariableData();
+    $window.location.href = './book-appointment.html';
+    }
+    };
+    
 }]);
-
 
 app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
     
@@ -324,6 +391,7 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     appDataService.setUserType($scope.reply.user_type);
     appDataService.setLoggedInFlag(true);
     appDataService.saveVariableData();
+    console.log("UserID:"+appDataService.getUserId());
     $window.location.href = './index.html';
     }
     else{
@@ -389,6 +457,96 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     
 }]);
 
+app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
+    
+    //Populating Test Data - Should be commented after integration
+//    appDataService.setSelectedDoctorID(4);
+//    appDataService.setUserId(159);
+ //       appDataService.saveVariableData();
+    appDataService.loadVariableData();
+ 
+    
+    $scope.patientId = appDataService.getUserId();
+    $scope.selectedDoctorID = appDataService.getSelectedDoctorID();
+    
+    $scope.selectedValue = 2;
+    
+    var patientDataResponse = dataFactory.getPatientInfo($scope.patientId);
+    patientDataResponse.then(function(result){
+    $scope.patientDataResponse = result;
+    if($scope.patientDataResponse.success == true)
+    {
+        $scope.patient= $scope.patientDataResponse.info;
+    }
+        
+        var doctorDataResponse = dataFactory.getDoctorInfo($scope.selectedDoctorID);
+        doctorDataResponse.then(function(result){
+            $scope.doctorDataResponse = result;
+            if($scope.doctorDataResponse.success == true)
+            {
+            $scope.doctor= $scope.doctorDataResponse.info;
+            };
+            
+            var availableSlotsDataResponse  = dataFactory.getDoctorAvailability($scope.selectedDoctorID);
+            availableSlotsDataResponse.then(function(result){
+                $scope.availableSlotsDataResponse = result;
+                if($scope.availableSlotsDataResponse.success == true)
+                {
+                $scope.availableSlots = $scope.availableSlotsDataResponse.available_slots;
+                };
+            });
+            
+        });
+        
+    });
+    
+    $scope.selectSlotClick = function (selectedDate, selectedTime) {
+    $scope.selectedDate = selectedDate;
+    $scope.selectedTime = selectedTime; 
+    };
+    
+    $scope.bookButtonClick = function () {
+        
+    var bookAppointment = dataFactory.postAppointment($scope.patientId,$scope.selectedDoctorID,$scope.selectedDate,$scope.selectedTime);
+        
+    bookAppointment.then(function(result){
+        $scope.result = result;
+        
+        if($scope.result.success == true)
+        {
+          $window.location.href = './view-appointments.html';      
+        }
+    });
+        
+    };
+    
+//    $scope.patientDataResponse = {"info": {"city": "College Station", "country": "USA", "email": "aaraujo@mays.tamu.edu", "name": "Dr. Araujo", "phone": "9999999999", "photo_url": "None", "state": "Texas"}, "success": true};
+//    
+//    if($scope.patientDataResponse.success == true)
+//    {
+//        $scope.patient= $scope.patientDataResponse.info;
+//    }
+//    
+//    $scope.doctorDataResponse =
+//    {"info": {"address": "505 Nagle Street", "city": "Austin", "country": "USA", "email": "john@smith.com", "experience": 7, "name": "John Smith", "phone": "123-456-789", "photo_url": "http://s-media-cache-ak0.pinimg.com/736x/e2/9f/ee/e29fee57b73f61a9f6e1718185ebe738.jpg", "qualification": "BDS", "state": "Texas"}, "success": true};
+//    
+//    if($scope.doctorDataResponse.success == true)
+//    {
+//        $scope.doctor= $scope.doctorDataResponse.info;
+//    }
+//    
+//    //ID:4
+//    $scope.availableSlotsDataResponse = {"available_slots": [{"date": "2017-03-30", "time": "1100"}, {"date": "2017-03-20", "time": "1100"}, {"date": "2017-03-20", "time": "1200"}, {"date": "2017-03-20", "time": "1300"}, {"date": "2017-03-20", "time": "1400"}], "success": true};
+//    
+//    if($scope.availableSlotsDataResponse.success == true)
+//    {
+//    $scope.availableSlots = $scope.availableSlotsDataResponse.available_slots;
+//    }
+    
+    
+}]);
+
+//Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant.
 app.controller('appointmentController',['$scope','AppFactory',function($scope,AppFactory){
     //get appointments
     $scope.appList=[];

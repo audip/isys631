@@ -215,6 +215,47 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     
     return dataFactory;
 }]);
+
+app.factory('AppFactory',['$http',function($http){
+    var appFac = {};
+    var date1 = new Date(2016,9,7,12,0);
+    //var date1 = new Date();
+    var date2 = new Date(2017,9,7,12,0);
+    //var date2 = new Date();
+    var date3 = new Date(2015,10,7,12,0);
+    var dString1 = date1.toJSON();
+    var dString2 = date2.toJSON();
+    var dString3 = date3.toJSON();
+    var appList=[
+        {
+        "appID": 123,
+        "userID": 1234,
+        "Doctor": "Dr. Panda",
+        "Address": "dadafafaf",
+        "date": dString1
+    },
+        {
+            "appID": 124,
+            "userID": 1234,
+            "Doctor": "Dr. Panda",
+            "Address": "dadafafaf",
+            "date": dString2
+        },
+        {
+            "appID": 125,
+            "userID": 1234,
+            "Doctor": "Dr. Panda",
+            "Address": "dadafafaf",
+            "date": dString3
+        }
+    ];
+    
+    appFac.getApp = function(){
+        return appList;
+    }
+    
+    return appFac;
+}]);
                 
 
 app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
@@ -364,6 +405,46 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
 };
     
 }]);
+
+app.controller('appointmentController',['$scope','AppFactory',function($scope,AppFactory){
+    $scope.appList = AppFactory.getApp();
+    $scope.selectedIndex;
+    $scope.formShow = false;
+    //form variables
+    $scope.review={name:"",email:"",rating:5,feedback:""};
+    //$scope.review={};
+    $scope.sendReview = function(){
+        console.log($scope.review);
+    }
+}]);
+
+app.filter('futureFilter',function(){
+    return function (items){
+        var curDate = new Date();
+        var array=[];
+        for(var i=0; i<items.length;i++){
+            var date = new Date(items[i].date);
+            if(date > curDate){
+                array.push(items[i]);
+            }
+        }
+        return array;
+    }
+});
+
+app.filter('pastFilter',function(){
+    return function (items){
+        var curDate = new Date();
+        var array=[];
+        for(var i=0; i<items.length;i++){
+            var date = new Date(items[i].date);
+            if(date <= curDate){
+                array.push(items[i]);
+            }
+        }
+        return array;
+    }
+});
 
 app.directive('starRating', function () {
     return {

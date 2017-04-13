@@ -38,8 +38,20 @@
 			<script src="assets/js/html5shiv.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+        <script src="https://rubaxa.github.io/Sortable/Sortable.js"></script>
+        <script src="https://rubaxa.github.io/Sortable/ng-sortable.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	</head>
-<body>
+<body  ng-app="myApp" ng-controller="appointmentController">
 <div class="wrapper">
 <!-- header area starts here--> 
  <!-- top nav bar starts here -->
@@ -125,76 +137,16 @@ Lets find some doctors for you!
 
 <section id="cart-page">
     <div class="container">
-        <!-- appointmet list starts here -->
-        <div class="col-xs-12 items-holder no-margin">
-            
+        <!-- upcomming appointmet list starts here -->
+        <h1>Upcoming Appointments</h1>
+        <div class="col-xs-12 items-holder no-margin" ng-repeat="app in appList | futureFilter">   
         <div class="row no-margin cart-item">
             <div class="col-sm-12 col-md-10">
-                <div class="title">Appointment with <a href="#">Dr. Lorem Ipsum</a></div>
+                <div class="title">Appointment with <a href="#">{{app.Doctor}}</a></div>
 
                 <div class="a-details">
-                    <label>Time:&nbsp</label>Jan 1, 2017 1:40 pm<br>
-                    <label>Location:&nbsp</label>ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare turpis non risus semper dapibus.
-                    <a href="#">Get directions</a>
-                    <!-- <section class="google-map map-holder">
-                        <div id="map" class="map center"></div>
-                    </section> -->
-
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-2">
-                <button class="btn le-button" type="button">Reschedule</button>
-                <button class="btn le-button" type="button">Cancel</button>
-            </div>
-        </div>
-
-         <div class="row no-margin cart-item">
-            <div class="col-sm-12 col-md-10">
-                <div class="title">Appointment with <a href="#">Dr. Lorem Ipsum</a></div>
-
-                <div class="a-details">
-                    <label>Time:&nbsp</label>Jan 1, 2017 1:40 pm<br>
-                    <label>Location:&nbsp</label>ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare turpis non risus semper dapibus.
-                    <a href="#">Get directions</a>
-                    <!-- <section class="google-map map-holder">
-                        <div id="map" class="map center"></div>
-                    </section> -->
-
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-2">
-                <button class="btn le-button" type="button">Reschedule</button>
-                <button class="btn le-button" type="button">Cancel</button>
-            </div>
-        </div>
-
-         <div class="row no-margin cart-item">
-            <div class="col-sm-12 col-md-10">
-                <div class="title">Appointment with <a href="#">Dr. Lorem Ipsum</a></div>
-
-                <div class="a-details">
-                    <label>Time:&nbsp</label>Jan 1, 2017 1:40 pm<br>
-                    <label>Location:&nbsp</label>ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare turpis non risus semper dapibus. Quisque eu.
-                    <a href="#">Get directions</a>
-                    <!-- <section class="google-map map-holder">
-                        <div id="map" class="map center"></div>
-                    </section> -->
-
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-2">
-                <button class="btn le-button" type="button">Reschedule</button>
-                <button class="btn le-button" type="button">Cancel</button>
-            </div>
-        </div>
-
-        <div class="row no-margin cart-item">
-            <div class="col-sm-12 col-md-10">
-                <div class="title">Appointment with <a href="#">Dr. Lorem Ipsum</a></div>
-
-                <div class="a-details">
-                    <label>Time:&nbsp</label>Jan 1, 2017 1:40 pm<br>
-                    <label>Location:&nbsp</label>ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare turpis non risus semper dapibus. Quisque eu.
+                    <label>Time:&nbsp</label>{{app.date|date:'medium'}}<br>
+                    <label>Location:&nbsp</label>{{app.Address}}
                     <a href="#">Get directions</a>
                     <!-- <section class="google-map map-holder">
                         <div id="map" class="map center"></div>
@@ -208,11 +160,80 @@ Lets find some doctors for you!
             </div>
         </div>
         </div>
-        <!-- appointment list ends here -->
+        <!-- upcomming appointment list ends here -->
 
         
     </div>
-</section>	
+</section>
+<hr>
+<section id="cart-page">
+    <div class="container">
+        <!-- past appointmet list starts here -->
+        <h1>Past Appointments</h1>
+        <div class="col-xs-12 items-holder no-margin" ng-repeat="app in appList | pastFilter">   
+        <div class="row no-margin cart-item">
+            <div class="col-sm-12 col-md-10">
+                <div class="title">Appointment with <a href="#">{{app.Doctor}}</a></div>
+
+                <div class="a-details">
+                    <label>Time:&nbsp</label>{{app.date|date:'medium'}}<br>
+                    <label>Location:&nbsp</label>{{app.Address}}
+                    <a href="#">Get directions</a>
+                    <!-- <section class="google-map map-holder">
+                        <div id="map" class="map center"></div>
+                    </section> -->
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-2">
+                <button class="btn le-button" type="button" ng-click="$parent.selectedIndex=$index;formShow=true">Submit Review</button>
+            </div>
+        </div>
+            <!-- feedback form starts here -->
+                    <div class="add-review row" ng-show="$index==$parent.selectedIndex&&formShow">
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="new-review-form">
+                                <h2>Add review</h2>
+                                <button type="button" class="close" aria-label="Close" ng-click="formShow=false">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <form id="contact-form" class="contact-form" method="post" >
+                                    <div class="row field-row">
+                                        <div class="col-xs-12 col-sm-6">
+                                            <label>Name</label>
+                                            <input class="le-input" ng-model="review.name">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            <label>Email</label>
+                                            <input class="le-input" ng-model="review.email">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field-row">
+                                        <label>Your rating</label>
+                                        <div star-rating rating-value="review.rating" max=5></div>
+                                    </div>
+
+                                    <div class="field-row">
+                                        <label>Your feedback</label>
+                                        <textarea rows="8" class="le-input" ng-model="review.feedback"></textarea>
+                                    </div>
+
+                                    <div class="buttons-holder">
+                                        <button type="submit" class="le-button huge" ng-click=sendReview()>submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- feedback form ends here -->
+        </div>
+        </div>
+        <!-- past appointment list ends here -->
+
+        
+    </div>
+</section>
 
 <!-- footer starts here -->
 <footer id="footer" class="color-bg">
@@ -294,6 +315,8 @@ Lets find some doctors for you!
 	
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
+    <!-- angularJs --> 
+    <script src="assets/scripts/angularController.js"></script>
 	<script src="assets/js/jquery-1.10.2.min.js"></script>
 	<script src="assets/js/jquery-migrate-1.2.1.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
@@ -310,10 +333,10 @@ Lets find some doctors for you!
     <script src="assets/js/jquery.customSelect.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
-
+    
+    
 	
-	
-	<script>
+	<!--<script>
 		$(document).ready(function(){ 
 			$(".changecolor").switchstylesheet( { seperator:"color"} );
 			$('.show-theme-options').click(function(){
@@ -325,7 +348,7 @@ Lets find some doctors for you!
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
 		});
-	</script>
+	</script>-->
 	<!-- For demo purposes – can be removed on production : End -->
 
 	<script src="http://w.sharethis.com/button/buttons.js"></script>

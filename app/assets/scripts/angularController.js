@@ -460,9 +460,9 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
 app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
     
     //Populating Test Data - Should be commented after integration
-//    appDataService.setSelectedDoctorID(4);
-//    appDataService.setUserId(159);
- //       appDataService.saveVariableData();
+//   appDataService.setSelectedDoctorID(4);
+//   appDataService.setUserId(159);
+//  appDataService.saveVariableData();
     appDataService.loadVariableData();
  
     
@@ -518,35 +518,11 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
         }
     });
         
-    };
-    
-//    $scope.patientDataResponse = {"info": {"city": "College Station", "country": "USA", "email": "aaraujo@mays.tamu.edu", "name": "Dr. Araujo", "phone": "9999999999", "photo_url": "None", "state": "Texas"}, "success": true};
-//    
-//    if($scope.patientDataResponse.success == true)
-//    {
-//        $scope.patient= $scope.patientDataResponse.info;
-//    }
-//    
-//    $scope.doctorDataResponse =
-//    {"info": {"address": "505 Nagle Street", "city": "Austin", "country": "USA", "email": "john@smith.com", "experience": 7, "name": "John Smith", "phone": "123-456-789", "photo_url": "http://s-media-cache-ak0.pinimg.com/736x/e2/9f/ee/e29fee57b73f61a9f6e1718185ebe738.jpg", "qualification": "BDS", "state": "Texas"}, "success": true};
-//    
-//    if($scope.doctorDataResponse.success == true)
-//    {
-//        $scope.doctor= $scope.doctorDataResponse.info;
-//    }
-//    
-//    //ID:4
-//    $scope.availableSlotsDataResponse = {"available_slots": [{"date": "2017-03-30", "time": "1100"}, {"date": "2017-03-20", "time": "1100"}, {"date": "2017-03-20", "time": "1200"}, {"date": "2017-03-20", "time": "1300"}, {"date": "2017-03-20", "time": "1400"}], "success": true};
-//    
-//    if($scope.availableSlotsDataResponse.success == true)
-//    {
-//    $scope.availableSlots = $scope.availableSlotsDataResponse.available_slots;
-//    }
-    
+    };    
     
 }]);
 
-//Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant.
+//Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant. Load user data from the appdataservice
 app.controller('appointmentController',['$scope','AppFactory',function($scope,AppFactory){
     //get appointments
     $scope.appList=[];

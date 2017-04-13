@@ -265,6 +265,29 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     }).then(function (response) { return response.data;} );
     };
     
+    dataFactory.postReview=function(data){
+        return $http({
+    method: 'POST',
+    url: restUrl+'/review',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    },
+    data: {
+        id:data.id,
+            //doctori_id:data.doctor_id,
+        doctor_id:data.doctor_id,
+            score:data.score,
+            comment:data.comment,
+            user_type:"patient"
+    }
+    });
+    
+    };
+    
     
     return dataFactory;
 }]);
@@ -288,7 +311,18 @@ app.factory('AppFactory',['$http',function($http){
     }
     
     appFac.creatReview = function(data){
-        return $http.post(baseUrl+"review",data);
+        console.log(data);
+        var review={
+            id:data.id,
+            doctori_id:data.doctor_id,
+            score:data.score,
+            comment:data.comment,
+            user_type:"patient"
+            
+        }
+        //return $http.post(baseUrl+"review",data);
+        return $http.post(baseUrl+"review",review);
+        
     }
     
     return appFac;
@@ -523,7 +557,7 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
 }]);
 
 //Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant. Load user data from the appdataservice
-app.controller('appointmentController',['$scope','AppFactory','appDataService','$window',function($scope,AppFactory,appDataService,$window){
+app.controller('appointmentController',['$scope','AppFactory','appDataService','$window','dataFactory',function($scope,AppFactory,appDataService,$window,dataFactory){
     //verify login
     $scope.userId;
     $scope.userType;
@@ -561,18 +595,33 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     $scope.successReviewShow = false;
     
     //form variables
-    $scope.review={id:142,user_type:"patient",doctor_id:142,score:5,comment:""};
+    $scope.review={id:$scope.userId,user_type:"patient",doctor_id:"",score:5,comment:""};
     
     
     $scope.sendReview = function(){
-        //console.log($scope.review);
-        AppFactory.creatReview($scope.review)
+        console.log($scope.review);
+        /*AppFactory.creatReview($scope.review)
         .then(
             function(response){
                 if(response.status){
                     console.log(response);
-                    formShow=false;
-                    successReviewShow=true;
+                    $scope.formShow=false;
+                    $scope.successReviewShow=true;
+                }
+                //error handling
+                else{
+                    console.log(response);
+                }
+                
+            }
+        );*/
+        dataFactory.postReview($scope.review)
+        .then(
+            function(response){
+                if(response.status){
+                    console.log(response);
+                    $scope.formShow=false;
+                    $scope.successReviewShow=true;
                 }
                 //error handling
                 else{
@@ -581,6 +630,7 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
                 
             }
         );
+        
     }
 }]);
 

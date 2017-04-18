@@ -146,8 +146,9 @@ Lets find some doctors for you!
 
                 <div class="a-details">
                     <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
-                    <label>Location:&nbsp</label>{{app.address}}
-                    <a href="#">Get directions</a>
+                    <span ng-show=isPatient><label>Location:&nbsp</label>{{app.address}}</span>
+                    <span ng-show=!isPatient><label>Location:&nbsp</label>{{docLocation}}</span>
+                    <a href="#" ng-show=isPatient>Get directions</a>
                     <!-- <section class="google-map map-holder">
                         <div id="map" class="map center"></div>
                     </section> -->
@@ -186,7 +187,7 @@ Lets find some doctors for you!
                 </div>
             </div>
             <div class="col-xs-12 col-md-2">
-                <button class="btn le-button" type="button" ng-click="$parent.selectedIndex=$index;formShow=true">Submit Review</button>
+                <button class="btn le-button" type="button" ng-click="$parent.selectedIndex=$index;formShow=true" ng-show=isPatient>Submit Review</button>
             </div>
         </div>
             <!-- feedback form starts here -->

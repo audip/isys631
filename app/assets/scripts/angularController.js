@@ -298,12 +298,12 @@ app.factory('AppFactory',['$http',function($http){
     var baseUrl="https://doctorsforme-api.herokuapp.com/";
     
     //get appointments
-    appFac.getApp = function(){
+    appFac.getApp = function(id,type){
         //return appList;
         var config = {
             params: {
-                id: 159,
-                user_type: "patient"
+                id: id,
+                user_type: type
             }
         }
 
@@ -561,13 +561,14 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     //verify login
     $scope.userId;
     $scope.userType;
+    $scope.isPatient=true;
+    $scope.docLocation="";
     $scope.init = function()
      {
         appDataService.loadVariableData();
         if(appDataService.getLoggedInFlag()){
         $scope.userId=appDataService.getUserId();
         $scope.userType=appDataService.getUserType();
-        console.log($scope.userId+" "+$scope.userType);
         }
         else{
         $window.location.href = './login.html';
@@ -576,6 +577,20 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
      }
 
      $scope.init(); 
+    
+    //get doc location
+    if($scope.userType=="doctor"){
+        $scope.isPatient=false;
+        dataFactory.getDoctorInfo($scope.userId).then(
+            function(response){
+                $scope.docLocation=response.info.address+", "+response.info.city;
+            },
+            function(response){
+            console.log("error");
+        }
+        );
+        //$scope.docLocation=$scope.doc.info.address+" "+$scope.doc.info.city;
+    }
     
     //get appointments
     $scope.appList=[];
@@ -640,8 +655,11 @@ app.filter('futureFilter',function(){
         var array=[];
         for(var i=0; i<items.length;i++){
             var date=items[i].date.split("-");
+            console.log(date);
             var time=items[i].time;
-            var appDate = new Date(date[0],date[1]-1,date[2],time,0);
+            //var appDate = new Date(date[0],date[1]-1,date[2],time,0);
+            var appDate = new Date(items[i].date);
+            console.log(appDate.toDateString());
             if(appDate > curDate){
                 array.push(items[i]);
             }
@@ -671,31 +689,31 @@ app.filter('dateFilter',function(){
        var date=item.split("-");
        var month;
        switch(date[1]) {
-            case "1":
+            case "01":
                 month="Jan"
                 break;
-            case "2":
+            case "02":
                 month="Feb"
                 break;
-            case "3":
+            case "03":
                 month="Mar"
                 break;
-            case "4":
+            case "04":
                 month="Apr"
                 break;
-            case "5":
+            case "05":
                 month="May"
                 break;
-            case "6":
+            case "06":
                 month="Jun"
                 break;
-            case "7":
+            case "07":
                 month="Jul"
                 break;
-            case "8":
+            case "08":
                 month="Aug"
                 break;
-            case "9":
+            case "09":
                 month="Sep"
                 break;
             case "10":

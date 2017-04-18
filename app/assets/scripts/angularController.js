@@ -288,6 +288,19 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     
     };
     
+    dataFactory.deleteApp = function(id){
+        //return appList;
+        console.log(id);
+        var config = {
+            params: {
+                //appointment_id: id
+                appointment_id: 30
+            }
+        }
+
+        return $http.delete(restUrl+"/appointment/12345", config);
+    }
+    
     
     return dataFactory;
 }]);
@@ -591,6 +604,17 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
         );
         //$scope.docLocation=$scope.doc.info.address+" "+$scope.doc.info.city;
     }
+    /*else{
+        dataFactory.getDoctorInfo($scope.).then(
+            function(response){
+                $scope.docLocation=response.info.address+", "+response.info.city;
+            },
+            function(response){
+            console.log("error");
+        }
+        );
+    }
+    */
     
     //get appointments
     $scope.appList=[];
@@ -606,37 +630,30 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     );
     
     $scope.selectedIndex;
-    $scope.formShow = false;
+    $scope.formShow=false;
     $scope.successReviewShow = false;
     
     //form variables
     $scope.review={id:$scope.userId,user_type:"patient",doctor_id:"",score:5,comment:""};
     
-    
+    $scope.setFormShow=function(value){
+        $scope.formShow=value;
+    }
+    $scope.setSuccessReviewShow=function(value){
+        $scope.successReviewShow=value;
+    }
+    //send review
     $scope.sendReview = function(){
         console.log($scope.review);
-        /*AppFactory.creatReview($scope.review)
-        .then(
-            function(response){
-                if(response.status){
-                    console.log(response);
-                    $scope.formShow=false;
-                    $scope.successReviewShow=true;
-                }
-                //error handling
-                else{
-                    console.log(response);
-                }
-                
-            }
-        );*/
         dataFactory.postReview($scope.review)
         .then(
             function(response){
                 if(response.status){
                     console.log(response);
-                    $scope.formShow=false;
-                    $scope.successReviewShow=true;
+                    $scope.setFormShow(false);
+                    $scope.setSuccessReviewShow(true);
+                    $scope.review.score=5;
+                    $scope.review.comment="";
                 }
                 //error handling
                 else{
@@ -645,6 +662,27 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
                 
             }
         );
+        
+    }
+    
+    //cancel app
+    $scope.cancelApp = function(appId){
+        console.log(appId);
+        dataFactory.deleteApp(appId).then({
+            function(response){
+                console.log("success");
+                console.log(response);
+            }
+            ,function(response){
+            console.log(response);
+        }
+        });
+        
+        
+    }
+    
+    //reschedule app
+    $scope.rescheduleApp = function(appId){
         
     }
 }]);
@@ -789,3 +827,19 @@ app.directive('starRating', function () {
         }
     }
 });
+
+//delete confirmation box directive
+app.directive('ngConfirmClick', [
+    function(){
+        return {
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.confirmedClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}])

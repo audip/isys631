@@ -148,7 +148,6 @@ Lets find some doctors for you!
                     <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
                     <span ng-show=isPatient><label>Location:&nbsp</label>{{app.address}}</span>
                     <span ng-show=!isPatient><label>Location:&nbsp</label>{{docLocation}}</span>
-                    <a href="#" ng-show=isPatient>Get directions</a>
                     <!-- <section class="google-map map-holder">
                         <div id="map" class="map center"></div>
                     </section> -->
@@ -156,8 +155,8 @@ Lets find some doctors for you!
                 </div>
             </div>
             <div class="col-xs-12 col-md-2">
-                <button class="btn le-button" type="button">Reschedule</button>
-                <button class="btn le-button" type="button">Cancel</button>
+                <button class="btn le-button" type="button" ng-show=isPatient ng-click=rescheduleApp(app.appointment_id)>Reschedule</button>
+                <button class="btn le-button" type="button" ng-confirm-click="Are you sure to cancel this appointment?" confirmed-click="cancelApp(app.appointment_id)">Cancel</button>
             </div>
         </div>
         </div>
@@ -180,7 +179,6 @@ Lets find some doctors for you!
                     <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
                     <span ng-show=isPatient><label>Location:&nbsp</label>{{app.address}}</span>
                     <span ng-show=!isPatient><label>Location:&nbsp</label>{{docLocation}}</span>
-                    <a href="#" ng-show=isPatient>Get directions</a>
                     <!-- <section class="google-map map-holder">
                         <div id="map" class="map center"></div>
                     </section> -->
@@ -188,15 +186,15 @@ Lets find some doctors for you!
                 </div>
             </div>
             <div class="col-xs-12 col-md-2">
-                <button class="btn le-button" type="button" ng-click="$parent.selectedIndex=$index;formShow=true" ng-show=isPatient>Submit Review</button>
+                <button class="btn le-button" type="button" ng-click="$parent.selectedIndex=$index;setFormShow(true)" ng-show=isPatient>Submit Review</button>
             </div>
         </div>
             <!-- feedback form starts here -->
-                    <div class="add-review row" ng-show="$index==$parent.selectedIndex&&formShow">
+                    <div class="add-review row" ng-show="$index==$parent.selectedIndex&&formShow===true">
                         <div class="col-sm-8 col-xs-12">
                             <div class="new-review-form">
                                 <h2>Add review</h2>
-                                <button type="button" class="close" aria-label="Close" ng-click="formShow=false">
+                                <button type="button" class="close" aria-label="Close" ng-click=setFormShow(false)>
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 <form id="contact-form" class="contact-form" method="post" >
@@ -228,9 +226,9 @@ Lets find some doctors for you!
                             </div>
                         </div>
                     </div>
-                    <div ng-show="successReviewShow">
+                    <div ng-show="successReviewShow===true&&$index==$parent.selectedIndex">
                         <h4>You have successfully submitted your review!</h4>
-                        <button type="button" class="close" aria-label="Close" ng-click="successReviewShow=false">
+                        <button type="button" class="close" aria-label="Close" ng-click="setSuccessReviewShow(false)">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                     </div>

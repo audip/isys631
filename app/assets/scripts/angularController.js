@@ -654,12 +654,14 @@ app.filter('futureFilter',function(){
         var curDate = new Date();
         var array=[];
         for(var i=0; i<items.length;i++){
-            var date=items[i].date.split("-");
-            console.log(date);
-            var time=items[i].time;
-            //var appDate = new Date(date[0],date[1]-1,date[2],time,0);
-            var appDate = new Date(items[i].date);
-            console.log(appDate.toDateString());
+            var date=items[i].date;
+            //console.log(date);
+            var time=items[i].time.substring(0,2);
+            //console.log(time);
+            var datetime=date+"T"+time+":00:00Z";
+            //console.log(datetime);
+            var appDate = new Date(datetime);
+            //console.log(appDate.toDateString());
             if(appDate > curDate){
                 array.push(items[i]);
             }
@@ -673,9 +675,10 @@ app.filter('pastFilter',function(){
         var curDate = new Date();
         var array=[];
         for(var i=0; i<items.length;i++){
-            var date=items[i].date.split("-");
-            var time=items[i].time;
-            var appDate = new Date(date[0],date[1]-1,date[2],time,0);
+            var date=items[i].date;
+            var time=items[i].time.substring(0,2);
+            var datetime=date+"T"+time+":00:00Z";
+            var appDate = new Date(datetime);
             if(appDate <= curDate){
                 array.push(items[i]);
             }
@@ -734,7 +737,7 @@ app.filter('dateFilter',function(){
 
 app.filter('timeFilter',function(){
     return function(item){
-        if(item<"12"){
+        /*if(item<"12"){
             return item+":00 AM";
         }
         else if(item=="12"){
@@ -742,7 +745,8 @@ app.filter('timeFilter',function(){
                 }
         else{
             return item-12+":00 PM"
-        }
+        }*/
+        return item.substring(0,2)+":00"
     }
 });
 

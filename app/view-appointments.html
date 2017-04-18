@@ -178,8 +178,9 @@ Lets find some doctors for you!
 
                 <div class="a-details">
                     <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
-                    <label>Location:&nbsp</label>{{app.address}}
-                    <a href="#">Get directions</a>
+                    <span ng-show=isPatient><label>Location:&nbsp</label>{{app.address}}</span>
+                    <span ng-show=!isPatient><label>Location:&nbsp</label>{{docLocation}}</span>
+                    <a href="#" ng-show=isPatient>Get directions</a>
                     <!-- <section class="google-map map-holder">
                         <div id="map" class="map center"></div>
                     </section> -->

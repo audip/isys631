@@ -183,7 +183,7 @@ Lets find some doctors for you!
                         <div class="row field-row">
                             <div class="col-xs-12 col-sm-6">
                                 <label>Address Line 1</label>
-                                <input class="le-input" ng-model="patient.address1">
+                                <input class="le-input" ng-model="patient.address">
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <label>Address Line 2</label>
@@ -198,12 +198,7 @@ Lets find some doctors for you!
                             <div class="col-xs-12 col-sm-6">
                             <div class="state">
                                 <label for="state">State</label>
-                                <select class="form-control" id="state" ng-model="patient.state">
-                                    <option>TX</option>
-                                    <option>CA</option>
-                                    <option>WA</option>
-                                    <option>OH</option>
-                                </select>
+                                <input class="le-input" id="state" ng-model="patient.state">
                             </div>
                             <div class="postcode">
                                 <label for="post-code">Post Code</label>

@@ -278,7 +278,6 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     },
     data: {
         id:data.id,
-            //doctori_id:data.doctor_id,
         doctor_id:data.doctor_id,
             score:data.score,
             comment:data.comment,
@@ -291,14 +290,14 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     dataFactory.deleteApp = function(id){
         //return appList;
         console.log(id);
-        var config = {
+        /*var config = {
             params: {
                 //appointment_id: id
                 appointment_id: 30
             }
-        }
+        }*/
 
-        return $http.delete(restUrl+"/appointment/12345", config);
+        return $http.delete(restUrl+"/appointment/"+id);
     }
     
     
@@ -581,7 +580,12 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
         appDataService.loadVariableData();
         if(appDataService.getLoggedInFlag()){
         $scope.userId=appDataService.getUserId();
-        $scope.userType=appDataService.getUserType();
+        if(appDataService.getUserType()=="doctor"){
+            $scope.userType="doctor";
+        }
+        else{
+            $scope.userType="patient";
+        }
         }
         else{
         $window.location.href = './login.html';
@@ -602,19 +606,8 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
             console.log("error");
         }
         );
-        //$scope.docLocation=$scope.doc.info.address+" "+$scope.doc.info.city;
+        
     }
-    /*else{
-        dataFactory.getDoctorInfo($scope.).then(
-            function(response){
-                $scope.docLocation=response.info.address+", "+response.info.city;
-            },
-            function(response){
-            console.log("error");
-        }
-        );
-    }
-    */
     
     //get appointments
     $scope.appList=[];
@@ -652,8 +645,6 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
                     console.log(response);
                     $scope.setFormShow(false);
                     $scope.setSuccessReviewShow(true);
-                    $scope.review.score=5;
-                    $scope.review.comment="";
                 }
                 //error handling
                 else{
@@ -662,6 +653,8 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
                 
             }
         );
+        $scope.review.score=5;
+        $scope.review.comment="";
         
     }
     
@@ -692,6 +685,8 @@ app.filter('futureFilter',function(){
         var curDate = new Date();
         var array=[];
         for(var i=0; i<items.length;i++){
+            console.log(items[i].doctor_id);
+            //alert(items[i].doctor_id);
             var date=items[i].date;
             //console.log(date);
             var time=items[i].time.substring(0,2);

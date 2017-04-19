@@ -624,6 +624,19 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
         };
     });
     
+    $scope.reviews = [];
+    $scope.noReviewsFlag = true;
+    
+    var reviewsDataResponse = dataFactory.getDoctorReviews($scope.selectedDoctorID);
+    reviewsDataResponse.then(function(result){
+        $scope.reviewsDataResponse = result;
+        if($scope.reviewsDataResponse.success == true)
+        {
+        $scope.reviews= $scope.reviewsDataResponse.reviews;
+        $scope.noReviewsFlag = false; 
+        };
+    });
+    
     $scope.bookAppointmentClick = function () {
     if(appDataService.getUserId == '')
     {

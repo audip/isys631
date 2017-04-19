@@ -85,7 +85,7 @@
         <tr><td><img src="./assets/images/custom/panda_logo_top.jpg" width="150"></td></tr>
         <tr><td>
         <span style="color:#94918f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Lets find some doctors for you!
+{{message}}
         </span>
         </td></tr>
         <tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="150"></td></tr>
@@ -155,7 +155,7 @@ Lets find some doctors for you!
                 </div>
             </div>
             <div class="col-xs-12 col-md-2">
-                <button class="btn le-button" type="button" ng-show=isPatient ng-click=rescheduleApp(app.appointment_id)>Reschedule</button>
+                <button class="btn le-button" type="button" ng-show=isPatient ng-click=rescheduleApp(app)>Reschedule</button>
                 <button class="btn le-button" type="button" ng-confirm-click="Are you sure to cancel this appointment?" confirmed-click="cancelApp(app.appointment_id)">Cancel</button>
             </div>
         </div>

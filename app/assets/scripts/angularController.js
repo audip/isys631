@@ -575,6 +575,7 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     $scope.userType;
     $scope.isPatient=true;
     $scope.docLocation="";
+    $scope.message="";
     $scope.init = function()
      {
         appDataService.loadVariableData();
@@ -594,6 +595,17 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
      }
 
      $scope.init(); 
+    
+    //message load
+    appDataService.loadVariableData();
+    if(appDataService.getSelectedDoctorID()===""){
+        $scope.message="Here are your appointments.";
+    }
+    else{
+        $scope.message="You have successfully booked your appointment!";
+        appDataService.setSelectedDoctorID("");
+        appDataService.saveVariableData();
+    }
     
     //get doc location
     if($scope.userType=="doctor"){
@@ -675,9 +687,24 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     }
     
     //reschedule app
-    $scope.rescheduleApp = function(appId){
-        
+    $scope.rescheduleApp = function(app){
+        appDataService.loadVariableData();
+        appDataService.setSelectedDoctorID(app.doctor_id);
+        appDataService.saveVariableData();
+        dataFactory.deleteApp(app.appointment_id).then({
+            function(response){
+                console.log("success");
+            }
+            ,function(response){
+            console.log(response);
+        }
+        });
+        $window.location.href = './book-appointment.html';
     }
+}]);
+
+app.controller('profileController',['$scope','appDateService',function($scope,appDataService){
+    
 }]);
 
 app.filter('futureFilter',function(){
@@ -685,7 +712,6 @@ app.filter('futureFilter',function(){
         var curDate = new Date();
         var array=[];
         for(var i=0; i<items.length;i++){
-            console.log(items[i].doctor_id);
             //alert(items[i].doctor_id);
             var date=items[i].date;
             //console.log(date);

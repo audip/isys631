@@ -58,6 +58,7 @@
                                 <li class="nav-li"><a role="menuitem" tabindex="-1" href="reviews.html"><i class="fa fa-edit" aria-hidden="true"></i> Reviews</a></li>
                                 <li class="nav-li" ng-if="!loggedIn"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                                 <li class="nav-li" ng-if="!loggedIn"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
+                                <li class="nav-li" ng-if="loggedIn"><a href="profile.html">profile</a></li>
                                 <li class="nav-li" ng-if="loggedIn" ng-click="signoutButtonClick();"><a href=#>{{fullname}} | <i class="fa fa-sign-out" aria-hidden="true"></i> Signout</a></li>
                             </ul>
                             </div><!-- /.col -->

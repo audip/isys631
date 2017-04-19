@@ -633,7 +633,12 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
         if($scope.reviewsDataResponse.success == true)
         {
         $scope.reviews= $scope.reviewsDataResponse.reviews;
+            
+        if($scope.reviews.length == 0)
+        $scope.noReviewsFlag = true; 
+        else
         $scope.noReviewsFlag = false; 
+            
         };
     });
     

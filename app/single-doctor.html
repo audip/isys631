@@ -10,7 +10,7 @@
 	    <meta name="keywords" content="MediaCenter, Template, eCommerce">
 	    <meta name="robots" content="all">
 
-	    <title>Doctor Name</title>
+	    <title>Doctor Information</title>
 
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -40,10 +40,24 @@
 			<script src="assets/js/html5shiv.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+        <script src="https://rubaxa.github.io/Sortable/Sortable.js"></script>
+        <script src="https://rubaxa.github.io/Sortable/ng-sortable.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="assets/scripts/dirPagination.js"></script> 
 
  
 	</head>
-<body>
+<body ng-app="myApp" ng-controller="singleDoctorCntrl">
 <div class="wrapper">
 <!-- header area starts here--> 
  <!-- top nav bar starts here -->
@@ -77,7 +91,7 @@
         <tr><td><img src="./assets/images/custom/panda_logo_top.jpg" width="150"></td></tr>
         <tr><td>
         <span style="color:#94918f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Lets find some doctors for you!
+Here's {{doctor.name}} for you!
         </span>
         </td></tr>
         <tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="150"></td></tr>
@@ -121,7 +135,6 @@ Lets find some doctors for you!
 </div>
 </div>
 </div>
-</div>
 </header>
 <!-- header ends here -->
 <!-- header area ends here -->
@@ -131,21 +144,24 @@ Lets find some doctors for you!
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <img src="assets/images/products/product-gallery-01.jpg">
+                <img alt="" src={{doctor.photo_url}} />
             </div>
             <div class="col-xs-12 col-sm-6 col-md-9">
                 <div class="no-margin body-holder">
                 <div class="body">
-                        <div class="title">Lorem Ipsum</div>
-                        <div class="star-holder inline"><div class="star" data-score="4"></div></div>
-                        <div class="excerpt">is simply, and typesetting industry<br/>is simply, dummy text, and typesetting industry</div>
+                        <div class="title">{{doctor.name}}</div>
+                        <div star-rating rating-value= doctor.rating max=5></div>
+                        <div class="excerpt">{{doctor.qualification}}</div>
                         <hr>
-
                     <div class="excerpt">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare turpis non risus semper dapibus. Quisque eu vehicula turpis. Donec sodales lacinia eros, sit amet auctor tellus volutpat non.</p>
+                    <p>
+                                {{doctor.address}}<br>{{doctor.city}}, {{doctor.country}}
+                                <br>Phone: {{doctor.phone}}
+                                <br>Email: {{doctor.email}}
+                     </p>
                     </div>
 
-                    <a id="addto-cart" href="cart.html" class="le-button huge">Book appointment</a>
+                    <a id="addto-cart" href="cart.html" class="le-button huge" style="color:white">Book appointment</a>
                     
                 </div>
                 </div>
@@ -153,261 +169,56 @@ Lets find some doctors for you!
         </div>
     </div>
 </div>
-<!-- doctor description starts here -->
-
-        <!-- <div class="no-margin col-xs-12 col-sm-6 col-md-5 gallery-holder">
-            <div class="product-item-holder size-big single-product-gallery small-gallery">
-                 <div id="owl-single-product">
-                    <div class="single-product-gallery-item" id="slide1">
-                        <a data-rel="prettyphoto" href="images/products/product-gallery-01.jpg">
-                        <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-gallery-01.jpg" />
-                        </a>
-                    </div>
-
-            <div class="single-product-gallery-item" id="slide2">
-                <a data-rel="prettyphoto" href="images/products/product-gallery-01.jpg">
-                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-gallery-01.jpg" />
-                </a>
-            </div>
-
-            <div class="single-product-gallery-item" id="slide3">
-                <a data-rel="prettyphoto" href="images/products/product-gallery-01.jpg">
-                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-gallery-01.jpg" />
-                </a>
-            </div>
-        </div> 
-
-
-        <div class="single-product-gallery-thumbs gallery-thumbs">
-
-            <div id="owl-single-product-thumbnails">
-                <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide1">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-
-                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="1" href="#slide2">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-
-                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-
-                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="0" href="#slide1">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-
-                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="1" href="#slide2">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-
-                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-
-                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="0" href="#slide1">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-
-                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="1" href="#slide2">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-
-                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
-                    <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                </a>
-            </div>
-
-            <div class="nav-holder left hidden-xs">
-                <a class="prev-btn slider-prev" data-target="#owl-single-product-thumbnails" href="#prev"></a>
-            </div>
-            
-            <div class="nav-holder right hidden-xs">
-                <a class="next-btn slider-next" data-target="#owl-single-product-thumbnails" href="#next"></a>
-            </div>
-
-        </div> 
-
-    </div>
-</div> -->   
-
-<!-- appointment calendar starts here -->
-<div id="a-calendar">
-<div class="container">
-    <div class="row">
-        
-        <table class="table">
-
-        </table>
-    </div>
-</div>
-</div>
-<!-- appointment calendar ends here -->
+<!--
+Reviews:{{reviews}}
+    <br>
+Doctor: {{doctor}} 
+-->
 
 <!-- doctor tab starts here -->
 <section id="single-product-tab">
     <div class="container">
-        <div class="tab-holder">
-            
-            <ul class="nav nav-tabs simple" >
-                <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
-                <li><a href="#feedback" data-toggle="tab">Feedback (3)</a></li>
-            </ul>
-
-            
-            <div class="tab-content">
-                <!-- Description tab starts here -->
-                <div class="tab-pane active" id="info">
-                    <label>Location:</label>
-                    <span>predefined, chunks</span><br><br>
-                    <label>Hours:</label>
-                    <span>10:00 AM - 8:40 PM, MON - FRI</span><br><br>
-                    <span><strong><a href="#">Random Clinic</a></strong></span>
-                    <p> has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
-
-                </div>
-                <!-- Description tab ends here -->
+      <hr>
+    <h2>Reviews</h2>   
+            <div>
 
                 <!-- feedback tab starts here -->
-                <div class="tab-pane" id="feedback">
+                <div ng-show = "!noReviewsFlag">
                     <!-- comments area starts here -->
                     <div class="comments">
+                        <span ng-repeat = "review in reviews">
                         <div class="comment-item">
-                            <div class="row no-margin">
-                                <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
-                                    <div class="avatar">
-                                        <img alt="avatar" src="assets/images/default-avatar.jpg">
-                                    </div>
-                                </div>
-
                                 <div class="col-xs-12 col-lg-11 col-sm-10 no-margin">
                                     <div class="comment-body">
                                         <div class="meta-info">
                                             <div class="author inline">
-                                                <a href="#" class="bold">John Smith</a>
+                                                <a href="#" class="bold">{{review.full_name}}</a>
                                             </div>
-                                            <div class="star-holder inline">
-                                                <div class="star" data-score="4"></div>
-                                            </div>
+                                            
+                                            <div star-rating rating-value=review.score max=5></div>
+                                           
+<!--
                                             <div class="date inline pull-right">
                                                 12.07.2013
                                             </div>
+-->
                                         </div>
                                         <p class="comment-text">
-                                            Integer id purus ultricies nunc tincidunt congue vitae nec felis. Vivamus sit amet nisl convallis, faucibus risus in, suscipit sapien. Vestibulum egestas interdum tellus id venenatis. 
+                                            {{review.comment}} 
                                         </p>
                                     </div>
                                 </div>
 
                             </div>
-                        </div>
-
-                        <div class="comment-item">
-                            <div class="row no-margin">
-                                <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
-                                    <div class="avatar">
-                                        <img alt="avatar" src="assets/images/default-avatar.jpg">
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-lg-11 col-sm-10 no-margin">
-                                    <div class="comment-body">
-                                        <div class="meta-info">
-                                            <div class="author inline">
-                                                <a href="#" class="bold">Jane Smith</a>
-                                            </div>
-                                            <div class="star-holder inline">
-                                                <div class="star" data-score="5"></div>
-                                            </div>
-                                            <div class="date inline pull-right">
-                                                12.07.2013
-                                            </div>
-                                        </div>
-                                        <p class="comment-text">
-                                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarras
-                                        </p>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="comment-item">
-                            <div class="row no-margin">
-                                <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
-                                    <div class="avatar">
-                                        <img alt="avatar" src="assets/images/default-avatar.jpg">
-                                    </div><!-- /.avatar -->
-                                </div><!-- /.col -->
-
-                                <div class="col-xs-12 col-lg-11 col-sm-10 no-margin">
-                                    <div class="comment-body">
-                                        <div class="meta-info">
-                                            <div class="author inline">
-                                                <a href="#" class="bold">John Doe</a>
-                                            </div>
-                                            <div class="star-holder inline">
-                                                <div class="star" data-score="3"></div>
-                                            </div>
-                                            <div class="date inline pull-right">
-                                                12.07.2013
-                                            </div>
-                                        </div>
-                                        <p class="comment-text">
-                                            kages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years,
-                                        </p>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- comments area ends here -->
-
-                    <!-- feedback form starts here -->
-                    <div class="add-review row">
-                        <div class="col-sm-8 col-xs-12">
-                            <div class="new-review-form">
-                                <h2>Add review</h2>
-                                <form id="contact-form" class="contact-form" method="post" >
-                                    <div class="row field-row">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <label>Name</label>
-                                            <input class="le-input" >
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6">
-                                            <label>Email</label>
-                                            <input class="le-input" >
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="field-row star-row">
-                                        <label>Your rating</label>
-                                        <div class="star-holder">
-                                            <div class="star big" data-score="0"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="field-row">
-                                        <label>Your feedback</label>
-                                        <textarea rows="8" class="le-input"></textarea>
-                                    </div>
-
-                                    <div class="buttons-holder">
-                                        <button type="submit" class="le-button huge">submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- feedback form ends here -->
+                        </span>
+                        </div><!-- comments area ends here -->
                 </div>
-                <!-- feedback tab ends here -->
-            </div>
+                <div ng-show = "noReviewsFlag">
+                No reviews for this doctor yet.
+                </div>
+                    
         </div>
-    </div>
+            </div>
 </section>
 <!-- doctor tab ends here -->
 <!-- single doctor ends here -->
@@ -483,58 +294,8 @@ Lets find some doctors for you!
 
         </div>
     </div>
-
-</footer>
-<!-- footer ends here -->
-
-</div><!-- /.wrapper -->
-
-	<!-- For demo purposes – can be removed on production -->
-	
-	<!-- <div class="config open">
-		<div class="config-options">
-			<h4>Pages</h4>
-			<ul class="list-unstyled animate-dropdown">
-				<li class="dropdown">
-					<button class="dropdown-toggle btn le-button btn-block" data-toggle="dropdown">View Pages</button>
-					<ul class="dropdown-menu">
-												<li><a href="index.html">Home</a></li>
-												<li><a href="index-2.html">Home Alt</a></li>
-												<li><a href="category-grid.html">Category - Grid/List</a></li>
-												<li><a href="category-grid-2.html">Category 2 - Grid/List</a></li>
-												<li><a href="single-product.html">Single Product</a></li>
-												<li><a href="single-product-sidebar.html">Single Product with Sidebar</a></li>
-												<li><a href="cart.html">Shopping Cart</a></li>
-												<li><a href="checkout.html">Checkout</a></li>
-												<li><a href="about.html">About Us</a></li>
-												<li><a href="contact.html">Contact Us</a></li>
-												<li><a href="blog.html">Blog</a></li>
-												<li><a href="blog-fullwidth.html">Blog Full Width</a></li>
-												<li><a href="blog-post.html">Blog Post</a></li>
-												<li><a href="faq.html">FAQ</a></li>
-												<li><a href="terms.html">Terms & Conditions</a></li>
-												<li><a href="authentication.html">Login/Register</a></li>
-											</ul>	
-				</li>
-			</ul>
-			<h4>Header Styles</h4>
-			<ul class="list-unstyled">
-				<li><a href="single-product.html1">Header 1</a></li>
-				<li><a href="single-product.html">Header 2</a></li>
-			</ul>
-			<h4>Colors</h4>
-			<ul class="list-unstyled">
-				<li><a class="changecolor green-text" href="#" title="Green color">Green</a></li>
-                <li><a class="changecolor blue-text" href="#" title="Blue color">Blue</a></li>
-                <li><a class="changecolor red-text" href="#" title="Red color">Red</a></li>
-                <li><a class="changecolor orange-text" href="#" title="Orange color">Orange</a></li>
-                <li><a class="changecolor navy-text" href="#" title="Navy color">Navy</a></li>
-                <li><a class="changecolor dark-green-text" href="#" title="Darkgreen color">Dark Green</a></li>
-			</ul>
-		</div>
-		<a class="show-theme-options" href="#"><i class="fa fa-wrench"></i></a>
-	</div> -->
-	<!-- For demo purposes – can be removed on production : End -->
+    </div>
+    <!-- footer ends here --></footer></div></body><!-- /.wrapper -->
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
 	<script src="assets/js/jquery-1.10.2.min.js"></script>
@@ -554,26 +315,27 @@ Lets find some doctors for you!
     <script src="assets/js/wow.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
 
-	<!-- For demo purposes – can be removed on production -->
-	
-	<!-- <script src="switchstylesheet/switchstylesheet.js"></script> -->
-	
-	<script>
-		$(document).ready(function(){ 
-			$(".changecolor").switchstylesheet( { seperator:"color"} );
-			$('.show-theme-options').click(function(){
-				$(this).parent().toggleClass('open');
-				return false;
-			});
-		});
 
-		$(window).bind("load", function() {
-		   $('.show-theme-options').delay(2000).trigger('click');
-		});
-	</script>
-	<!-- For demo purposes – can be removed on production : End -->
+<script src="http://w.sharethis.com/button/buttons.js"></script>
+<script src="http://w.sharethis.com/button/buttons.js"></script>
+<script src="assets/scripts/angularController.js"></script>
+<script src="assets/js/jquery-1.10.2.min.js"></script>
+<script src="assets/js/jquery-migrate-1.2.1.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+<script src="assets/js/gmap3.min.js"></script>
+<script src="assets/js/bootstrap-hover-dropdown.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/css_browser_selector.min.js"></script>
+<script src="assets/js/echo.min.js"></script>
+<script src="assets/js/jquery.easing-1.3.min.js"></script>
+<script src="assets/js/bootstrap-slider.min.js"></script>
+<script src="assets/js/jquery.raty.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.min.js"></script>
+<script src="assets/js/jquery.customSelect.min.js"></script>
+<script src="assets/js/wow.min.js"></script>
+<script src="assets/js/scripts.js"></script>
+<script src="https://w.sharethis.com/button/buttons.js"></script>
 
-	<script src="http://w.sharethis.com/button/buttons.js"></script>
 
-</body>
 </html>

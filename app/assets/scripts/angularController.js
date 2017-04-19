@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module("myApp", ["ngRoute","ngMaterial","ng-sortable","ngMessages"]);
+var app = angular.module("myApp", ["ngRoute","ngMaterial","ng-sortable","ngMessages",'angularUtils.directives.dirPagination']);
 
 function VariableData() {
     this.username = '';
@@ -298,7 +298,14 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
         }*/
 
         return $http.delete(restUrl+"/appointment/"+id);
-    }
+    };
+    
+    dataFactory.getDoctorReviews = function (doctor_id){
+        return $http.get(restUrl+'/review?id='+doctor_id+'&user_type=doctor').then(function(response){
+            return response.data;})
+    }; 
+    
+    
     
     
     return dataFactory;
@@ -567,6 +574,68 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
     };    
     
 }]);
+
+app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
+    
+console.log('here');
+    
+//Populating Test Data - Should be commented after integration
+appDataService.setSelectedDoctorID(4);
+appDataService.setUserId(159);
+appDataService.saveVariableData();
+//    appDataService.loadVariableData();
+ 
+    
+    $scope.patientId = appDataService.getUserId();
+    $scope.selectedDoctorID = appDataService.getSelectedDoctorID();
+    
+    var doctorDataResponse = dataFactory.getDoctorInfo($scope.selectedDoctorID);
+    doctorDataResponse.then(function(result){
+        $scope.doctorDataResponse = result;
+        if($scope.doctorDataResponse.success == true)
+        {
+        $scope.doctor= $scope.doctorDataResponse.info;
+        $scope.doctor.photo_url = "http://s-media-cache-ak0.pinimg.com/736x/e2/9f/ee/e29fee57b73f61a9f6e1718185ebe738.jpg";
+
+        };
+    });
+    
+    
+    $scope.reviews = [];
+    $scope.noReviewsFlag = true;
+    
+    var reviewsDataResponse = dataFactory.getDoctorReviews($scope.selectedDoctorID);
+    reviewsDataResponse.then(function(result){
+        $scope.reviewsDataResponse = result;
+        if($scope.reviewsDataResponse.success == true)
+        {
+        $scope.reviews= $scope.reviewsDataResponse.reviews;
+        $scope.noReviewsFlag = false; 
+        };
+    });
+    
+    $scope.selectSlotClick = function (selectedDate, selectedTime) {
+    $scope.selectedDate = selectedDate;
+    $scope.selectedTime = selectedTime; 
+    };
+    
+    $scope.bookButtonClick = function () {
+        
+    var bookAppointment = dataFactory.postAppointment($scope.patientId,$scope.selectedDoctorID,$scope.selectedDate,$scope.selectedTime);
+        
+    bookAppointment.then(function(result){
+        $scope.result = result;
+        
+        if($scope.result.success == true)
+        {
+          $window.location.href = './view-appointments.html';      
+        }
+    });
+        
+    };    
+    
+}]);
+
 
 //Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant. Load user data from the appdataservice
 app.controller('appointmentController',['$scope','AppFactory','appDataService','$window','dataFactory',function($scope,AppFactory,appDataService,$window,dataFactory){

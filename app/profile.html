@@ -52,6 +52,7 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="assets/scripts/dirPagination.js"></script>
         <script src="assets/scripts/angularController.js"></script>
+        <script type="text/javascript" src="assets/bower_components/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
         <style>
             /*button:disabled{
                 background-color: #cccccc;
@@ -115,7 +116,7 @@
 					<section class="section register inner-left-xs">
 					<h2 class="bordered">View your profile</h2>
                     <div>
-                        <img scr="" alt="profile img" style="width:20%">
+                        <img ng-src={{user.photo_url}} alt="profile img" style="width:30%">
                     </div>
 					<form role="form" class="register-form cf-style-1" name="registerForm" novalidate>
 						<div class="field-row">
@@ -128,11 +129,11 @@
                             <input type="email" class="le-input" id="email" placeholder="john@xyz.com" name="email" ng-model="user.email" required disabled>
                             <span ng-show="registerForm.email.$invalid && !registerForm.email.$untouched" class="help-block">Please enter a valid email address.</span>
                         </div><!-- /.field-row -->
-						<div class="field-row">
+						<!-- <div class="field-row">
                             <label for="user_name">User Name</label>
                             <input type="text" class="le-input" id="user_name" placeholder="Enter user name" name="user_name" ng-model="user.username" required disabled>
                             <span ng-show="registerForm.user_name.$error.required && !registerForm.user_name.$untouched" class="help-block">Your user name is required.</span>
-                        </div><!-- /.field-row -->
+                        </div> -->
 						<!--<div class="field-row">
                             <label for="password">Password</label>
                             <input type="password" class="le-input" id="password" name="password" ng-model="user.password" required disabled>
@@ -140,7 +141,7 @@
                         </div>-->
 						<div class="field-row">
                             <label for="phone">Phone</label>
-                            <input type="number" class="le-input" id="phone" name="phone" ng-model="user.phone" required disabled>
+                            <input class="le-input" id="phone" name="phone" ng-model="user.phone" required disabled>
                             <span ng-show="registerForm.phone.$error.required && !registerForm.phone.$untouched" class="help-block">Your phone number is required.</span>
                         </div><!-- /.field-row -->
 						
@@ -171,7 +172,18 @@
                             <button type="submit" class="le-button huge" ng-click="signupButtonClick();" ng-disabled=registerForm.$invalid>Sign Up</button>
                         </div>-->
 					</form>
-
+                    <section class="section" ng-show="userType==='doctor'">
+                        <h2 class="bordered">Select your available time slots</h2>
+                        <div ng-repeat="choice in choices">
+                            <select ng-model="choice.date">
+                                <option ng-repeat="date in dateData" value="{{date}}">{{date}}</option>
+                            </select>
+                            <div ng-dropdown-multiselect="" options="timeData" selected-model="choice.time"></div>
+                            <button class="btn le-button" ng-show="$last" ng-click="removeChoice()">-</button>
+                        </div>
+                        <button class="btn le-button" ng-click="addNewChoice()">Add fields</button>
+                        <button class="btn le-button" ng-click="submitTimeSlots()">Submit</button>
+                    </section>
 					
 
 				</section><!-- /.sign-in -->

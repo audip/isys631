@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module("myApp", ["ngRoute","ngMaterial","ng-sortable","ngMessages",'angularUtils.directives.dirPagination']);
+var app = angular.module("myApp", ["ngRoute","ngMaterial","ng-sortable","ngMessages",'angularUtils.directives.dirPagination','angularjs-dropdown-multiselect']);
 
 function VariableData() {
     this.username = '';
@@ -282,6 +282,28 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
             score:data.score,
             comment:data.comment,
             user_type:"patient"
+    }
+    });
+    
+    };
+    
+    dataFactory.postAvailability=function(id,slots){
+        return $http({
+    method: 'POST',
+    url: restUrl+'/availability',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    },
+    data: {
+        id:id,
+        /*available_slots:[
+            {"date":"2017-04-25","time":"1300"}
+        ]*/
+        available_slots:JSON.stringify(slots)
     }
     });
     
@@ -793,7 +815,128 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     }
 }]);
 
-app.controller('profileController',['$scope','appDateService',function($scope,appDataService){
+app.controller('profileController',['$scope','appDataService','dataFactory',function($scope,appDataService,dataFactory){
+    appDataService.loadVariableData();
+    $scope.userId=appDataService.getUserId();
+    $scope.userType=appDataService.getUserType();
+    $scope.user;
+    $scope.choices=[{id:1,date:"",time:[]},{id:2,date:"",time:[]}];
+    $scope.timeData=[{id:"0900",label:"9:00 AM"},{id:"1000",label:"10:00 AM"},{id:"1100",label:"11:00 AM"},{id:"1200",label:"12:00 PM"},{id:"1300",label:"1:00 PM"},{id:"1400",label:"2:00 PM"},{id:"1500",label:"3:00 PM"},{id:"1600",label:"4:00 PM"},{id:"1700",label:"5:00 PM"},{id:"1800",label:"6:00 PM"}];
+    $scope.dateData=[];
+    $scope.newAvailability=[];
+    $scope.availableSlots=[];
+    
+    //get user info
+    if($scope.userType==="doctor"){
+        dataFactory.getDoctorInfo($scope.userId).then(
+            function(response){
+                $scope.user=response.info;
+            },
+            function(response){
+                console.log("error:"+response);
+            }
+        );
+    }
+    else{
+        dataFactory.getPatientInfo($scope.userId).then(
+            function(response){
+                $scope.user=response.info;
+            },
+            function(response){
+                console.log("error:"+response);
+            }
+        );
+    }
+    
+    //load date data
+    var today=new Date();
+    $scope.addDays = function(date,days) {
+        var dat = new Date(date);
+        dat.setDate(date.getDate() + days);
+        return dat;
+    }
+    $scope.processDate=function(date){
+        var str=date.getFullYear().toString()+"-";
+        if(date.getMonth()+1<10){
+            str=str+"0"+(date.getMonth()+1).toString()+"-";
+        }
+        else{
+            str=str+(date.getMonth()+1).toString()+"-";
+        }
+        if(date.getDate()<10){
+            str=str+"0"+date.getDate().toString();
+        }
+        else{
+            str=str+date.getDate().toString();
+        }
+        return str;
+    }
+    for(var i=1;i<=14;i++){
+        var date=$scope.addDays(today,i);
+        if(date.getDay()!=6 && date.getDay()!=0){
+            var dateStr=$scope.processDate(date);
+            $scope.dateData.push(dateStr);
+        }
+    }
+    
+    
+    //get available slots
+    if($scope.userType="doctor"){
+        dataFactory.getDoctorAvailability($scope.userId).then(
+            function(response){
+                $scope.availableSlots=response.available_slots;
+                console.log($scope.availableSlots);
+            },
+            function(response){
+                console.log("error:"+response);
+            }
+        );
+    }
+    
+    
+    //add and delete field methods
+    $scope.removeChoice = function(){
+        var lastItem = $scope.choices.length-1;
+        $scope.choices.splice(lastItem);
+    }
+    $scope.addNewChoice = function() {
+        var newItemNo = $scope.choices.length+1;
+        $scope.choices.push({'id':'choice'+newItemNo});
+    };
+    
+    //post time slots
+    
+    $scope.submitTimeSlots=function(){
+        /*if($scope.choices.length==0){
+            
+        }*/
+        
+        //gather data
+        for(var i=0;i<$scope.choices.length;i++){
+            for(var j=0;j<$scope.choices[i].time.length;j++){
+                var slot={
+                    date:$scope.choices[i].date,
+                    time:$scope.choices[i].time[j].id
+                }
+                //check overlapping
+                /*if(!$scope.availableSlots.includes(slot)){
+                    $scope.newAvailability.push(slot);
+                }*/
+                $scope.newAvailability.push(slot);
+            }
+        }
+        console.log($scope.newAvailability);
+        dataFactory.postAvailability($scope.userId,$scope.newAvailability).then(
+            function(response){
+                console.log("success");
+                console.log(response);
+            },
+            function(response){
+                console.log(response);
+            }
+        );
+        
+    }
     
 }]);
 

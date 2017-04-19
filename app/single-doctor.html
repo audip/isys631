@@ -186,7 +186,7 @@ Doctor: {{doctor}}
                 <div ng-show = "!noReviewsFlag">
                     <!-- comments area starts here -->
                     <div class="comments">
-                        <span ng-repeat = "review in reviews">
+                        <span dir-paginate = "review in reviews | itemsPerPage:5">
                         <div class="comment-item">
                                 <div class="col-xs-12 col-lg-11 col-sm-10 no-margin">
                                     <div class="comment-body">
@@ -211,6 +211,11 @@ Doctor: {{doctor}}
 
                             </div>
                         </span>
+                        <dir-pagination-controls
+       max-size="5"
+       direction-links="true"
+       boundary-links="true" >
+</dir-pagination-controls>
                         </div><!-- comments area ends here -->
                 </div>
                 <div ng-show = "noReviewsFlag">

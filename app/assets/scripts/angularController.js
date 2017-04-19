@@ -374,6 +374,8 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     $scope.searchTerm = appDataService.getSearchTerm();
     $scope.searchLocation = appDataService.getSearchLocation();
     
+    $scope.emptyResult = true;
+    
     var searchResult = dataFactory.getSearchResult($scope.searchLocation,$scope.searchTerm);
     searchResult.then(function(result){
     $scope.searchResult = result;
@@ -381,7 +383,13 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     appDataService.setSearchResult($scope.searchResult);
         
     if ($scope.searchResult.success == true){
-    $scope.doctorList = $scope.searchResult.search;  
+    $scope.doctorList = $scope.searchResult.search;
+    
+    if($scope.doctorList.length == 0)
+    {$scope.emptyResult = true;} 
+    else
+    {$scope.emptyResult = false;}
+    
     };
     
     });
@@ -400,6 +408,13 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     $scope.signoutButtonClick = function () {
     appDataService.resetVariableData();
     $window.location.href = './index.html';
+    };
+    
+    $scope.seeReviewsButtonClick = function (value) {
+    appDataService.setSelectedDoctorID(value);
+    console.log('Saving selected Doctor:'+value);
+    appDataService.saveVariableData();
+    $window.location.href = './single-doctor.html';
     };
     
     $scope.bookAppointmentClick = function (value) {
@@ -513,8 +528,8 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
 app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
     
     //Populating Test Data - Should be commented after integration
-//   appDataService.setSelectedDoctorID(4);
-//   appDataService.setUserId(159);
+//  appDataService.setSelectedDoctorID(4);
+//  appDataService.setUserId(159);
 //  appDataService.saveVariableData();
     appDataService.loadVariableData();
  
@@ -523,6 +538,8 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
     $scope.selectedDoctorID = appDataService.getSelectedDoctorID();
     
     $scope.selectedValue = 2;
+    
+    $scope.noSlotsFlag = true;
     
     var patientDataResponse = dataFactory.getPatientInfo($scope.patientId);
     patientDataResponse.then(function(result){
@@ -546,6 +563,12 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
                 if($scope.availableSlotsDataResponse.success == true)
                 {
                 $scope.availableSlots = $scope.availableSlotsDataResponse.available_slots;
+                
+                    if(scope.availableSlots.length == 0)
+                    {$scope.noSlotsFlag = true;}
+                    else
+                    {$scope.noSlotsFlag = false;}
+                
                 };
             });
             
@@ -577,13 +600,14 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
 
 app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
     
-console.log('here');
+
     
 //Populating Test Data - Should be commented after integration
-appDataService.setSelectedDoctorID(4);
-appDataService.setUserId(159);
-appDataService.saveVariableData();
-//    appDataService.loadVariableData();
+//appDataService.setSelectedDoctorID(4);
+//appDataService.setUserId(159);
+//appDataService.saveVariableData();
+    appDataService.loadVariableData();
+    console.log('Retrieved Doctor Id:'+ appDataService.getSelectedDoctorID());
  
     
     $scope.patientId = appDataService.getUserId();
@@ -595,44 +619,23 @@ appDataService.saveVariableData();
         if($scope.doctorDataResponse.success == true)
         {
         $scope.doctor= $scope.doctorDataResponse.info;
-        $scope.doctor.photo_url = "http://s-media-cache-ak0.pinimg.com/736x/e2/9f/ee/e29fee57b73f61a9f6e1718185ebe738.jpg";
+        //$scope.doctor.photo_url = "http://s-media-cache-ak0.pinimg.com/736x/e2/9f/ee/e29fee57b73f61a9f6e1718185ebe738.jpg";
 
         };
     });
     
-    
-    $scope.reviews = [];
-    $scope.noReviewsFlag = true;
-    
-    var reviewsDataResponse = dataFactory.getDoctorReviews($scope.selectedDoctorID);
-    reviewsDataResponse.then(function(result){
-        $scope.reviewsDataResponse = result;
-        if($scope.reviewsDataResponse.success == true)
-        {
-        $scope.reviews= $scope.reviewsDataResponse.reviews;
-        $scope.noReviewsFlag = false; 
-        };
-    });
-    
-    $scope.selectSlotClick = function (selectedDate, selectedTime) {
-    $scope.selectedDate = selectedDate;
-    $scope.selectedTime = selectedTime; 
+    $scope.bookAppointmentClick = function () {
+    if(appDataService.getUserId == '')
+    {
+     $window.location.href = './login.html';   
+    }
+    else{
+    //console.log('Doctor Id:'+value);
+    //appDataService.setSelectedDoctorID(value);
+    //appDataService.saveVariableData();
+    $window.location.href = './book-appointment.html';
+    }
     };
-    
-    $scope.bookButtonClick = function () {
-        
-    var bookAppointment = dataFactory.postAppointment($scope.patientId,$scope.selectedDoctorID,$scope.selectedDate,$scope.selectedTime);
-        
-    bookAppointment.then(function(result){
-        $scope.result = result;
-        
-        if($scope.result.success == true)
-        {
-          $window.location.href = './view-appointments.html';      
-        }
-    });
-        
-    };    
     
 }]);
 

@@ -190,7 +190,8 @@
                                     <!-- ========================================= SIDEBAR : END ========================================= -->
                                     <!-- ========================================= CONTENT ========================================= -->
                                     <div class="col-xs-12 col-sm-9 no-margin wide sidebar">
-                                      <section id="search_result">
+                                    <span ng-show = "!emptyResult">
+                                        <section id="search_result">
                                         <div class="grid-list-products">
                                           <h2 class="section-title">Search Results for : '{{searchTerm}}'</h2>
                                           <div class="control-bar">
@@ -205,7 +206,7 @@
                                             </div><!-- /.control-bar -->
                                             <div>
                                               <div>
-                                                <div ng-repeat="doctor in doctorList">
+                                                <div dir-paginate="doctor in doctorList | itemsPerPage:5">
                                                   <div class="product-item product-item-holder">
                                                     <div class="row">
                                                       <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 listing-center" style = "padding: 10px 19px 0px;">
@@ -224,6 +225,7 @@
                                                             </div>
                                                             <div class="excerpt listing-center" style = "font-size:8px; padding-top:10px;">
                                                               <h5>{{doctor.address}}</h5>
+                                                            <button class="btn btn-default" style="margin-top:10px" ng-click="seeReviewsButtonClick(doctor.doctor_id)">See Reviews</button>
                                                             </div>
                                                           </div>
                                                           </div><!-- /.body-holder -->
@@ -233,7 +235,7 @@
                                                               <div star-rating rating-value=doctor.rating max=5></div>
                                                               <div class="availability listing-center"><label>availability:</label><span class="available">  Available this week</span></div>
                                                               <button class="le-button listing-center" style="color:white" ng-click="bookAppointmentClick(doctor.doctor_id)"><i class="fa fa-bolt" aria-hidden="true"></i> Book Appointment</button>
-                                                              
+                    
                                                             </div>
                                                             </div><!-- /.price-area -->
                                                             </div><!-- /.row -->
@@ -244,24 +246,30 @@
                                                         <div class="pagination-holder">
                                                           <div class="row">
                                                             <div class="col-xs-12 col-sm-6 text-left">
-                                                              <ul class="pagination">
-                                                                <li class="current"><a  href="#">1</a></li>
-                                                                <li><a href="#">2</a></li>
-                                                                <li><a href="#">3</a></li>
-                                                                <li><a href="#">4</a></li>
-                                                                <li><a href="#">next</a></li>
-                                                              </ul>
+                                                              <dir-pagination-controls
+                                                            max-size="5"
+                                                            direction-links="true"
+                                                            boundary-links="true" >
+                                                            </dir-pagination-controls>
                                                             </div>
+<!--
                                                             <div class="col-xs-12 col-sm-6">
                                                               <div class="result-counter">
                                                                 Showing <span>1-9</span> of <span>11</span> results
                                                               </div>
                                                             </div>
+-->
                                                           </div>
                                                         </div>
                                                       </div>
                                                     </div>
-                                                  </section></div>
+                                                  </section>
+                                    </span>
+                                        <span ng-show = "emptyResult">
+                                        <p style="margin-top: 50px;">No results found!</p>
+                                        <p>Try search terms like 'Dentist' etc.</p>
+                                        </span>
+                                    </div>
                                                 </div>
                                               </div>
                                               

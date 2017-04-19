@@ -221,6 +221,7 @@ Lets find some doctors for you!
                         <div class="row field-row">
                             <div class="col-xs-12 col-sm-6">
                                <label>Time Slot</label>
+                            <span ng-show = "!noSlotsFlag">
                             <table>
                                 <tr ng-repeat="slot in availableSlots">   
                                     <td>
@@ -231,6 +232,10 @@ Lets find some doctors for you!
                                     <td>{{slot.date}} {{slot.time}}</td>
                                 </tr>
                             </table>
+                            </span>
+                            <span ng-show="noSlotsFlag">
+                            No slots available.
+                            </span>
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <label>Reasons for Appointment</label>

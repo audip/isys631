@@ -13,19 +13,16 @@
 	    <title>Book appointment</title>
 
 	    <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="assets/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	    
 	    <link rel="stylesheet" href="assets/css/main.css">
 	    <link rel="stylesheet" href="assets/css/owl.carousel.css">
 		<link rel="stylesheet" href="assets/css/owl.transitions.css">
 		<link rel="stylesheet" href="assets/css/animate.min.css">
-
 		<link rel="stylesheet" href="assets/css/config.css">
         <link rel="stylesheet" href="assets/css/custom-dfm.css">
 		<link href="assets/css/blue.css" rel="stylesheet" title="Blue color">
   
-  <link rel="stylesheet" href="assets/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 
 	    <!-- Fonts -->
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Kaushan+Script' rel='stylesheet' type='text/css'>
@@ -119,33 +116,41 @@
                                 <label>Full Name</label>
                                 <input class="le-input" ng-model = "patient.name" readonly>
                             </div>
-                            
+                            <div class="col-xs-12 col-sm-6">
+                                <label>Reasons for Appointment</label>
+                                <textarea rows="2" class="le-input"  ng-model="patient.reason"></textarea>
+                            </div>
                         </div>
                         
                                              
                         
                         <div class="row field-row">
-                            <div class="col-xs-12 col-sm-6">
+                            <div class="col-xs-12 col-sm-6 col-md-12">
                                <label>Time Slot</label>
                             <div ng-show = "!noSlotsFlag">
-                            <table>
+                            <!-- <table>
                                 <tr ng-repeat="slot in availableSlots">   
                                     <td style="padding:0px 20px">
-                                        <button type="button" name="test" value="1" ng-model = "selectedValue" ng-click = "selectSlotClick(slot.date,slot.time);" style="color:white; background-color:#2ecc71; margin-top: 2px;">{{slot.date}} {{slot.time}}
-                                        </button>
+                                        <button type="button" name="test" value="1" ng-model = "selectedValue" ng-click = "selectSlotClick(slot.date,slot.time);" style="color:white; background-color:#2ecc71; margin-top: 2px;">
+                                        </button> {{slot.date}} {{slot.time}}
                                     </td>
                                     
                                 </tr>
+                            </table> -->
+                            <div style="width: 100%">
+                                <span ng-repeat="slot in availableSlots">  
+                                    <button type="button" name="test" class="timeslot-button" value="1" ng-model = "selectedValue" ng-click = "selectSlotClick(slot.date,slot.time);">
+                                       {{slot.date}} {{slot.time}}
+                                    </button>                                    
+                                </span>
                             </table>
+                            </div>
                             </div>
                             <span ng-show="noSlotsFlag">
                             No slots available.
                             </span>
                             </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <label>Reasons for Appointment</label>
-                                <textarea rows="8" class="le-input"  ng-model="patient.reason"></textarea>
-                            </div>
+                            
                         </div>
 
                     </div>

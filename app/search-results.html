@@ -165,10 +165,14 @@
                                     <h2>Filter</h2>
                                     <hr>
                                     <ul>
-                                      <li><input checked="checked" class="le-checkbox" type="checkbox"  /> <label>All doctors</label> <span class="pull-right">(2)</span></li>
+                                      <!-- <li><input checked="checked" class="le-checkbox" type="checkbox"  /> <label>All doctors</label> <span class="pull-right">(2)</span></li>
                                       <li><input  class="le-checkbox" type="checkbox" /> <label>5+ years experience</label> <span class="pull-right">(8)</span></li>
                                       <li><input  class="le-checkbox" type="checkbox" /> <label>Well rated</label> <span class="pull-right">(1)</span></li>
-                                      <li><input  class="le-checkbox" type="checkbox" /> <label>Available this week</label> <span class="pull-right">(5)</span></li>
+                                      <li><input  class="le-checkbox" type="checkbox" /> <label>Available this week</label> <span class="pull-right">(5)</span></li> -->
+                                      <li><input class="le-checkbox" type="checkbox" ng-model="allFilter"/> <label>All doctors</label> <span class="pull-right">(2)</span></li>
+                                        <li><input  class="le-checkbox" type="checkbox" ng-model="expFilter"/> <label>5+ years experience</label> <span class="pull-right">(8)</span></li>
+                                        <li><input  class="le-checkbox" type="checkbox" ng-model="ratingFilter"/> <label>Well rated</label> <span class="pull-right">(1)</span></li>
+
                                     </ul>
                                     </div><!-- /.category-filter -->
                                     <!-- <div class="price-filter">
@@ -197,17 +201,13 @@
                                           <h2 class="section-title">Search Results for : '{{searchTerm}}'</h2>
                                           <div class="control-bar">
                                             <div id="popularity-sort" class="le-select" >
-                                              <select data-placeholder="sort by popularity">
-                                                <option value="1">Popularity: Ascending</option>
-                                                <option value="2">Popularity: Descending</option>
-                                                <option value="3">Consultation Fee: Ascending</option>
-                                                <option value="3">Consultation Fee: Descending</option>
+                                              <select data-placeholder="sort by popularity" ng-options="option for option in optionList" ng-model="selectedOption" ng-change="sortByOption()">
                                               </select>
                                             </div>
                                             </div><!-- /.control-bar -->
                                             <div>
                                               <div>
-                                                <div dir-paginate="doctor in doctorList | itemsPerPage:5">
+                                                <div dir-paginate="doctor in doctorList | searchResultFilter:allFilter:expFilter:ratingFilter | orderBy:sortText | itemsPerPage:5">
                                                   <div class="product-item product-item-holder">
                                                     <div class="row">
                                                       <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 listing-center" style = "padding: 10px 19px 0px;">

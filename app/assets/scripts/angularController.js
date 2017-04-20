@@ -452,6 +452,24 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     }
     };
     
+    //orderby
+    $scope.optionList=['Popularity: Descending','Experience: Descending'];
+    $scope.selectedOption="Popularity: Descending";
+    $scope.sortText="-rating";
+    $scope.sortByOption=function(){
+        if($scope.selectedOption === "Popularity: Descending"){
+            $scope.sortText="-rating";
+        }
+        else{
+            $scope.sortText="-experience";
+        }
+    };
+    
+    //filter
+    $scope.allFilter=true;
+    $scope.expFilter=false;
+    $scope.ratingFilter=false;
+    
 }]);
 
 app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
@@ -976,6 +994,50 @@ app.filter('pastFilter',function(){
             }
         }
         return array;
+    }
+});
+
+app.filter('searchResultFilter',function(){
+    return function (items,arg1,arg2,arg3){
+        var array=[];
+        if(arg1){
+            return items;
+        }
+        else{
+            if(arg2&&arg3){
+                for(var i=0; i<items.length;i++){
+                    if(items[i].experience>=5 || items[i].rating>=4){
+                        array.push(items[i]);
+                    }
+                }
+                console.log("well rate and experience");
+                return array;
+            }
+            else if(arg2){
+                for(var i=0; i<items.length;i++){
+                    if(items[i].experience>=5){
+                        array.push(items[i]);
+                    }
+                   
+                }
+                console.log("experience");
+                   return array; 
+            }
+            else if(arg3){
+                for(var i=0; i<items.length;i++){
+                    if(items[i].rating>=4){
+                        array.push(items[i]);
+                    }
+                   
+                }
+                 console.log("well rate");
+                return array; 
+            }
+            else{
+                return items;
+            }
+        }
+        
     }
 });
 

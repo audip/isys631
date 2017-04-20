@@ -440,7 +440,8 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     };
     
     $scope.bookAppointmentClick = function (value) {
-    if(appDataService.getUserId == '')
+    console.log('UserId: '+appDataService.getUserId);
+    if(!$scope.loggedIn)
     {
      $window.location.href = './login.html';   
     }
@@ -475,6 +476,8 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
 app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
     
     appDataService.loadVariableData();
+    
+    $scope.loggedIn = appDataService.getLoggedInFlag();
     
     $scope.username = "";
     $scope.password = "";
@@ -521,6 +524,7 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     $scope.errorFlag = true;
     $scope.errorMessage = "";
     $scope.reply = "";
+    $scope.loggedIn = appDataService.getLoggedInFlag();
     
     $scope.signupButtonClick = function (){
     
@@ -572,6 +576,8 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
 //  appDataService.setUserId(159);
 //  appDataService.saveVariableData();
     appDataService.loadVariableData();
+    
+    $scope.loggedIn = appDataService.getLoggedInFlag();
  
     
     $scope.patientId = appDataService.getUserId();
@@ -647,6 +653,9 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
 //appDataService.setUserId(159);
 //appDataService.saveVariableData();
     appDataService.loadVariableData();
+    
+    $scope.loggedIn = appDataService.getLoggedInFlag();
+    
     console.log('Retrieved Doctor Id:'+ appDataService.getSelectedDoctorID());
  
     
@@ -683,7 +692,7 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
     });
     
     $scope.bookAppointmentClick = function () {
-    if(appDataService.getUserId == '')
+    if(!$scope.loggedIn)
     {
      $window.location.href = './login.html';   
     }
@@ -701,6 +710,9 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
 //Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant. Load user data from the appdataservice
 app.controller('appointmentController',['$scope','AppFactory','appDataService','$window','dataFactory',function($scope,AppFactory,appDataService,$window,dataFactory){
     //verify login
+    appDataService.loadVariableData();
+    $scope.loggedIn = appDataService.getLoggedInFlag();
+    
     $scope.userId;
     $scope.userType;
     $scope.isPatient=true;
@@ -834,7 +846,10 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
 }]);
 
 app.controller('profileController',['$scope','appDataService','dataFactory',function($scope,appDataService,dataFactory){
+    
     appDataService.loadVariableData();
+    $scope.loggedIn = appDataService.getLoggedInFlag();
+    
     $scope.userId=appDataService.getUserId();
     $scope.userType=appDataService.getUserType();
     $scope.user;

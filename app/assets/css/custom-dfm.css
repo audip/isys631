@@ -1,3 +1,8 @@
+@font-face {
+    font-family: test;
+    src: url(../fonts/);
+}
+
 .body{
 background-color: white;
 }
@@ -104,8 +109,10 @@ float: right;
     background-image: url('http://www.psdgraphics.com/wp-content/uploads/2011/10/crumpled-paper.jpg');
 }
 .panda-text{
-    color:#94918f;
+    color:#5e5e5e;
+/*    font-family: sans-serif;*/
     padding: 2px 5px 2px 5px;
+    margin:10px;
 }
 
 @media (max-width: 768px){

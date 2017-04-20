@@ -479,6 +479,9 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     
     $scope.loggedIn = appDataService.getLoggedInFlag();
     
+    if($scope.loggedIn)
+    $window.location.href = './index.html';
+    
     $scope.username = "";
     $scope.password = "";
     
@@ -525,6 +528,9 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     $scope.errorMessage = "";
     $scope.reply = "";
     $scope.loggedIn = appDataService.getLoggedInFlag();
+    
+    if($scope.loggedIn)
+    $window.location.href = './index.html';
     
     $scope.signupButtonClick = function (){
     

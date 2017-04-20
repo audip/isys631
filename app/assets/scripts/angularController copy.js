@@ -318,9 +318,11 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
                 appointment_id: 30
             }
         }*/
-
+        
         return $http.delete(restUrl+"/appointment/"+id).then(function(response){
             return response.data;})
+
+//        return $http.delete(restUrl+"/appointment/"+id);
     };
     
     dataFactory.getDoctorReviews = function (doctor_id){
@@ -480,9 +482,6 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     
     $scope.loggedIn = appDataService.getLoggedInFlag();
     
-    if($scope.loggedIn)
-    $window.location.href = './index.html';
-    
     $scope.username = "";
     $scope.password = "";
     
@@ -529,9 +528,6 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     $scope.errorMessage = "";
     $scope.reply = "";
     $scope.loggedIn = appDataService.getLoggedInFlag();
-    
-    if($scope.loggedIn)
-    $window.location.href = './index.html';
     
     $scope.signupButtonClick = function (){
     
@@ -866,7 +862,7 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     }
 }]);
 
-app.controller('profileController',['$scope','appDataService','dataFactory',function($scope,appDataService,dataFactory){
+app.controller('profileController',['$scope','appDataService','dataFactory','$window',function($scope,appDataService,dataFactory,$window){
     
     appDataService.loadVariableData();
     $scope.loggedIn = appDataService.getLoggedInFlag();
@@ -904,6 +900,12 @@ app.controller('profileController',['$scope','appDataService','dataFactory',func
             }
         );
     }
+    
+    //sign out
+    $scope.signoutButtonClick = function () {
+    appDataService.resetVariableData();
+    $window.location.href = './index.html';
+    };
     
     //load date data
     var today=new Date();
@@ -987,11 +989,13 @@ app.controller('profileController',['$scope','appDataService','dataFactory',func
             function(response){
                 console.log("success");
                 console.log(response);
+                $window.location.reload();
             },
             function(response){
                 console.log(response);
             }
         );
+        
         
     }
     

@@ -178,7 +178,7 @@
                 <div class="title">Appointment with <a href="#">{{app.name}}</a></div>
 
                 <div class="a-details">
-                    <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
+                    <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>{{app.appointment_id}}
                     <span ng-show=isPatient><label>Location:&nbsp</label>{{app.address}}</span>
                     <span ng-show=!isPatient><label>Location:&nbsp</label>{{docLocation}}</span>
                     <!-- <section class="google-map map-holder">

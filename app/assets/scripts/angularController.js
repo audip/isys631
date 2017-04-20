@@ -604,7 +604,7 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
                 {
                 $scope.availableSlots = $scope.availableSlotsDataResponse.available_slots;
                 
-                    if(scope.availableSlots.length == 0)
+                    if($scope.availableSlots.length == 0)
                     {$scope.noSlotsFlag = true;}
                     else
                     {$scope.noSlotsFlag = false;}

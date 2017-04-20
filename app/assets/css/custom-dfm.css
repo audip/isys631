@@ -96,8 +96,11 @@ float: right;
 .search-area{
     margin-left: 10%;
 }
-
-
+.product-item-holder{
+    /*border: 1px solid;*/
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
 .error-flag{
     display: none;
 }

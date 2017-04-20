@@ -168,9 +168,9 @@
                                       <li><input  class="le-checkbox" type="checkbox" /> <label>5+ years experience</label> <span class="pull-right">(8)</span></li>
                                       <li><input  class="le-checkbox" type="checkbox" /> <label>Well rated</label> <span class="pull-right">(1)</span></li>
                                       <li><input  class="le-checkbox" type="checkbox" /> <label>Available this week</label> <span class="pull-right">(5)</span></li> -->
-                                      <li><input class="le-checkbox" type="checkbox" ng-model="allFilter"/> <label>All doctors</label> <span class="pull-right">(2)</span></li>
-                                        <li><input  class="le-checkbox" type="checkbox" ng-model="expFilter"/> <label>5+ years experience</label> <span class="pull-right">(8)</span></li>
-                                        <li><input  class="le-checkbox" type="checkbox" ng-model="ratingFilter"/> <label>Well rated</label> <span class="pull-right">(1)</span></li>
+                                      <li><input class="le-checkbox" type="checkbox" ng-model="allFilter"/> <label>All doctors</label></li>
+                                        <li><input  class="le-checkbox" type="checkbox" ng-model="expFilter"/> <label>5+ years experience</label></li>
+                                        <li><input  class="le-checkbox" type="checkbox" ng-model="ratingFilter"/> <label>Well rated</label></li>
 
                                     </ul>
                                     </div><!-- /.category-filter -->
@@ -209,7 +209,7 @@
                                                 <div dir-paginate="doctor in doctorList | searchResultFilter:allFilter:expFilter:ratingFilter | orderBy:sortText | itemsPerPage:5">
                                                   <div class="product-item product-item-holder">
                                                     <div class="row">
-                                                      <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 listing-center" style = "padding: 10px 19px 0px;">
+                                                      <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 listing-center" style = "padding: 25px 19px 0px;">
                                                         <div>
                                                           <!--                                  <img alt="" src="assets/images/custom/doctor_image_1.jpg"/>-->
                                                           <img alt="" src={{doctor.photo_url}} />
@@ -220,12 +220,12 @@
                                                             <div class="title listing-main">
                                                               <a href="#"><h2>{{doctor.name}}</h2></a>
                                                             </div>
-                                                            <div class="brand listing-center" style="border-bottom: 1px solid #e0e0e0; text-transform: none; padding-bottom: 5px">
+                                                            <div class="brand listing-center" style="border-bottom: 1px solid #e0e0e0; text-transform: none; padding-bottom: 5px;">
                                                               <h4>Qualification: {{doctor.qualification}} </h4>
                                                             </div>
                                                             <div class="excerpt listing-center" style = "font-size:8px; padding-top:10px;">
                                                               <h5>{{doctor.address}}</h5>
-                                                            <button class="btn btn-default" style="margin-top:10px" ng-click="seeReviewsButtonClick(doctor.doctor_id)">See Reviews</button>
+                                                            <button class="btn btn-default" style="margin-top:10px" ng-click="seeReviewsButtonClick(doctor.doctor_id)"><i class="fa fa-list" aria-hidden="true"></i> Read Reviews</button>
                                                             </div>
                                                           </div>
                                                           </div><!-- /.body-holder -->

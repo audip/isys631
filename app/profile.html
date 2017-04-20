@@ -82,8 +82,7 @@
                                 <li class="nav-li"><a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
                                 <li class="nav-li"><a role="menuitem" tabindex="-1" href="view-appointments.html"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
                                 <li class="nav-li"><a role="menuitem" tabindex="-1" href="reviews.html"><i class="fa fa-edit" aria-hidden="true"></i> Reviews</a></li>
-                                <li class="nav-li"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
-                                <li class="nav-li"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
+                                <li class="nav-li" ng-click="signoutButtonClick();"><a href=#>{{fullname}} | <i class="fa fa-sign-out" aria-hidden="true"></i> Signout</a></li>
                             </ul>
                             </div><!-- /.col -->
                             </div><!-- /.container -->
@@ -116,7 +115,7 @@
 					<section class="section register inner-left-xs">
 					<h2 class="bordered">View your profile</h2>
                     <div>
-                        <img ng-src={{user.photo_url}} alt="profile img" style="width:30%">
+                        <img ng-show="isDoc" ng-src={{user.photo_url}} alt="profile img" style="width:30%">
                     </div>
 					<form role="form" class="register-form cf-style-1" name="registerForm" novalidate>
 						<div class="field-row">
@@ -172,7 +171,7 @@
                             <button type="submit" class="le-button huge" ng-click="signupButtonClick();" ng-disabled=registerForm.$invalid>Sign Up</button>
                         </div>-->
 					</form>
-                    <section class="section" ng-show="userType==='doctor'">
+                    <section class="section" ng-show="isDoc">
                         <h2 class="bordered">Select your available time slots</h2>
                         <div ng-repeat="choice in choices">
                             <select ng-model="choice.date">

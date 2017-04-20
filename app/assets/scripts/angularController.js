@@ -819,6 +819,7 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
             function(response){
                 console.log("success");
                 console.log(response);
+                $window.location.href = './view-appointments.html'
             }
             ,function(response){
             console.log(response);
@@ -852,6 +853,8 @@ app.controller('profileController',['$scope','appDataService','dataFactory',func
     
     $scope.userId=appDataService.getUserId();
     $scope.userType=appDataService.getUserType();
+    $scope.fullname=appDataService.getFullName();
+    $scope.isDoc=false;
     $scope.user;
     $scope.choices=[{id:1,date:"",time:[]},{id:2,date:"",time:[]}];
     $scope.timeData=[{id:"0900",label:"9:00 AM"},{id:"1000",label:"10:00 AM"},{id:"1100",label:"11:00 AM"},{id:"1200",label:"12:00 PM"},{id:"1300",label:"1:00 PM"},{id:"1400",label:"2:00 PM"},{id:"1500",label:"3:00 PM"},{id:"1600",label:"4:00 PM"},{id:"1700",label:"5:00 PM"},{id:"1800",label:"6:00 PM"}];
@@ -861,6 +864,7 @@ app.controller('profileController',['$scope','appDataService','dataFactory',func
     
     //get user info
     if($scope.userType==="doctor"){
+        $scope.isDoc=true;
         dataFactory.getDoctorInfo($scope.userId).then(
             function(response){
                 $scope.user=response.info;
@@ -934,7 +938,7 @@ app.controller('profileController',['$scope','appDataService','dataFactory',func
     }
     $scope.addNewChoice = function() {
         var newItemNo = $scope.choices.length+1;
-        $scope.choices.push({'id':'choice'+newItemNo});
+        $scope.choices.push({'id':newItemNo,date:"",time:[]});
     };
     
     //post time slots

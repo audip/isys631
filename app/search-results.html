@@ -78,19 +78,19 @@
                 <div class="container">
                     <div class="col-xs-12 col-md-4 no-margin logo-main">
                         <a href="index.html">DoctorsFor.me</a>
-                        </div><!-- /.col -->
-                        <div class="col-xs-12 col-md-8 no-margin">
-                            <ul class="right">
-                                <li class="nav-li"><a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
-                                <li class="nav-li"><a role="menuitem" tabindex="-1" href="view-appointments.html"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
-                                <li class="nav-li"><a role="menuitem" tabindex="-1" href="reviews.html"><i class="fa fa-edit" aria-hidden="true"></i> Reviews</a></li>
-                                <li class="nav-li" ng-if="!loggedIn"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
-                                <li class="nav-li" ng-if="!loggedIn"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
-                                <li class="nav-li" ng-if="loggedIn" ng-click="signoutButtonClick();"><a href=#>{{fullname}} | <i class="fa fa-sign-out" aria-hidden="true"></i> Signout</a></li>
-                            </ul>
-                            </div><!-- /.col -->
-                            </div><!-- /.container -->
-                            </nav><!-- /.top-bar -->
+                    </div><!-- /.col -->
+                    <div class="col-xs-12 col-md-8 no-margin">
+                        <ul class="right">
+                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
+                            <li class="nav-li"><a role="menuitem" tabindex="-1" href="view-appointments.html"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
+                            <li class="nav-li ng-hide " ng-show="!loggedIn"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+                            <li class="nav-li ng-hide" ng-show="!loggedIn"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
+                            <li class="nav-li ng-hide" ng-show="loggedIn"><a href="profile.html"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                            <li class="nav-li ng-hide" ng-show="loggedIn" ng-click="signoutButtonClick();"><a href=#>{{fullname}} | <i class="fa fa-sign-out" aria-hidden="true"></i> Signout</a></li>
+                        </ul>
+                    </div><!-- /.col -->
+                </div><!-- /.container -->
+            </nav><!-- /.top-bar -->
               <!-- ============================================================= TOP NAVIGATION : END ============================================================= -->   <!-- ============================================================= HEADER ============================================================= -->
               <header>
                 <div class="container no-padding search-div">
@@ -99,21 +99,20 @@
                     <div class="logo" style="margin: 5% auto">
                       <!-- <a href="index.html"> -->
                       <table style="margin: 0 auto; height: 100%">
-                        <tr><td><img src="./assets/images/custom/panda_logo_top.jpg" width="150"></td></tr>
-                        <tr><td>
-<!--
-                          <span style="color:#94918f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            Lets find some doctors for you!
-                          </span>
--->
-                        <span style="color:#94918f" ng-if="loggedIn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        Here's what I found, {{fullname}}!
-                        </span>
-                        <span style="color:#94918f" ng-if="!loggedIn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        Lets find some doctors for you!
-                        </span>
-                        </td></tr>
-                        <tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="150"></td></tr>
+                                <tr><td><img src="./assets/images/custom/panda_logo_top_2.jpg" width="150"></td></tr>
+                                <tr>
+                                    <td>
+                                        <div class="panda-board"> 
+                                            <span class="panda-text ng-hide" ng-show="loggedIn">Here's what I found, {{fullname}}!
+                                            </span>
+                                            <span class="panda-text ng-hide" ng-show="!loggedIn">Let's find some doctors!
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="./assets/images/custom/panda_logo_bottom_2.jpg" width="150"></td>
+                                </tr>
                       </table>
                       <!-- <img src="./assets/images/custom/panda_logo.jpg" width="170"> -->
                       <!-- </a> -->
@@ -200,7 +199,7 @@
                                         <div class="grid-list-products">
                                           <h2 class="section-title">Search Results for : '{{searchTerm}}'</h2>
                                           <div class="control-bar">
-                                            <div id="popularity-sort" class="le-select" >
+                                            <div id="popularity-sort" class="le-select" >Sort: 
                                               <select data-placeholder="sort by popularity" ng-options="option for option in optionList" ng-model="selectedOption" ng-change="sortByOption()">
                                               </select>
                                             </div>

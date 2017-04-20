@@ -455,11 +455,11 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     };
     
     //orderby
-    $scope.optionList=['Popularity: Descending','Experience: Descending'];
-    $scope.selectedOption="Popularity: Descending";
+    $scope.optionList=['Popularity','Experience'];
+    $scope.selectedOption="Popularity";
     $scope.sortText="-rating";
     $scope.sortByOption=function(){
-        if($scope.selectedOption === "Popularity: Descending"){
+        if($scope.selectedOption === "Popularity"){
             $scope.sortText="-rating";
         }
         else{

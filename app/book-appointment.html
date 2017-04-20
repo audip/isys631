@@ -21,13 +21,14 @@
 		<link rel="stylesheet" href="assets/css/animate.min.css">
 
 		<link rel="stylesheet" href="assets/css/config.css">
+        <link rel="stylesheet" href="assets/css/custom-dfm.css">
 		<link href="assets/css/blue.css" rel="stylesheet" title="Blue color">
   
   <link rel="stylesheet" href="assets/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
   <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 
 	    <!-- Fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Kaushan+Script' rel='stylesheet' type='text/css'>
 		
 		<!-- Icons/Glyphs -->
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
@@ -71,9 +72,10 @@
                             <ul class="right">
                                 <li class="nav-li"><a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
                                 <li class="nav-li"><a role="menuitem" tabindex="-1" href="view-appointments.html"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
-                                <li class="nav-li"><a role="menuitem" tabindex="-1" href="reviews.html"><i class="fa fa-edit" aria-hidden="true"></i> Reviews</a></li>
-                                <li class="nav-li"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
-                                <li class="nav-li"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
+                                <li class="nav-li ng-hide " ng-show="!loggedIn"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+                                <li class="nav-li ng-hide" ng-show="!loggedIn"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
+                                <li class="nav-li ng-hide" ng-show="loggedIn"><a href="profile.html"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                                <li class="nav-li ng-hide" ng-show="loggedIn" ng-click="signoutButtonClick();"><a href=#>{{fullname}} | <i class="fa fa-sign-out" aria-hidden="true"></i> Signout</a></li>
                             </ul>
                             </div><!-- /.col -->
                             </div><!-- /.container -->
@@ -86,67 +88,27 @@
 
     <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
             <!-- ============================================================= LOGO ============================================================= -->
-<div class="logo">
-    <!-- <a href="index.html"> -->
-        <table>
-        <tr><td><img src="./assets/images/custom/panda_logo_top.jpg" width="150"></td></tr>
-        <tr><td>
-        <span style="color:#94918f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Lets find some doctors for you!
-        </span>
-        </td></tr>
-        <tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="150"></td></tr>
-        </table>
-           
-</div>
+<div class="logo" style="margin: 5% auto">
+                                            <!-- <a href="index.html"> -->
+                                            <table style="margin: 0 auto; height: 100%">
+                                                <tr><td><img src="./assets/images/custom/panda_logo_top_2.jpg" width="150"></td></tr>
+                                                <tr><td>
+                                                    <div class="panda-board"> 
+                                                        <span class="panda-text ng-hide" ng-show="loggedIn">{{fullname}}, Book appointment!
+                                                        </span>
+                                                        <span class="panda-text ng-hide" ng-show="!loggedIn">It's awsome to see you again!
+                                                        </span>
+                                                    </div>
+                                                </td></tr>
+                                                <tr><td><img src="./assets/images/custom/panda_logo_bottom_2.jpg" width="150"></td></tr>
+                                            </table>
+                                            
+                                            </div><!-- /.logo -->
 </div>
 
         <div class="col-xs-12 col-sm-12 col-md-9 top-search-holder no-margin">
-            <div class="contact-row">
-    <div class="phone inline">
-        <i class="fa fa-phone"></i> (+800) 123 456 7890
-    </div>
-    <div class="contact inline">
-        <i class="fa fa-envelope"></i> contact@<span class="le-color">betterdoctors.me</span>
-    </div>
-</div>
-<div class="search-area">
-    <form>
-        <div class="control-group">
-            <input class="search-field" placeholder="Search for doctors" />
-
-            <ul class="categories-filter animate-dropdown">
-                <li class="dropdown">
-
-                    <a class="dropdown-toggle"  data-toggle="dropdown" href="category-grid.html"><i class="fa fa-location-arrow" style = "color: #bdbbba"></i>&nbsp;&nbsp;Location</a>
-
-                    <ul class="dropdown-menu" role="menu" >
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Current location</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Houston</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Austin</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category-grid.html">Dallas</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <a class="search-button" href="#" ></a>
-
-        </div>
-    </form>
-</div>
-</div>
-</div>
-</header>
-<!-- header ends here -->
-<!-- header area ends here -->
-		<!-- ========================================= MAIN ========================================= -->
-<main id="contact-us" class="inner-bottom-md">
-
-
-	<div class="container">
-		<div class="row">
-			
-			<div class="col-md-12">
+            
+<div class="col-md-12">
 				<section class="section leave-a-message">
 					<h2 class="bordered">Book appointment - {{doctor.name}}</h2>
 					<form id="contact-form" class="contact-form cf-style-1 inner-top-xs" method="post" >
@@ -154,86 +116,28 @@ Lets find some doctors for you!
                     <div class="patient bordered">
                         <div class="row field-row">
                             <div class="col-xs-12 col-sm-6">
-                                <label>Fist Name*</label>
-                                <input class="le-input" ng-model = "patient.name">
+                                <label>Full Name</label>
+                                <input class="le-input" ng-model = "patient.name" readonly>
                             </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <label>Last Name*</label>
-                                <input class="le-input" >
-                            </div>
+                            
                         </div>
-                        <div class="row field-row">
-                            <div class="col-xs-12 col-sm-6">
-                                <label>Gender*</label>
-                                <label class="radio-inline">
-      								<input type="radio" name="gender" value="0"  ng-model="patient.sex">Male
-    							</label>
-
-    							<label class="radio-inline">
-      								<input type="radio" name="gender" value="1" ng-model="patient.sex">Female
-    							</label>
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                            	<!-- <label>Date of Birth*</label> -->
-                                <div class="dateSelection">
-                                <label for="month">Date of Birth*</label>
-                                <input type="date" class="form-control" id="DOB" ng-model="patient.dob" 
-                    name="username" min="1900-01-02" max="2016-12-31">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row field-row">
-                            <div class="col-xs-12 col-sm-6">
-                                <label>Address Line 1</label>
-                                <input class="le-input" ng-model="patient.address">
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <label>Address Line 2</label>
-                                <input class="le-input" ng-model="patient.address2" >
-                            </div>
-                        </div>
-                        <div class="row field-row">
-                            <div class="col-xs-12 col-sm-6">
-                                <label>City</label>
-                                <input class="le-input" ng-model="patient.city">
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                            <div class="state">
-                                <label for="state">State</label>
-                                <input class="le-input" id="state" ng-model="patient.state">
-                            </div>
-                            <div class="postcode">
-                                <label for="post-code">Post Code</label>
-                                <input class="le-input" id="post-code"  ng-model="patient.postalcode">
-                            </div>
-                            </div>
-                        </div>
-                        <div class="row field-row">
-                            <div class="col-xs-12 col-sm-6">
-                                <label>Phone number</label>
-                                <input class="le-input" ng-model="patient.phone">
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <label>Email</label>
-                                <input type="email" class="le-input"  ng-model="patient.email">
-                            </div>
-                        </div>
+                        
+                                             
                         
                         <div class="row field-row">
                             <div class="col-xs-12 col-sm-6">
                                <label>Time Slot</label>
-                            <span ng-show = "!noSlotsFlag">
+                            <div ng-show = "!noSlotsFlag">
                             <table>
                                 <tr ng-repeat="slot in availableSlots">   
-                                    <td>
-                                    <label class="radio-inline">
-                                    <input type="radio" name="test" value="1" ng-model = "selectedValue" ng-click = "selectSlotClick(slot.date,slot.time);">
-                                        </label>
+                                    <td style="padding:0px 20px">
+                                        <button type="button" name="test" value="1" ng-model = "selectedValue" ng-click = "selectSlotClick(slot.date,slot.time);" style="color:white; background-color:#2ecc71; margin-top: 2px;">{{slot.date}} {{slot.time}}
+                                        </button>
                                     </td>
-                                    <td>{{slot.date}} {{slot.time}}</td>
+                                    
                                 </tr>
                             </table>
-                            </span>
+                            </div>
                             <span ng-show="noSlotsFlag">
                             No slots available.
                             </span>
@@ -256,7 +160,7 @@ Lets find some doctors for you!
                                 <p>{{doctor.name}}</p>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <label>Location:</label>
+                                <label>Doctor Location:</label>
                                 <p>
                                 {{doctor.address}}<br>{{doctor.city}}, {{doctor.country}}
                                 <br>Phone: {{doctor.phone}}
@@ -268,15 +172,16 @@ Lets find some doctors for you!
                     <!-- Doctor part endss here -->
 
                         <div class="buttons-holder">
-                            <button type="submit" class="le-button huge" ng-click = "bookButtonClick();">Book Appointment</button>
+                            <button type="submit" class="le-button huge" ng-click = "bookButtonClick();"><i class="fa fa-bolt" aria-hidden="true"></i> Book Appointment</button>
                         </div><!-- /.buttons-holder -->
                     </form><!-- /.contact-form -->
 				</section><!-- /.leave-a-message -->
 			</div><!-- /.col -->
-		</div><!-- /.row -->
-	</div><!-- /.container -->
-</main>
-<!-- ========================================= MAIN : END ========================================= -->	
+</div>
+</div>
+</header>
+<!-- header ends here -->
+
 <!-- footer starts here -->
 <footer id="footer" class="color-bg">
                                                         <div class="container">

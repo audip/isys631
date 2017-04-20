@@ -91,6 +91,12 @@ float: right;
 .search-area{
     margin-left: 10%;
 }
+
+
+.error-flag{
+    display: none;
+}
+
 @media (max-width: 768px){
     .footer-social li{
         text-align: center

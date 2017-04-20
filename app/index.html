@@ -76,19 +76,12 @@
                                             <table style="margin: 0 auto; height: 100%">
                                                 <tr><td><img src="./assets/images/custom/panda_logo_top.jpg" width="150"></td></tr>
                                                 <tr><td>
-                                                    
-                                                    <span style="color:#94918f" ng-if="loggedIn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        Welcome, {{fullname}}!
-                                                    </span>
-                                                    <span style="color:#94918f" ng-if="!loggedIn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        Lets find some doctors for you!
-                                                    </span>
-                                                    
-<!--
-                                                    <span style="color:#94918f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        Lets find some doctors for you!
-                                                    </span>
--->
+                                                    <div class="panda-board"> 
+                                                        <span class="panda-text" ng-if="loggedIn">Welcome, {{fullname}}!
+                                                        </span>
+                                                        <span class="panda-text" ng-if="!loggedIn">Let's find some doctors!
+                                                        </span>
+                                                    </div>
                                                 </td></tr>
                                                 <tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="150"></td></tr>
                                             </table>

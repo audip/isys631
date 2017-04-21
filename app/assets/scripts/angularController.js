@@ -520,6 +520,11 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
 
        
     };
+    
+    $scope.signoutButtonClick = function () {
+    appDataService.resetVariableData();
+    $window.location.href = './index.html';
+    };
            
 }]);
 
@@ -573,6 +578,11 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     };
     
 };
+    
+    $scope.signoutButtonClick = function () {
+    appDataService.resetVariableData();
+    $window.location.href = './index.html';
+    };
     
 }]);
 
@@ -649,6 +659,11 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
         
     };    
     
+    $scope.signoutButtonClick = function () {
+    appDataService.resetVariableData();
+    $window.location.href = './index.html';
+    };
+    
 }]);
 
 app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
@@ -710,6 +725,11 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
     //appDataService.saveVariableData();
     $window.location.href = './book-appointment.html';
     }
+    };
+    
+    $scope.signoutButtonClick = function () {
+    appDataService.resetVariableData();
+    $window.location.href = './index.html';
     };
     
 }]);
@@ -863,7 +883,13 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
                 $window.location.href = './book-appointment.html';}
             );
         
-    }
+    };
+    
+    $scope.signoutButtonClick = function () {
+    appDataService.resetVariableData();
+    $window.location.href = './index.html';
+    };
+    
 }]);
 
 app.controller('profileController',['$scope','appDataService','dataFactory',function($scope,appDataService,dataFactory){
@@ -993,7 +1019,12 @@ app.controller('profileController',['$scope','appDataService','dataFactory',func
             }
         );
         
-    }
+    };
+    
+    $scope.signoutButtonClick = function () {
+    appDataService.resetVariableData();
+    $window.location.href = './index.html';
+    };
     
 }]);
 

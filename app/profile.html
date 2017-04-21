@@ -51,8 +51,7 @@
         <script src="https://rubaxa.github.io/Sortable/ng-sortable.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="assets/scripts/dirPagination.js"></script>
-        <script src="assets/scripts/angularController.js"></script>
-        <script type="text/javascript" src="assets/bower_components/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
+                <script type="text/javascript" src="assets/bower_components/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
         <style>
             /*button:disabled{
                 background-color: #cccccc;
@@ -81,8 +80,10 @@
                             <ul class="right">
                                 <li class="nav-li"><a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
                                 <li class="nav-li"><a role="menuitem" tabindex="-1" href="view-appointments.html"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
-                                <li class="nav-li"><a role="menuitem" tabindex="-1" href="reviews.html"><i class="fa fa-edit" aria-hidden="true"></i> Reviews</a></li>
-                                <li class="nav-li" ng-click="signoutButtonClick();"><a href=#>{{fullname}} | <i class="fa fa-sign-out" aria-hidden="true"></i> Signout</a></li>
+                                <li class="nav-li ng-hide " ng-show="!loggedIn"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+                                <li class="nav-li ng-hide" ng-show="!loggedIn"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
+                                <li class="nav-li ng-hide" ng-show="loggedIn"><a href="profile.html"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                                <li class="nav-li ng-hide" ng-show="loggedIn" ng-click="signoutButtonClick();"><a href=#>{{fullname}} | <i class="fa fa-sign-out" aria-hidden="true"></i> Signout</a></li>
                             </ul>
                             </div><!-- /.col -->
                             </div><!-- /.container -->
@@ -95,38 +96,40 @@
 		<div class="row">
 			<div class="row-eq-height">
 				<div class="col-md-4">
-					<div class="logo" style="margin: 0 auto">
-				
-						<table style="margin: 10% auto; height:100%">
-						<tr style="height:100%"><td><img src="./assets/images/custom/panda_logo_top.jpg" width="250"></td></tr>
-						<tr><td>
-						<span style="color:#94918f">
-							Its awesome to have you around!
-						</span>
-						</td></tr>
-						<tr><td><img src="./assets/images/custom/panda_logo_bottom.jpg" width="250"></td></tr>
-						</table>
-				
-					</div>
+					<div class="logo" style="margin: 5% auto">
+                                            <!-- <a href="index.html"> -->
+                                            <table style="margin: 0 auto; height: 100%">
+                                                <tr><td><img src="./assets/images/custom/panda_logo_top_2.jpg" width="150"></td></tr>
+                                                <tr><td>
+                                                    <div class="panda-board"> 
+                                                        <span class="panda-text ng-hide" ng-show="loggedIn">It's awesome to have you around
+                                                        </span>
+                                                    </div>
+                                                </td></tr>
+                                                <tr><td><img src="./assets/images/custom/panda_logo_bottom_2.jpg" width="150"></td></tr>
+                                            </table>
+                                            <!-- <img src="./assets/images/custom/panda_logo.jpg" width="170"> -->
+                                            <!-- </a> -->
+                                            </div><!-- /.logo -->
 			</div>
 		</div>
 			<div class="row-eq-height">
 				<div class="col-md-8">
-					<section class="section register inner-left-xs">
+					<section class="section register inner-left-xs inner-right-xs">
 					<h2 class="bordered">View your profile</h2>
                     <div>
                         <img ng-show="isDoc" ng-src={{user.photo_url}} alt="profile img" style="width:30%">
                     </div>
-					<form role="form" class="register-form cf-style-1" name="registerForm" novalidate>
+					<form role="form" class="register-form cf-style-1" name="registerForm" style="padding: 0px" novalidate>
 						<div class="field-row">
                             <label for="full_name">Full Name</label>
                             <input type="text" class="le-input" id="full_name" placeholder="Enter Name" name="full_name" ng-model="user.name" required disabled>
-                            <span ng-show="registerForm.full_name.$error.required && !registerForm.full_name.$untouched" class="help-block">Your First name is required.</span>
+                            <span ng-show="registerForm.full_name.$error.required && !registerForm.full_name.$untouched" class="help-block ng-hide">Your Full name is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="email">Email</label>
                             <input type="email" class="le-input" id="email" placeholder="john@xyz.com" name="email" ng-model="user.email" required disabled>
-                            <span ng-show="registerForm.email.$invalid && !registerForm.email.$untouched" class="help-block">Please enter a valid email address.</span>
+                            <span ng-show="registerForm.email.$invalid && !registerForm.email.$untouched" class="help-block ng-hide">Please enter a valid email address.</span>
                         </div><!-- /.field-row -->
 						<!-- <div class="field-row">
                             <label for="user_name">User Name</label>
@@ -141,29 +144,29 @@
 						<div class="field-row">
                             <label for="phone">Phone</label>
                             <input class="le-input" id="phone" name="phone" ng-model="user.phone" required disabled>
-                            <span ng-show="registerForm.phone.$error.required && !registerForm.phone.$untouched" class="help-block">Your phone number is required.</span>
+                            <span ng-show="registerForm.phone.$error.required && !registerForm.phone.$untouched" class="help-block ng-hide">Your phone number is required.</span>
                         </div><!-- /.field-row -->
 						
 						<div class="field-row">
                             <label for="st_address">Street Address</label>
                             <input type="text" class="le-input" id="st_address" name="st_address" ng-model="user.address" required disabled>
-                            <span ng-show="registerForm.st_address.$error.required && !registerForm.st_address.$untouched" class="help-block">Your street address is required.</span>
+                            <span ng-show="registerForm.st_address.$error.required && !registerForm.st_address.$untouched" class="help-block ng-hide">Your street address is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="city">City</label>
                             <input type="text" class="le-input" id="city" name="city" ng-model="user.city" required disabled>
-                             <span ng-show="registerForm.city.$error.required && !registerForm.city.$untouched" class="help-block">City is required.</span>
+                             <span ng-show="registerForm.city.$error.required && !registerForm.city.$untouched" class="help-block ng-hide">City is required.</span>
                             
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="state">State</label>
                             <input type="text" class="le-input" id="state" name="state" ng-model="user.state" required disabled>
-                            <span ng-show="registerForm.state.$error.required && !registerForm.state.$untouched" class="help-block">State is required.</span>
+                            <span ng-show="registerForm.state.$error.required && !registerForm.state.$untouched" class="help-block ng-hide">State is required.</span>
                         </div><!-- /.field-row -->
 						<div class="field-row">
                             <label for="country">Country</label>
                             <input type="text" class="le-input" id="country" name="country" ng-model="user.country" required disabled>
-                             <span ng-show="registerForm.country.$error.required && !registerForm.country.$untouched" class="help-block">Country is required.</span>
+                             <span ng-show="registerForm.country.$error.required && !registerForm.country.$untouched" class="help-block ng-hide">Country is required.</span>
                         </div><!-- /.field-row -->
 						
 										
@@ -237,6 +240,7 @@
         </div></div>
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
+    <script src="assets/scripts/angularController.js"></script>
     <script src="assets/js/jquery-1.10.2.min.js"></script>
 	<script src="assets/js/jquery-migrate-1.2.1.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>

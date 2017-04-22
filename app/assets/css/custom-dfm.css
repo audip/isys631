@@ -121,12 +121,18 @@ float: right;
     color:white; 
     background-color: #2ecc71; 
     border: 0px solid #2ecc71;
-    border-radius: 5px;
-    margin: 2px 2px;
-    padding: 5px 10px;
+    /*border-radius: 5px;*/
+    border-radius: 40px;
+    /*margin: 2px 2px;*/
+    padding: 8px 10px;
+    margin: 5px 5px;
+    width: 22%;
 }
 .timeslot-button:active{
     background-color: blue;
+}
+.Highlight{
+    background-color: #3498db;
 }
 
 @media (max-width: 768px){
@@ -181,5 +187,10 @@ float: right;
     }
     .mobile-disable {
         display: none;
+    }
+    .timeslot-button{
+        width: 45%;
+        margin: 2%;
+        padding: 2%;
     }
 }

@@ -480,8 +480,16 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     
     $scope.loggedIn = appDataService.getLoggedInFlag();
     
+    
+    
     if($scope.loggedIn)
     $window.location.href = './index.html';
+    
+    if(appDataService.getLoggedInFlag()){
+        $scope.fullname = appDataService.getFullName();
+        //@Silvia Can use this variable in the front end
+        console.log('Full Name received:'+ $scope.fullname);
+    };
     
     $scope.username = "";
     $scope.password = "";
@@ -537,6 +545,12 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     
     if($scope.loggedIn)
     $window.location.href = './index.html';
+    
+    if(appDataService.getLoggedInFlag()){
+        $scope.fullname = appDataService.getFullName();
+        //@Silvia Can use this variable in the front end
+        console.log('Full Name received:'+ $scope.fullname);
+    };
     
     $scope.signupButtonClick = function (){
     
@@ -595,6 +609,12 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
     appDataService.loadVariableData();
     
     $scope.loggedIn = appDataService.getLoggedInFlag();
+    
+    if(appDataService.getLoggedInFlag()){
+        $scope.fullname = appDataService.getFullName();
+        //@Silvia Can use this variable in the front end
+        console.log('Full Name received:'+ $scope.fullname);
+    };
  
     
     $scope.patientId = appDataService.getUserId();
@@ -679,6 +699,12 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
     
     $scope.loggedIn = appDataService.getLoggedInFlag();
     
+    if(appDataService.getLoggedInFlag()){
+        $scope.fullname = appDataService.getFullName();
+        //@Silvia Can use this variable in the front end
+        console.log('Full Name received:'+ $scope.fullname);
+    };
+    
     console.log('Retrieved Doctor Id:'+ appDataService.getSelectedDoctorID());
  
     
@@ -740,6 +766,12 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     //verify login
     appDataService.loadVariableData();
     $scope.loggedIn = appDataService.getLoggedInFlag();
+    
+    if(appDataService.getLoggedInFlag()){
+        $scope.fullname = appDataService.getFullName();
+        //@Silvia Can use this variable in the front end
+        console.log('Full Name received:'+ $scope.fullname);
+    };
     
     $scope.userId;
     $scope.userType;
@@ -896,6 +928,12 @@ app.controller('profileController',['$scope','appDataService','dataFactory',func
     
     appDataService.loadVariableData();
     $scope.loggedIn = appDataService.getLoggedInFlag();
+    
+    if(appDataService.getLoggedInFlag()){
+        $scope.fullname = appDataService.getFullName();
+        //@Silvia Can use this variable in the front end
+        console.log('Full Name received:'+ $scope.fullname);
+    };
     
     $scope.userId=appDataService.getUserId();
     $scope.userType=appDataService.getUserType();

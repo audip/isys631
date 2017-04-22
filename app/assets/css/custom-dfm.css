@@ -134,6 +134,13 @@ float: right;
 .Highlight{
     background-color: #3498db;
 }
+.doctor-image{
+    height: 100%;
+    text-align: center;
+}
+.italics{
+    font-style: italic;
+}
 
 @media (max-width: 768px){
     .footer-social li{
@@ -192,5 +199,8 @@ float: right;
         width: 45%;
         margin: 2%;
         padding: 2%;
+    }
+    .doctor-review-title{
+        text-align: center;
     }
 }

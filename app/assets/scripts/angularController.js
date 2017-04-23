@@ -13,6 +13,7 @@ function VariableData() {
     this.fullName = "";
     this.loggedInFlag = false;
     this.selectedDoctorId = '';
+    this.previousPage = '';
 };
 
 //To save/load application state
@@ -27,6 +28,7 @@ app.service('appDataService', function(){
     var userType = "";
     var loggedInFlag = false;
     var selectedDoctorId = '';
+    var previousPage = '';
     
     this.clearData = function(value){
         this.username = '';
@@ -103,6 +105,13 @@ app.service('appDataService', function(){
             return selectedDoctorId;
         };
     
+    this.setPreviousPage = function(value){
+                previousPage=value;
+        };
+    this.getPreviousPage = function() {
+            return previousPage;
+        };
+    
     this.saveVariableData = function (){
     
     console.log('Inside save state');
@@ -118,6 +127,7 @@ app.service('appDataService', function(){
     variableData.fullName = fullName;
     variableData.loggedInFlag = loggedInFlag;
     variableData.selectedDoctorId = selectedDoctorId;
+    variableData.previousPage = previousPage;
         
     
     sessionStorage.setItem('applicationState', JSON.stringify(variableData));
@@ -145,6 +155,7 @@ app.service('appDataService', function(){
     fullName = variableData.fullName;
     loggedInFlag = variableData.loggedInFlag;
     selectedDoctorId = variableData.selectedDoctorId;
+    previousPage = variableData.previousPage;
     }
     else {
     username = '';
@@ -157,6 +168,7 @@ app.service('appDataService', function(){
     userType = '';
     loggedInFlag = false;
     selectedDoctorId = '';
+    previousPage = '';
     }
     };
     
@@ -444,7 +456,9 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     console.log('UserId: '+appDataService.getUserId);
     if(!$scope.loggedIn)
     {
-     $window.location.href = './login.html';   
+    appDataService.setPreviousPage('./search-results.html');
+    appDataService.saveVariableData();
+    $window.location.href = './login.html';   
     }
     else{
     console.log('Doctor Id:'+value);
@@ -515,7 +529,12 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     appDataService.setLoggedInFlag(true);
     appDataService.saveVariableData();
     console.log("UserID:"+appDataService.getUserId());
-    $window.location.href = './index.html';
+    if(appDataService.getPreviousPage() != '')
+    {
+     $window.location.href = appDataService.getPreviousPage();   
+    }
+    else
+    {$window.location.href = './index.html';}
     }
     else{
     $scope.errorFlag = true;
@@ -530,8 +549,9 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     };
     
     $scope.signoutButtonClick = function () {
-    appDataService.resetVariableData();
-    $window.location.href = './index.html';
+    
+     $window.location.href = './index.html';  
+    
     };
            
 }]);
@@ -743,7 +763,9 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
     $scope.bookAppointmentClick = function () {
     if(!$scope.loggedIn)
     {
-     $window.location.href = './login.html';   
+    appDataService.setPreviousPage('./single-doctor.html');
+    appDataService.saveVariableData();
+    $window.location.href = './login.html';   
     }
     else{
     //console.log('Doctor Id:'+value);
@@ -791,6 +813,8 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
         }
         }
         else{
+        appDataService.setPreviousPage('./view-appointments.html');
+        appDataService.saveVariableData();
         $window.location.href = './login.html';
         console.log("please log in");
     }

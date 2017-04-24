@@ -549,7 +549,7 @@ app.controller('loginCntrl', ['$scope', '$location','appDataService','dataFactor
     };
     
     $scope.signoutButtonClick = function () {
-    
+    appDataService.resetVariableData();
      $window.location.href = './index.html';  
     
     };

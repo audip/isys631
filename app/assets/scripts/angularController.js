@@ -997,10 +997,13 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
     $scope.newAvailability=[];
     $scope.availableSlots=[];
     
-    //varify login
+    //varify login and redirecting
     $scope.init = function()
      {
         appDataService.loadVariableData();
+        
+       
+        
         if(appDataService.getLoggedInFlag()){
          $scope.loggedIn=true;   
         $scope.userId=appDataService.getUserId();
@@ -1023,7 +1026,8 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
 
      $scope.init();
     
-    console.log('Search Term:'+appDataService.getSearchTerm());
+    
+     console.log('Search Term:'+appDataService.getSearchTerm());
     $scope.slotFlag = false;
     if(appDataService.getSearchTerm() == 'TRUE')
     {
@@ -1031,7 +1035,6 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
         $scope.slotFlag = true;
         appDataService.setSearchTerm('');
     }
-    
     
     
     //get user info

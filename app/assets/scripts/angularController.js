@@ -590,7 +590,7 @@ app.controller('signupCntrl', ['$scope', '$location','appDataService','dataFacto
     console.log($scope.reply);
     
     if($scope.reply.success == true){
-    //appDataService.setUserId($scope.reply.profile_id);
+    appDataService.setUserId($scope.reply.profile_id);
     appDataService.setUsername($scope.username);
     appDataService.setPassword($scope.password);
     appDataService.setFullName($scope.user.name);

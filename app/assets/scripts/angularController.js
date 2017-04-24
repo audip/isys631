@@ -948,7 +948,7 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
     
 }]);
 
-app.controller('profileController',['$scope','appDataService','dataFactory',function($scope,appDataService,dataFactory){
+app.controller('profileController',['$scope','appDataService','dataFactory','$window',function($scope,appDataService,dataFactory,$window){
     
     appDataService.loadVariableData();
     $scope.loggedIn = appDataService.getLoggedInFlag();
@@ -1084,8 +1084,10 @@ app.controller('profileController',['$scope','appDataService','dataFactory',func
     };
     
     $scope.signoutButtonClick = function () {
+    console.log('Her1');   
     appDataService.resetVariableData();
     $window.location.href = './index.html';
+    console.log('Her2');  
     };
     
 }]);

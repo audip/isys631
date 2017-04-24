@@ -986,6 +986,7 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
     
     
     $scope.loggedIn=false;
+    $scope.dataLoadedFlag=false;
     $scope.userId=""
     $scope.userType=""
     $scope.fullname=""
@@ -1043,6 +1044,7 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
         dataFactory.getDoctorInfo($scope.userId).then(
             function(response){
                 $scope.user=response.info;
+                $scope.dataLoadedFlag=true;
             },
             function(response){
                 console.log("error:"+response);
@@ -1053,6 +1055,7 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
         dataFactory.getPatientInfo($scope.userId).then(
             function(response){
                 $scope.user=response.info;
+                $scope.dataLoadedFlag=true;
             },
             function(response){
                 console.log("error:"+response);

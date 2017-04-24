@@ -959,6 +959,15 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
         console.log('Full Name received:'+ $scope.fullname);
     };
     
+    console.log('Search Term:'+appDataService.getSearchTerm());
+    $scope.slotFlag = false;
+    if(appDataService.getSearchTerm() == 'TRUE')
+    {
+        console.log('In here');
+        $scope.slotFlag = true;
+        appDataService.setSearchTerm('');
+    }
+    
     $scope.userId=appDataService.getUserId();
     $scope.userType=appDataService.getUserType();
     $scope.fullname=appDataService.getFullName();
@@ -1075,6 +1084,11 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
             function(response){
                 console.log("success");
                 console.log(response);
+                //$window.location.href = './profile.html';
+                appDataService.setSearchTerm('TRUE');
+                appDataService.saveVariableData();
+                $window.location.href = './profile.html'; 
+                
             },
             function(response){
                 console.log(response);

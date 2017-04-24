@@ -117,6 +117,9 @@
 				<div class="col-md-8">
 					<section class="section register inner-left-xs inner-right-xs">
 					<h2 class="bordered">View your profile</h2>
+                    <span class="ng-hide" ng-show="slotFlag">
+                        <p style="color:#3498db">Slots added successfully.</p>
+                    </span>
                     <div>
                         <img ng-show="isDoc" ng-src={{user.photo_url}} alt="profile img" style="width:30%">
                     </div>

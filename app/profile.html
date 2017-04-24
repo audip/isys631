@@ -64,6 +64,9 @@
             .register-form span{
                 color: #cc0000;
             }
+            .selectSlot{
+                display: inline-block;
+            }
         </style>
 	</head>
 
@@ -179,11 +182,11 @@
 					</form>
                     <section class="section" ng-show="isDoc">
                         <h2 class="bordered">Select your available time slots</h2>
-                        <div ng-repeat="choice in choices">
-                            <select ng-model="choice.date">
+                        <div ng-repeat="choice in choices" style="padding-bottom: 2%">
+                            <select ng-model="choice.date" class="selectSlot">
                                 <option ng-repeat="date in dateData" value="{{date}}">{{date}}</option>
                             </select>
-                            <div ng-dropdown-multiselect="" options="timeData" selected-model="choice.time"></div>
+                            <div ng-dropdown-multiselect="" options="timeData" selected-model="choice.time" class="selectSlot"></div>
                             <button class="btn le-button" ng-show="$last" ng-click="removeChoice()">-</button>
                         </div>
                         <button class="btn le-button" ng-click="addNewChoice()">Add fields</button>

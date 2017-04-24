@@ -74,7 +74,7 @@
   <body ng-app="myApp" ng-controller="search_resultsCntrl">
     <div class="wrapper">
       <!-- ============================================================= TOP NAVIGATION ============================================================= -->
-      <nav class="top-bar animate-dropdown">
+      <nav class="top-bar animate-dropdown" ng-cloak>
                 <div class="container">
                     <div class="col-xs-12 col-md-4 no-margin logo-main">
                         <a href="index.html">DoctorsFor.me</a>
@@ -128,7 +128,7 @@
                           </div> -->
                           </div><!-- /.contact-row -->
                           <!-- ============================================================= SEARCH AREA ============================================================= -->
-                          <div class="search-area">
+                          <div class="search-area" ng-cloak>
                             <form>
                               <div class="control-group">
                                 <input class="search-field" placeholder="Search for doctors" ng-model = "searchTerm" />
@@ -153,7 +153,7 @@
                           </header>
                           <!-- ============================================================= HEADER : END ============================================================= -->   <div id="top-banner-and-menu">
                           <!-- ========================================= SIDEBAR ========================================= -->
-                          <div class="container">
+                          <div class="container" ng-cloak ng-show="resultsLoadedFlag">
                             <div class="col-xs-12 col-sm-3 no-margin sidebar narrow">
                               <!-- ========================================= PRODUCT FILTER ========================================= -->
                               <div class="widget">

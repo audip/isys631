@@ -391,6 +391,7 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     $scope.loggedIn = appDataService.getLoggedInFlag();
     console.log('LoggedInFlag:'+$scope.loggedIn);
     $scope.username = '';
+    $scope.resultsLoadedFlag=false;
     
     console.log("UserID:"+appDataService.getUserId());
 
@@ -414,11 +415,12 @@ app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','d
     var searchResult = dataFactory.getSearchResult($scope.searchLocation,$scope.searchTerm);
     searchResult.then(function(result){
     $scope.searchResult = result;
-        
+    $scope.resultsLoadedFlag=true;
     appDataService.setSearchResult($scope.searchResult);
         
     if ($scope.searchResult.success == true){
     $scope.doctorList = $scope.searchResult.search;
+    
     
     if($scope.doctorList.length == 0)
     {$scope.emptyResult = true;} 
@@ -643,6 +645,7 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
     $scope.selectedValue = 2;
     
     $scope.noSlotsFlag = true;
+    $scope.dataLoadedFlag=false;
     
     var patientDataResponse = dataFactory.getPatientInfo($scope.patientId);
     patientDataResponse.then(function(result){
@@ -658,6 +661,7 @@ app.controller('bookAppointmentCntrl', ['$scope', '$location','appDataService','
             if($scope.doctorDataResponse.success == true)
             {
             $scope.doctor= $scope.doctorDataResponse.info;
+            $scope.dataLoadedFlag=true;
             };
             
             var availableSlotsDataResponse  = dataFactory.getDoctorAvailability($scope.selectedDoctorID);
@@ -716,6 +720,8 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
 //appDataService.saveVariableData();
     $scope.doctor={rating:5};
     appDataService.loadVariableData();
+    $scope.doctorLoadedFlag=false;
+    $scope.reviewsLoadedFlag=false;
     
     $scope.loggedIn = appDataService.getLoggedInFlag();
     
@@ -737,6 +743,7 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
         if($scope.doctorDataResponse.success == true)
         {
         $scope.doctor= $scope.doctorDataResponse.info;
+        $scope.doctorLoadedFlag=true;
         //$scope.doctor.photo_url = "http://s-media-cache-ak0.pinimg.com/736x/e2/9f/ee/e29fee57b73f61a9f6e1718185ebe738.jpg";
 
         };
@@ -751,6 +758,7 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
         if($scope.reviewsDataResponse.success == true)
         {
         $scope.reviews= $scope.reviewsDataResponse.reviews;
+        $scope.reviewsLoadedFlag=true;
             
         if($scope.reviews.length == 0)
         $scope.noReviewsFlag = true; 
@@ -785,7 +793,7 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
 
 //Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant. Load user data from the appdataservice
 app.controller('appointmentController',['$scope','AppFactory','appDataService','$window','dataFactory',function($scope,AppFactory,appDataService,$window,dataFactory){
-    //verify login
+    /*//verify login
     appDataService.loadVariableData();
     $scope.loggedIn = appDataService.getLoggedInFlag();
     
@@ -793,18 +801,23 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
         $scope.fullname = appDataService.getFullName();
         //@Silvia Can use this variable in the front end
         console.log('Full Name received:'+ $scope.fullname);
-    };
+    };*/
     
     $scope.userId;
     $scope.userType;
     $scope.isPatient=true;
     $scope.docLocation="";
     $scope.message="";
+    $scope.loggedIn=false;
+    $scope.fullname="";
     $scope.init = function()
      {
         appDataService.loadVariableData();
         if(appDataService.getLoggedInFlag()){
+         $scope.loggedIn=true;   
         $scope.userId=appDataService.getUserId();
+        $scope.fullname = appDataService.getFullName();
+            console.log('Full Name received:'+ $scope.fullname);
         if(appDataService.getUserType()=="doctor"){
             $scope.userType="doctor";
         }
@@ -950,6 +963,8 @@ app.controller('appointmentController',['$scope','AppFactory','appDataService','
 
 app.controller('profileController',['$scope','appDataService','dataFactory','$window',function($scope,appDataService,dataFactory,$window){
     
+    
+    /*
     appDataService.loadVariableData();
     $scope.loggedIn = appDataService.getLoggedInFlag();
     
@@ -967,10 +982,13 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
         $scope.slotFlag = true;
         appDataService.setSearchTerm('');
     }
+    */
     
-    $scope.userId=appDataService.getUserId();
-    $scope.userType=appDataService.getUserType();
-    $scope.fullname=appDataService.getFullName();
+    
+    $scope.loggedIn=false;
+    $scope.userId=""
+    $scope.userType=""
+    $scope.fullname=""
     $scope.isDoc=false;
     $scope.user;
     $scope.choices=[{id:1,date:"",time:[]},{id:2,date:"",time:[]}];
@@ -978,6 +996,43 @@ app.controller('profileController',['$scope','appDataService','dataFactory','$wi
     $scope.dateData=[];
     $scope.newAvailability=[];
     $scope.availableSlots=[];
+    
+    //varify login
+    $scope.init = function()
+     {
+        appDataService.loadVariableData();
+        if(appDataService.getLoggedInFlag()){
+         $scope.loggedIn=true;   
+        $scope.userId=appDataService.getUserId();
+        $scope.fullname = appDataService.getFullName();
+            console.log('Full Name received:'+ $scope.fullname);
+        if(appDataService.getUserType()=="doctor"){
+            $scope.userType="doctor";
+        }
+        else{
+            $scope.userType="patient";
+        }
+        }
+        else{
+        appDataService.setPreviousPage('./profile.html');
+        appDataService.saveVariableData();
+        $window.location.href = './login.html';
+        console.log("please log in");
+    }
+     }
+
+     $scope.init();
+    
+    console.log('Search Term:'+appDataService.getSearchTerm());
+    $scope.slotFlag = false;
+    if(appDataService.getSearchTerm() == 'TRUE')
+    {
+        console.log('In here');
+        $scope.slotFlag = true;
+        appDataService.setSearchTerm('');
+    }
+    
+    
     
     //get user info
     if($scope.userType==="doctor"){

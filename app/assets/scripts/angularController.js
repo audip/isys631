@@ -277,26 +277,42 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     }).then(function (response) { return response.data;} );
     };
     
-    dataFactory.postReview=function(data){
-        return $http({
-    method: 'POST',
-    url: restUrl+'/review',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    transformRequest: function(obj) {
-        var str = [];
-        for(var p in obj)
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        return str.join("&");
-    },
-    data: {
-        id:data.id,
-        doctor_id:data.doctor_id,
-            score:data.score,
-            comment:data.comment,
-            user_type:"patient"
+    //make a get request to appointment API
+    dataFactory.getApp = function(id,type){
+        //return appList;
+        var config = {
+            params: {
+                id: id,
+                user_type: type
+            }
+        }
+
+        return $http.get(restUrl+"/appointment", config);
     }
-    });
     
+    //make a post request to review API
+    dataFactory.postReview = function( data ) {
+	return $http( {
+		method: 'POST',
+		url: restUrl + '/review',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		transformRequest: function( obj ) {
+			var str = [];
+			for ( var p in obj )
+				str.push( encodeURIComponent( p ) + "=" + encodeURIComponent( obj[ p ] ) );
+			return str.join( "&" );
+		},
+		data: {
+			id: data.id,
+			doctor_id: data.doctor_id,
+			score: data.score,
+			comment: data.comment,
+			user_type: "patient"
+		}
+	} );
+
     };
     
     dataFactory.postAvailability=function(id,slots){
@@ -321,16 +337,10 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     
     };
     
+    //make a delete call to appointment API
     dataFactory.deleteApp = function(id){
         //return appList;
         console.log(id);
-        /*var config = {
-            params: {
-                //appointment_id: id
-                appointment_id: 30
-            }
-        }*/
-
         return $http.delete(restUrl+"/appointment/"+id).then(function(response){
             return response.data;})
     };
@@ -346,42 +356,7 @@ app.factory('dataFactory', ['$http','$q','appDataService', function($http,$q,app
     return dataFactory;
 }]);
 
-//Should be consolidated into dataFactory
-app.factory('AppFactory',['$http',function($http){
-    var appFac = {};
-    var baseUrl="https://doctorsforme-api.herokuapp.com/";
     
-    //get appointments
-    appFac.getApp = function(id,type){
-        //return appList;
-        var config = {
-            params: {
-                id: id,
-                user_type: type
-            }
-        }
-
-        return $http.get(baseUrl+"appointment", config);
-    }
-    
-    appFac.creatReview = function(data){
-        console.log(data);
-        var review={
-            id:data.id,
-            doctori_id:data.doctor_id,
-            score:data.score,
-            comment:data.comment,
-            user_type:"patient"
-            
-        }
-        //return $http.post(baseUrl+"review",data);
-        return $http.post(baseUrl+"review",review);
-        
-    }
-    
-    return appFac;
-}]);
-                
 app.controller('search_resultsCntrl', ['$scope', '$location','appDataService','dataFactory','$window',function($scope, $location,appDataService,dataFactory,$window) {
     
     
@@ -791,420 +766,397 @@ app.controller('singleDoctorCntrl', ['$scope', '$location','appDataService','dat
 }]);
 
 
-//Maintained by Silvia - use dataFactory for consolidated API calls, AppFactory is redundant. Load user data from the appdataservice
-app.controller('appointmentController',['$scope','AppFactory','appDataService','$window','dataFactory',function($scope,AppFactory,appDataService,$window,dataFactory){
-    /*//verify login
-    appDataService.loadVariableData();
-    $scope.loggedIn = appDataService.getLoggedInFlag();
-    
-    if(appDataService.getLoggedInFlag()){
-        $scope.fullname = appDataService.getFullName();
-        //@Silvia Can use this variable in the front end
-        console.log('Full Name received:'+ $scope.fullname);
-    };*/
-    
-    $scope.userId;
-    $scope.userType;
-    $scope.isPatient=true;
-    $scope.docLocation="";
-    $scope.message="";
-    $scope.loggedIn=false;
-    $scope.fullname="";
-    $scope.init = function()
-     {
-        appDataService.loadVariableData();
-        if(appDataService.getLoggedInFlag()){
-         $scope.loggedIn=true;   
-        $scope.userId=appDataService.getUserId();
-        $scope.fullname = appDataService.getFullName();
-            console.log('Full Name received:'+ $scope.fullname);
-        if(appDataService.getUserType()=="doctor"){
-            $scope.userType="doctor";
-        }
-        else{
-            $scope.userType="patient";
-        }
-        }
-        else{
-        appDataService.setPreviousPage('./view-appointments.html');
-        appDataService.saveVariableData();
-        $window.location.href = './login.html';
-        console.log("please log in");
-    }
-     }
+//appointmentController
+//function: handle the frontend and backend communication for view-appointments page
+app.controller( 'appointmentController', [ '$scope', 'appDataService', '$window', 'dataFactory', function( $scope, appDataService, $window, dataFactory ) {
 
-     $scope.init(); 
+	$scope.userId;
+	$scope.userType;
+	$scope.isPatient = true;
+	$scope.docLocation = "";
+	$scope.message = "";
+	$scope.loggedIn = false;
+	$scope.fullname = "";
     
-    //message load
-    appDataService.loadVariableData();
-    if(appDataService.getSelectedDoctorID()===""){
-        $scope.message="Here are your appointments.";
-    }
-    else{
-        $scope.message="You have successfully booked your appointment!";
-        appDataService.setSelectedDoctorID("");
-        appDataService.saveVariableData();
-    }
-    
-    //get doc location
-    if($scope.userType=="doctor"){
-        $scope.isPatient=false;
-        dataFactory.getDoctorInfo($scope.userId).then(
-            function(response){
-                $scope.docLocation=response.info.address+", "+response.info.city;
-            },
-            function(response){
-            console.log("error");
-        }
-        );
-        
-    }
-    
-    //get appointments
-    $scope.appList=[];
-    AppFactory.getApp($scope.userId,$scope.userType)
-    .then(
-        function(response){
-            $scope.appList = response.data.appointments;
-        },
-        //error handling
-        function(response){
-            console.log(response);
-        }
-    );
-    
-    $scope.selectedIndex;
-    $scope.formShow=false;
-    $scope.successReviewShow = false;
-    
-    //form variables
-    $scope.review={id:$scope.userId,user_type:"patient",doctor_id:"",score:5,comment:""};
-    
-    $scope.setFormShow=function(value){
-        $scope.formShow=value;
-    }
-    $scope.setSuccessReviewShow=function(value){
-        $scope.successReviewShow=value;
-    }
-    //send review
-    $scope.sendReview = function(){
-        console.log($scope.review);
-        dataFactory.postReview($scope.review)
-        .then(
-            function(response){
-                if(response.status){
-                    console.log(response);
-                    $scope.setFormShow(false);
-                    $scope.setSuccessReviewShow(true);
-                }
-                //error handling
-                else{
-                    console.log(response);
-                }
-                
-            }
-        );
-        $scope.review.score=5;
-        $scope.review.comment="";
-        
-    }
-    
-    //cancel app
-    $scope.cancelApp = function(appId){
-        
-        var deleteApp = dataFactory.deleteApp(appId);
-        
-        deleteApp.then(function(result){
-            $scope.messageX = result;
-            console.log('Here: '+$scope.messageX);
-            $window.location.href = './view-appointments.html';
-        });
-        
-//        $window.location.href = './view-appointments.html';
-        
-        
-        
-//        dataFactory.deleteApp(appId).then({
-//            function(response){
-//                console.log("success");
-//                console.log(response);
-//            }
-//            ,function(response){
-//            console.log(response);
-//        }
-//        });
-//        //$window.location.reload();
-//        setTimeout(function(){ $window.location.reload(); }, 3);
-        
-    }
-    
-    //reschedule app
-    $scope.rescheduleApp = function(app){
-        appDataService.loadVariableData();
-        appDataService.setSelectedDoctorID(app.doctor_id);
-        appDataService.saveVariableData();
-        
-        var rescheduleApp = dataFactory.deleteApp(app.appointment_id);
-        
-        rescheduleApp.then(
-            function(response){
-                console.log("success");
-                $window.location.href = './book-appointment.html';}
-            );
-        
-    };
-    
-    $scope.signoutButtonClick = function () {
-    appDataService.resetVariableData();
-    $window.location.href = './index.html';
-    };
-    
-}]);
+    //function to check user login before page load
+    //if logged in, get and store user data
+    //if not, redirect to sign in page
+	$scope.init = function() {
+		appDataService.loadVariableData();
+		if ( appDataService.getLoggedInFlag() ) {
+			$scope.loggedIn = true;
+			$scope.userId = appDataService.getUserId();
+			$scope.fullname = appDataService.getFullName();
+			console.log( 'Full Name received:' + $scope.fullname );
+			if ( appDataService.getUserType() == "doctor" ) {
+				$scope.userType = "doctor";
+			} else {
+				$scope.userType = "patient";
+			}
+		} else {
+			appDataService.setPreviousPage( './view-appointments.html' );
+			appDataService.saveVariableData();
+			$window.location.href = './login.html';
+			console.log( "please log in" );
+		}
+	}
+	$scope.init();
 
-app.controller('profileController',['$scope','appDataService','dataFactory','$window',function($scope,appDataService,dataFactory,$window){
-    
-    
-    /*
-    appDataService.loadVariableData();
-    $scope.loggedIn = appDataService.getLoggedInFlag();
-    
-    if(appDataService.getLoggedInFlag()){
-        $scope.fullname = appDataService.getFullName();
-        //@Silvia Can use this variable in the front end
-        console.log('Full Name received:'+ $scope.fullname);
-    };
-    
-    console.log('Search Term:'+appDataService.getSearchTerm());
-    $scope.slotFlag = false;
-    if(appDataService.getSearchTerm() == 'TRUE')
-    {
-        console.log('In here');
-        $scope.slotFlag = true;
-        appDataService.setSearchTerm('');
-    }
-    */
-    
-    
-    $scope.loggedIn=false;
-    $scope.dataLoadedFlag=false;
-    $scope.userId=""
-    $scope.userType=""
-    $scope.fullname=""
-    $scope.isDoc=false;
-    $scope.user;
-    $scope.choices=[{id:1,date:"",time:[]},{id:2,date:"",time:[]}];
-    $scope.timeData=[{id:"0900",label:"9:00 AM"},{id:"1000",label:"10:00 AM"},{id:"1100",label:"11:00 AM"},{id:"1200",label:"12:00 PM"},{id:"1300",label:"1:00 PM"},{id:"1400",label:"2:00 PM"},{id:"1500",label:"3:00 PM"},{id:"1600",label:"4:00 PM"},{id:"1700",label:"5:00 PM"},{id:"1800",label:"6:00 PM"}];
-    $scope.dateData=[];
-    $scope.newAvailability=[];
-    $scope.availableSlots=[];
-    
-    //varify login and redirecting
-    $scope.init = function()
-     {
-        appDataService.loadVariableData();
-        
-       
-        
-        if(appDataService.getLoggedInFlag()){
-         $scope.loggedIn=true;   
-        $scope.userId=appDataService.getUserId();
-        $scope.fullname = appDataService.getFullName();
-            console.log('Full Name received:'+ $scope.fullname);
-        if(appDataService.getUserType()=="doctor"){
-            $scope.userType="doctor";
-        }
-        else{
-            $scope.userType="patient";
-        }
-        }
-        else{
-        appDataService.setPreviousPage('./profile.html');
-        appDataService.saveVariableData();
-        $window.location.href = './login.html';
-        console.log("please log in");
-    }
-     }
+	//get location for doctor
+	if ( $scope.userType == "doctor" ) {
+		$scope.isPatient = false;
+		dataFactory.getDoctorInfo( $scope.userId )
+			.then(
+				function( response ) {
+					$scope.docLocation = response.info.address + ", " + response.info.city;
+				},
+				function( response ) {
+					console.log( "error" );
+				}
+			);
 
-     $scope.init();
+	}
+ 
+	//get appointments from backend
+	$scope.appList = [];
+	dataFactory.getApp( $scope.userId, $scope.userType )
+		.then(
+			function( response ) {
+				$scope.appList = response.data.appointments;
+			},
+			//error handling
+			function( response ) {
+				console.log( response );
+			}
+		);
     
+    //variables and functions to control show and hide for the review form and success message
+	$scope.selectedIndex;
+	$scope.formShow = false;
+	$scope.successReviewShow = false;
     
-     console.log('Search Term:'+appDataService.getSearchTerm());
-    $scope.slotFlag = false;
-    if(appDataService.getSearchTerm() == 'TRUE')
-    {
-        console.log('In here');
-        $scope.slotFlag = true;
-        appDataService.setSearchTerm('');
+    $scope.setFormShow = function( value ) {
+		$scope.formShow = value;
+	}
+	$scope.setSuccessReviewShow = function( value ) {
+			$scope.successReviewShow = value;
     }
-    
-    
-    //get user info
-    if($scope.userType==="doctor"){
-        $scope.isDoc=true;
-        dataFactory.getDoctorInfo($scope.userId).then(
-            function(response){
-                $scope.user=response.info;
-                $scope.dataLoadedFlag=true;
-            },
-            function(response){
-                console.log("error:"+response);
-            }
-        );
-    }
-    else{
-        dataFactory.getPatientInfo($scope.userId).then(
-            function(response){
-                $scope.user=response.info;
-                $scope.dataLoadedFlag=true;
-            },
-            function(response){
-                console.log("error:"+response);
-            }
-        );
-    }
-    
-    //load date data
-    var today=new Date();
-    $scope.addDays = function(date,days) {
-        var dat = new Date(date);
-        dat.setDate(date.getDate() + days);
-        return dat;
-    }
-    $scope.processDate=function(date){
-        var str=date.getFullYear().toString()+"-";
-        if(date.getMonth()+1<10){
-            str=str+"0"+(date.getMonth()+1).toString()+"-";
-        }
-        else{
-            str=str+(date.getMonth()+1).toString()+"-";
-        }
-        if(date.getDate()<10){
-            str=str+"0"+date.getDate().toString();
-        }
-        else{
-            str=str+date.getDate().toString();
-        }
-        return str;
-    }
-    for(var i=1;i<=14;i++){
-        var date=$scope.addDays(today,i);
-        if(date.getDay()!=6 && date.getDay()!=0){
-            var dateStr=$scope.processDate(date);
-            $scope.dateData.push(dateStr);
-        }
-    }
-    
-    
-    //get available slots
-    if($scope.userType="doctor"){
-        dataFactory.getDoctorAvailability($scope.userId).then(
-            function(response){
-                $scope.availableSlots=response.available_slots;
-                console.log($scope.availableSlots);
-            },
-            function(response){
-                console.log("error:"+response);
-            }
-        );
-    }
-    
-    
-    //add and delete field methods
-    $scope.removeChoice = function(){
-        var lastItem = $scope.choices.length-1;
-        $scope.choices.splice(lastItem);
-    }
-    $scope.addNewChoice = function() {
-        var newItemNo = $scope.choices.length+1;
-        $scope.choices.push({'id':newItemNo,date:"",time:[]});
-    };
-    
-    //post time slots
-    
-    $scope.submitTimeSlots=function(){
-        /*if($scope.choices.length==0){
-            
-        }*/
-        
-        //gather data
-        for(var i=0;i<$scope.choices.length;i++){
-            for(var j=0;j<$scope.choices[i].time.length;j++){
-                var slot={
-                    date:$scope.choices[i].date,
-                    time:$scope.choices[i].time[j].id
-                }
-                //check overlapping
-                /*if(!$scope.availableSlots.includes(slot)){
-                    $scope.newAvailability.push(slot);
-                }*/
-                $scope.newAvailability.push(slot);
-            }
-        }
-        console.log($scope.newAvailability);
-        dataFactory.postAvailability($scope.userId,$scope.newAvailability).then(
-            function(response){
-                console.log("success");
-                console.log(response);
-                //$window.location.href = './profile.html';
-                appDataService.setSearchTerm('TRUE');
-                appDataService.saveVariableData();
-                $window.location.href = './profile.html'; 
-                
-            },
-            function(response){
-                console.log(response);
-            }
-        );
-        
-    };
-    
-    $scope.signoutButtonClick = function () {
-    console.log('Her1');   
-    appDataService.resetVariableData();
-    $window.location.href = './index.html';
-    console.log('Her2');  
-    };
-    
-}]);
 
-app.filter('futureFilter',function(){
-    return function (items){
-        var curDate = new Date();
-        var array=[];
-        for(var i=0; i<items.length;i++){
-            //alert(items[i].doctor_id);
-            var date=items[i].date;
-            //console.log(date);
-            var time=items[i].time.substring(0,2);
-            //console.log(time);
-            var datetime=date+"T"+time+":00:00Z";
-            //console.log(datetime);
-            var appDate = new Date(datetime);
-            //console.log(appDate.toDateString());
-            if(appDate > curDate){
-                array.push(items[i]);
-            }
-        }
-        return array;
-    }
-});
+	//form variables
+	$scope.review = {
+		id: $scope.userId,
+		user_type: "patient",
+		doctor_id: "",
+		score: 5,
+		comment: ""
+	};
+    
+    //send review function
+	$scope.sendReview = function() {
+		console.log( $scope.review );
+		dataFactory.postReview( $scope.review )
+			.then(
+				function( response ) {
+					if ( response.status ) {
+						console.log( response );
+						$scope.setFormShow( false );
+						$scope.setSuccessReviewShow( true );
+					}
+					//error handling
+					else {
+						console.log( response );
+					}
 
-app.filter('pastFilter',function(){
-    return function (items){
-        var curDate = new Date();
-        var array=[];
-        for(var i=0; i<items.length;i++){
-            var date=items[i].date;
-            var time=items[i].time.substring(0,2);
-            var datetime=date+"T"+time+":00:00Z";
-            var appDate = new Date(datetime);
-            if(appDate <= curDate){
-                array.push(items[i]);
-            }
-        }
-        return array;
-    }
-});
+				}
+			);
+		$scope.review.score = 5;
+		$scope.review.comment = "";
+
+	}
+
+	//cancel appointment function
+	$scope.cancelApp = function( appId ) {
+
+		var deleteApp = dataFactory.deleteApp( appId );
+
+		deleteApp.then( function( result ) {
+			$scope.messageX = result;
+			console.log( 'Here: ' + $scope.messageX );
+			$window.location.href = './view-appointments.html';
+		} );
+
+
+	}
+
+	//reschedule appointment function
+	$scope.rescheduleApp = function( app ) {
+		appDataService.loadVariableData();
+		appDataService.setSelectedDoctorID( app.doctor_id );
+		appDataService.saveVariableData();
+
+		var rescheduleApp = dataFactory.deleteApp( app.appointment_id );
+
+		rescheduleApp.then(
+			function( response ) {
+				console.log( "success" );
+				$window.location.href = './book-appointment.html';
+			}
+		);
+
+	};
+
+	$scope.signoutButtonClick = function() {
+		appDataService.resetVariableData();
+		$window.location.href = './index.html';
+	};
+
+} ] );
+
+//profileController
+//function: handle the frontend and backend communication for profile page
+app.controller( 'profileController', [ '$scope', 'appDataService', 'dataFactory', '$window', function( $scope, appDataService, dataFactory, $window ) {
+    
+    //define variables
+	$scope.loggedIn = false;
+	$scope.dataLoadedFlag = false;
+	$scope.userId = ""
+	$scope.userType = ""
+	$scope.fullname = ""
+	$scope.isDoc = false;
+	$scope.user;
+	$scope.choices = [ {
+		id: 1,
+		date: "",
+		time: []
+	}, {
+		id: 2,
+		date: "",
+		time: []
+	} ];
+	$scope.timeData = [ {
+		id: "0900",
+		label: "9:00 AM"
+	}, {
+		id: "1000",
+		label: "10:00 AM"
+	}, {
+		id: "1100",
+		label: "11:00 AM"
+	}, {
+		id: "1200",
+		label: "12:00 PM"
+	}, {
+		id: "1300",
+		label: "1:00 PM"
+	}, {
+		id: "1400",
+		label: "2:00 PM"
+	}, {
+		id: "1500",
+		label: "3:00 PM"
+	}, {
+		id: "1600",
+		label: "4:00 PM"
+	}, {
+		id: "1700",
+		label: "5:00 PM"
+	}, {
+		id: "1800",
+		label: "6:00 PM"
+	} ];
+	$scope.dateData = [];
+	$scope.newAvailability = [];
+	$scope.availableSlots = [];
+
+	//verify login and redirecting before page load
+	$scope.init = function() {
+		appDataService.loadVariableData();
+
+
+
+		if ( appDataService.getLoggedInFlag() ) {
+			$scope.loggedIn = true;
+			$scope.userId = appDataService.getUserId();
+			$scope.fullname = appDataService.getFullName();
+			console.log( 'Full Name received:' + $scope.fullname );
+			if ( appDataService.getUserType() == "doctor" ) {
+				$scope.userType = "doctor";
+			} else {
+				$scope.userType = "patient";
+			}
+		} else {
+			appDataService.setPreviousPage( './profile.html' );
+			appDataService.saveVariableData();
+			$window.location.href = './login.html';
+			console.log( "please log in" );
+		}
+	}
+	$scope.init();
+
+    //handle search term
+	console.log( 'Search Term:' + appDataService.getSearchTerm() );
+	$scope.slotFlag = false;
+	if ( appDataService.getSearchTerm() == 'TRUE' ) {
+		console.log( 'In here' );
+		$scope.slotFlag = true;
+		appDataService.setSearchTerm( '' );
+	}
+
+
+	//get user information
+	if ( $scope.userType === "doctor" ) {
+		$scope.isDoc = true;
+		dataFactory.getDoctorInfo( $scope.userId )
+			.then(
+				function( response ) {
+					$scope.user = response.info;
+					$scope.dataLoadedFlag = true;
+				},
+				function( response ) {
+					console.log( "error:" + response );
+				}
+			);
+	} else {
+		dataFactory.getPatientInfo( $scope.userId )
+			.then(
+				function( response ) {
+					$scope.user = response.info;
+					$scope.dataLoadedFlag = true;
+				},
+				function( response ) {
+					console.log( "error:" + response );
+				}
+			);
+	}
+
+	//load date data
+    //function load date option box with work dates within 2 weeks from today
+	var today = new Date();
+	$scope.addDays = function( date, days ) {
+		var dat = new Date( date );
+		dat.setDate( date.getDate() + days );
+		return dat;
+	}
+	$scope.processDate = function( date ) {
+		var str = date.getFullYear()
+			.toString() + "-";
+		if ( date.getMonth() + 1 < 10 ) {
+			str = str + "0" + ( date.getMonth() + 1 )
+				.toString() + "-";
+		} else {
+			str = str + ( date.getMonth() + 1 )
+				.toString() + "-";
+		}
+		if ( date.getDate() < 10 ) {
+			str = str + "0" + date.getDate()
+				.toString();
+		} else {
+			str = str + date.getDate()
+				.toString();
+		}
+		return str;
+	}
+	for ( var i = 1; i <= 14; i++ ) {
+		var date = $scope.addDays( today, i );
+		if ( date.getDay() != 6 && date.getDay() != 0 ) {
+			var dateStr = $scope.processDate( date );
+			$scope.dateData.push( dateStr );
+		}
+	}
+
+	//add and delete field methods
+	$scope.removeChoice = function() {
+		var lastItem = $scope.choices.length - 1;
+		$scope.choices.splice( lastItem );
+	}
+	$scope.addNewChoice = function() {
+		var newItemNo = $scope.choices.length + 1;
+		$scope.choices.push( {
+			'id': newItemNo,
+			date: "",
+			time: []
+		} );
+	};
+
+	//function to submit time slots
+	$scope.submitTimeSlots = function() {
+		//gather data from select box
+		for ( var i = 0; i < $scope.choices.length; i++ ) {
+			for ( var j = 0; j < $scope.choices[ i ].time.length; j++ ) {
+				var slot = {
+						date: $scope.choices[ i ].date,
+						time: $scope.choices[ i ].time[ j ].id
+					}
+				$scope.newAvailability.push( slot );
+			}
+		}
+		console.log( $scope.newAvailability );
+        //make a post request to API
+		dataFactory.postAvailability( $scope.userId, $scope.newAvailability )
+			.then(
+				function( response ) {
+					console.log( "success" );
+					console.log( response );
+					//$window.location.href = './profile.html';
+					appDataService.setSearchTerm( 'TRUE' );
+					appDataService.saveVariableData();
+					$window.location.href = './profile.html';
+
+				},
+				function( response ) {
+					console.log( response );
+				}
+			);
+
+	};
+    
+    //sign out function
+	$scope.signoutButtonClick = function() {
+		console.log( 'Her1' );
+		appDataService.resetVariableData();
+		$window.location.href = './index.html';
+		console.log( 'Her2' );
+	};
+
+} ] );
+
+//data filter
+//function: filter datatime to keep the datetime in the future 
+app.filter( 'futureFilter', function() {
+	return function( items ) {
+		var curDate = new Date();
+		var array = [];
+		for ( var i = 0; i < items.length; i++ ) {
+			var date = items[ i ].date;
+			var time = items[ i ].time.substring( 0, 2 );
+			var datetime = date + "T" + time + ":00:00Z";
+			var appDate = new Date( datetime );
+			if ( appDate > curDate ) {
+				array.push( items[ i ] );
+			}
+		}
+		return array;
+	}
+} );
+
+//data filter
+//function: filter datatime to keep the datetime in the past 
+app.filter( 'pastFilter', function() {
+	return function( items ) {
+		var curDate = new Date();
+		var array = [];
+		for ( var i = 0; i < items.length; i++ ) {
+			var date = items[ i ].date;
+			var time = items[ i ].time.substring( 0, 2 );
+			var datetime = date + "T" + time + ":00:00Z";
+			var appDate = new Date( datetime );
+			if ( appDate <= curDate ) {
+				array.push( items[ i ] );
+			}
+		}
+		return array;
+	}
+} );
 
 app.filter('searchResultFilter',function(){
     return function (items,arg1,arg2,arg3){
@@ -1250,108 +1202,105 @@ app.filter('searchResultFilter',function(){
     }
 });
 
-app.filter('dateFilter',function(){
-   return function (item){
-       var date=item.split("-");
-       var month;
-       switch(date[1]) {
-            case "01":
-                month="Jan"
-                break;
-            case "02":
-                month="Feb"
-                break;
-            case "03":
-                month="Mar"
-                break;
-            case "04":
-                month="Apr"
-                break;
-            case "05":
-                month="May"
-                break;
-            case "06":
-                month="Jun"
-                break;
-            case "07":
-                month="Jul"
-                break;
-            case "08":
-                month="Aug"
-                break;
-            case "09":
-                month="Sep"
-                break;
-            case "10":
-                month="Oct"
-                break;
-            case "11":
-                month="Nov"
-                break;
-            case "12":
-                month="Dec"
-                break;
-            default:
-                "Jan"
-        }
-       return month+" "+date[2]+", "+date[0];
-   } 
-});
+//data filter
+//funcion: format date
+app.filter( 'dateFilter', function() {
+	return function( item ) {
+		var date = item.split( "-" );
+		var month;
+		switch ( date[ 1 ] ) {
+			case "01":
+				month = "Jan"
+				break;
+			case "02":
+				month = "Feb"
+				break;
+			case "03":
+				month = "Mar"
+				break;
+			case "04":
+				month = "Apr"
+				break;
+			case "05":
+				month = "May"
+				break;
+			case "06":
+				month = "Jun"
+				break;
+			case "07":
+				month = "Jul"
+				break;
+			case "08":
+				month = "Aug"
+				break;
+			case "09":
+				month = "Sep"
+				break;
+			case "10":
+				month = "Oct"
+				break;
+			case "11":
+				month = "Nov"
+				break;
+			case "12":
+				month = "Dec"
+				break;
+			default:
+				"Jan"
+		}
+		return month + " " + date[ 2 ] + ", " + date[ 0 ];
+	}
+} );
 
-app.filter('timeFilter',function(){
-    return function(item){
-        /*if(item<"12"){
-            return item+":00 AM";
-        }
-        else if(item=="12"){
-                return item+":00 PM"
-                }
-        else{
-            return item-12+":00 PM"
-        }*/
-        return item.substring(0,2)+":00"
-    }
-});
+//custom data filter
+//format time
+app.filter( 'timeFilter', function() {
+	return function( item ) {
+		return item.substring( 0, 2 ) + ":00"
+	}
+} );
 
-app.directive('starRating', function () {
-    return {
-        restrict: 'A',
-        template: '<ul class="rating">' +
-            '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
-            '\u2605' +
-            '</li>' +
-            '</ul>',
-        scope: {
-            ratingValue: '=',
-            max: '=',
-            onRatingSelected: '&'
-        },
-        link: function (scope, elem, attrs) {
+//custom angularJs directive
+//function: to display rating in stars
+app.directive( 'starRating', function() {
+	return {
+		restrict: 'A',
+		template: '<ul class="rating">' +
+			'<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
+			'\u2605' +
+			'</li>' +
+			'</ul>',
+		scope: {
+			ratingValue: '=',
+			max: '=',
+			onRatingSelected: '&'
+		},
+		link: function( scope, elem, attrs ) {
 
-            var updateStars = function () {
-                scope.stars = [];
-                for (var i = 0; i < scope.max; i++) {
-                    scope.stars.push({
-                        filled: i < scope.ratingValue
-                    });
-                }
-            };
+			var updateStars = function() {
+				scope.stars = [];
+				for ( var i = 0; i < scope.max; i++ ) {
+					scope.stars.push( {
+						filled: i < scope.ratingValue
+					} );
+				}
+			};
 
-            scope.toggle = function (index) {
-                scope.ratingValue = index + 1;
-                scope.onRatingSelected({
-                    rating: index + 1
-                });
-            };
+			scope.toggle = function( index ) {
+				scope.ratingValue = index + 1;
+				scope.onRatingSelected( {
+					rating: index + 1
+				} );
+			};
 
-            scope.$watch('ratingValue', function (oldVal, newVal) {
-                if (newVal) {
-                    updateStars();
-                }
-            });
-        }
-    }
-});
+			scope.$watch( 'ratingValue', function( oldVal, newVal ) {
+				if ( newVal ) {
+					updateStars();
+				}
+			} );
+		}
+	}
+} );
 
 //delete confirmation box directive
 app.directive('ngConfirmClick', [

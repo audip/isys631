@@ -1,319 +1,317 @@
 <!DOCTYPE html>
+
 <html lang="en">
-	<head>
-		<!-- Meta -->
-		<meta charset="utf-8">
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
-	    <meta name="keywords" content="doctors, doctors, patient, treatment">
-	    <meta name="robots" content="all">
+<head>
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+	<meta content="" name="description">
+	<meta content="" name="author">
+	<meta content="doctors, doctors, patient, treatment" name="keywords">
+	<meta content="all" name="robots">
 
-	    <title>DoctorsFor.me</title>
+	<title>DoctorsFor.me</title><!-- Bootstrap Core CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/main.css" rel="stylesheet">
+	<link href="assets/css/owl.carousel.css" rel="stylesheet">
+	<link href="assets/css/owl.transitions.css" rel="stylesheet">
+	<link href="assets/css/animate.min.css" rel="stylesheet">
+	<link href="assets/css/config.css" rel="stylesheet">
+	<link href="assets/css/custom-dfm.css" rel="stylesheet">
+	<link href="assets/css/blue.css" rel="stylesheet" title="Blue color"><!-- Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Kaushan+Script' rel='stylesheet' type='text/css'><!-- Icons/Glyphs -->
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet"><!-- Favicon -->
+	<link href="assets/images/favicon.ico" rel="shortcut icon"><!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
+	<!--[if lt IE 9]>
+            <script src="assets/js/html5shiv.js"></script>
+            <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+    
+    <!-- angularJs -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js">
+	</script>
+	<script src="https://rubaxa.github.io/Sortable/Sortable.js">
+	</script>
+	<script src="https://rubaxa.github.io/Sortable/ng-sortable.js">
+	</script>
+	<script src="https://www.gstatic.com/charts/loader.js" type="text/javascript">
+	</script>
+	<script src="assets/scripts/dirPagination.js">
+	</script>
+	<script src="assets/bower_components/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js" type="text/javascript">
+	</script>
+    
+    <!-- Internal CSS -->
+	<style>
+	              .add-review{
+	                  margin: 0;
+	              }
+	              .reviewTitle{
+	                  display: inline-block;
+	              }
+	              .reviewClose{
+	                  display: inline-block;
+	              }
+	              .succMsg,
+	              .succMsgClose{
+	                  display: inline-block;
+	              }
+	</style>
+</head>
 
-	    <!-- Bootstrap Core CSS -->
-	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
-	  <link rel="stylesheet" href="assets/css/main.css">
-	  <link rel="stylesheet" href="assets/css/owl.carousel.css">
-		<link rel="stylesheet" href="assets/css/owl.transitions.css">
-		<link rel="stylesheet" href="assets/css/animate.min.css">
-
-		<link rel="stylesheet" href="assets/css/config.css">
-		<link rel="stylesheet" href="assets/css/custom-dfm.css">
-		<link href="assets/css/blue.css" rel="stylesheet" title="Blue color">
-
-	    <!-- Fonts -->
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Kaushan+Script' rel='stylesheet' type='text/css'>
-
-		<!-- Icons/Glyphs -->
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
-
-		<!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
-		<!--[if lt IE 9]>
-			<script src="assets/js/html5shiv.js"></script>
-			<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
-        <script src="https://rubaxa.github.io/Sortable/Sortable.js"></script>
-        <script src="https://rubaxa.github.io/Sortable/ng-sortable.js"></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script src="assets/scripts/dirPagination.js"></script>
-        <script type="text/javascript" src="assets/bower_components/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
-        <style>
-            .add-review{
-                margin: 0;
-            }
-            .reviewTitle{
-                display: inline-block;
-            }
-            .reviewClose{
-                display: inline-block;
-            }
-            .succMsg,
-            .succMsgClose{
-                display: inline-block;
-            }
-        </style>
-	</head>
-<body  ng-app="myApp" ng-controller="appointmentController">
-<div class="wrapper">
-<!-- header area starts here--> 
- <!-- top nav bar starts here -->
-<nav class="top-bar animate-dropdown">
-                <div class="container" ng-cloak>
-                    <div class="col-xs-12 col-md-4 no-margin logo-main">
-                        <a href="index.html">DoctorsFor.me</a>
-                        </div><!-- /.col -->
-                        <div class="col-xs-12 col-md-8 no-margin">
-                            <ul class="right">
-                                <li class="nav-li"><a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-search" aria-hidden="true"></i> Search Doctors</a></li>
-                                <li class="nav-li"><a role="menuitem" tabindex="-1" href="view-appointments.html"><i class="fa fa-book" aria-hidden="true"></i> Appointments</a></li>
-                                <li class="nav-li ng-hide " ng-show="!loggedIn"><a href="login.html"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
-                                <li class="nav-li ng-hide" ng-show="!loggedIn"><a href="signup.html"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
-                                <li class="nav-li ng-hide" ng-show="loggedIn"><a href="profile.html"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
-                                <li class="nav-li ng-hide" ng-show="loggedIn" ng-click="signoutButtonClick();"><a href=#>{{fullname}} | <i class="fa fa-sign-out" aria-hidden="true"></i> Signout</a></li>
-                            </ul>
-                            </div><!-- /.col -->
-                            </div><!-- /.container -->
-                            </nav><!-- /.top-bar -->
-<!-- top nav bar ends here -->
-
-<main id="authentication">
-	<div class="container">
-		<div class="row">
-			<div class="row-eq-height">
-				<div class="col-md-4 col-xs-12">
-					<div class="logo" style="margin: 5% auto">
-                                
-                        <table style="margin: 0 auto; height: 100%">
-                            <tr><td><img src="./assets/images/custom/panda_logo_top_2.jpg" width="150"></td></tr>
-                            <tr><td>
-                                <div class="panda-board"> 
-                                    <span class="panda-text ng-hide" ng-show="loggedIn">View your Appointments!</span>
-                                    <span class="panda-text ng-hide" ng-show="!loggedIn">It's awsome to see you again!</span>
-                                </div>
-                            </td></tr>
-                            <tr><td><img src="./assets/images/custom/panda_logo_bottom_2.jpg" width="150"></td></tr>
-                        </table>
-                                            
-                    </div><!-- /.logo -->
-
+<body ng-app="myApp" ng-controller="appointmentController">
+	<div class="wrapper">
+        <!-- top nav bar starts here -->
+		<nav class="top-bar animate-dropdown">
+			<div class="container" ng-cloak="">
+				<div class="col-xs-12 col-md-4 no-margin logo-main">
+					<a href="index.html">DoctorsFor.me</a>
+				</div>
+				<div class="col-xs-12 col-md-8 no-margin">
+					<ul class="right">
+						<li class="nav-li">
+							<a href="index.html" role="menuitem" tabindex="-1"><i aria-hidden="true" class="fa fa-search"></i> Search Doctors</a>
+						</li>
+						<li class="nav-li">
+							<a href="view-appointments.html" role="menuitem" tabindex="-1"><i aria-hidden="true" class="fa fa-book"></i> Appointments</a>
+						</li>
+						<li class="nav-li ng-hide" ng-show="!loggedIn">
+							<a href="login.html"><i aria-hidden="true" class="fa fa-sign-in"></i> Login</a>
+						</li>
+						<li class="nav-li ng-hide" ng-show="!loggedIn">
+							<a href="signup.html"><i aria-hidden="true" class="fa fa-user"></i> Signup</a>
+						</li>
+						<li class="nav-li ng-hide" ng-show="loggedIn">
+							<a href="profile.html"><i aria-hidden="true" class="fa fa-user"></i> Profile</a>
+						</li>
+						<li class="nav-li ng-hide" ng-click="signoutButtonClick();" ng-show="loggedIn">
+							<a href="#">{{fullname}} | <i aria-hidden="true" class="fa fa-sign-out"></i> Signout</a>
+						</li>
+					</ul>
 				</div>
 			</div>
-		
-<div class="col-xs-12 col-md-8 items-holder no-martin">
-
-    <div class="container" ng-cloak>
-        <!-- upcomming appointmet list starts here -->
-        <h1>Upcoming Appointments</h1>
-        <div ng-repeat="app in appList | futureFilter">   
-            <div class="row no-margin cart-item">
-                <div class="col-xs-12 col-md-4">
-                    <div class="title">Appointment with <a href="#">{{app.name}}</a></div>
-
-                    <div class="a-details">
-                        <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
-                        <span ng-show=isPatient><label>Location:&nbsp</label>{{app.address}}</span>
-                        <span ng-show=!isPatient><label>Location:&nbsp</label>{{docLocation}}</span>
-                        <!-- <section class="google-map map-holder">
-                            <div id="map" class="map center"></div>
-                        </section> -->
-
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-4">
-                    <button class="btn le-button" type="button" ng-show=isPatient ng-click=rescheduleApp(app)>Reschedule</button>
-                    <button class="btn le-button" type="button" ng-confirm-click="Are you sure to cancel this appointment?" confirmed-click="cancelApp(app.appointment_id)">Cancel</button>
-                </div>
-        </div>
-        <hr>
-    </div>
-        <!-- upcomming appointment list ends here -->
+		</nav>
+		<!-- top nav bar ends here -->
 
         
-    </div>
+		<main id="authentication">
+			<div class="container">
+				<div class="row">
+                    <!-- left area (mascot) start here-->
+					<div class="row-eq-height">
+						<div class="col-md-4 col-xs-12">
+							<div class="logo" style="margin: 5% auto">
+								<table style="margin: 0 auto; height: 100%">
+									<tr>
+										<td><img src="./assets/images/custom/panda_logo_top_2.jpg" width="150">
+										</td>
+									</tr>
 
 
+									<tr>
+										<td>
+											<div class="panda-board">
+												<span class="panda-text ng-hide" ng-show="loggedIn">View your Appointments!</span> <span class="panda-text ng-hide" ng-show="!loggedIn">It's awsome to see you again!</span>
+											</div>
+										</td>
+									</tr>
 
-    <div class="container">
-        <!-- past appointmet list starts here -->
-    <h1>Past Appointments</h1>
-        <div class="col-xs-8 items-holder no-margin" ng-repeat="app in appList | pastFilter" ng-cloak>
-            <div>
-            <div class="row no-margin cart-item">
-                <div class="col-xs-12 col-md-8">
-                    <div class="title">Appointment with <a href="#">{{app.name}}</a></div>
 
-                <div class="a-details">
-                    <label>Time:&nbsp</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
-                    <span ng-show=isPatient><label>Location:&nbsp</label>{{app.address}}</span>
-                    <span ng-show=!isPatient><label>Location:&nbsp</label>{{docLocation}}</span>
-                   
+									<tr>
+										<td><img src="./assets/images/custom/panda_logo_bottom_2.jpg" width="150">
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+                    <!-- left area (mascot) end here-->
+                    
+                    <!-- right area (appointments) end here-->
+					<div class="col-xs-12 col-md-8 items-holder no-martin">
+                        <!-- upcomming appointmet list starts here -->
+						<div class="container" ng-cloak="">
+							<h1>Upcoming Appointments</h1>
+							<div ng-repeat="app in appList | futureFilter">
+								<div class="row no-margin cart-item">
+									<div class="col-xs-12 col-md-4">
+										<div class="title">
+											Appointment with <a href="#">{{app.name}}</a>
+										</div>
+										<div class="a-details">
+											<label>Time:&nbsp;</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
+											<span ng-show="isPatient"><label>Location:&nbsp;</label>{{app.address}}</span> <span ng-show="!isPatient"><label>Location:&nbsp;</label>{{docLocation}}</span>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-4">
+										<button class="btn le-button" ng-click="rescheduleApp(app)" ng-show="isPatient" type="button">Reschedule</button> <button class="btn le-button" confirmed-click="cancelApp(app.appointment_id)" ng-confirm-click="Are you sure to cancel this appointment?" type="button">Cancel</button>
+									</div>
+								</div>
+								<hr>
+							</div>
+						</div>
+                        <!-- upcomming appointment list ends here -->
 
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4">
-                <button class="btn le-button" type="button" ng-click="$parent.selectedIndex=$index;setFormShow(true);setSuccessReviewShow(false)" ng-show=isPatient>Submit Review</button>
-            </div>
-        </div>
-            <!-- feedback form starts here -->
-                    <div class="add-review row" ng-show="$index==$parent.selectedIndex&&formShow===true">
-                        <div class="col-xs-12 col-md-10">
-                            <div class="new-review-form">
-                                <h2 class="reviewTitle">Add review</h2>
-                                <button type="button" class="close reviewClose" aria-label="Close" ng-click=setFormShow(false)>
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <form id="contact-form" class="contact-form" method="post" >
-                                    <!--<div class="row field-row">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <label>Name</label>
-                                            <input class="le-input" ng-model="review.name">
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6">
-                                            <label>Email</label>
-                                            <input class="le-input" ng-model="review.email">
-                                        </div>
-                                    </div>-->
+                        <!-- past appointmet list starts here -->
+						<div class="container">
+							<h1>Past Appointments</h1>
+							<div class="col-xs-8 items-holder no-margin" ng-cloak="" ng-repeat="app in appList | pastFilter">
+								<div>
+									<div class="row no-margin cart-item">
+										<div class="col-xs-12 col-md-8">
+											<div class="title">
+												Appointment with <a href="#">{{app.name}}</a>
+											</div>
+											<div class="a-details">
+												<label>Time:&nbsp;</label>{{app.date| dateFilter}} {{app.time | timeFilter}}<br>
+												<span ng-show="isPatient"><label>Location:&nbsp;</label>{{app.address}}</span> <span ng-show="!isPatient"><label>Location:&nbsp;</label>{{docLocation}}</span>
+											</div>
+										</div>
+										<div class="col-xs-12 col-md-4">
+											<button class="btn le-button" ng-click="$parent.selectedIndex=$index;setFormShow(true);setSuccessReviewShow(false)" ng-show="isPatient" type="button">Submit Review</button>
+										</div>
+									</div>
                                     
-                                    <div class="field-row">
-                                        <label>Your rating</label>
-                                        <div star-rating rating-value="review.score" max=5></div>
-                                    </div>
+									<!-- feedback form starts here -->
+									<div class="add-review row" ng-show="$index==$parent.selectedIndex&&formShow===true">
+										<div class="col-xs-12 col-md-10">
+											<div class="new-review-form">
+												<h2 class="reviewTitle">Add review</h2>
+												<button aria-label="Close" class="close reviewClose" ng-click="setFormShow(false)" type="button"><span aria-hidden="true">&times;</span></button>
+												<form class="contact-form" id="contact-form" method="post" name="contact-form">
+													<div class="field-row">
+														<label>Your rating</label>
 
-                                    <div class="field-row">
-                                        <label>Your feedback</label>
-                                        <textarea rows="8" class="le-input" ng-model="review.comment"></textarea>
-                                    </div>
+														<div max="5" rating-value="review.score" star-rating="">
+														</div>
+													</div>
+													<div class="field-row">
+														<label>Your feedback</label> 
 
-                                    <div class="buttons-holder">
-                                        <button type="submit" class="le-button huge" ng-click="review.doctor_id=app.doctor_id;sendReview()">submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-show="successReviewShow===true&&$index==$parent.selectedIndex" class="col-xs-12 col-md-8">
-                        <h4 class="succMsg">You have successfully submitted your review!</h4>
-                        <button type="button" class="close succMsgClose" aria-label="Close" ng-click="setSuccessReviewShow(false)">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                    </div>
-                </div>
-                   <hr>
-                    <!-- feedback form ends here -->
-        </div>
-         
-        </div>
-        <!-- past appointment list ends here -->
+														<textarea class="le-input" ng-model="review.comment" rows="8"></textarea>
+													</div>
+													<div class="buttons-holder">
+														<button class="le-button huge" ng-click="review.doctor_id=app.doctor_id;sendReview()" type="submit">submit</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+                                    
+                                    <!-- success message ares start here -->
+									<div class="col-xs-12 col-md-8" ng-show="successReviewShow===true&&$index==$parent.selectedIndex">
+										<h4 class="succMsg">You have successfully submitted your review!</h4>
+										<button aria-label="Close" class="close succMsgClose" ng-click="setSuccessReviewShow(false)" type="button"><span aria-hidden="true">&times;</span></button>
+									</div>
+                                    <!-- success message ares end here -->
+								</div>
+								<hr>
+								<!-- feedback form ends here -->
+							</div>
+						</div>
+                        <!-- past appointment list ends here -->
+					</div>
+				</div>
+			</div>
+		</main>
 
-        
-    </div>
-    </div>
-	</div><!-- /.container -->
-</main><!-- /.authentication -->
-<!-- ============================================================= FOOTER ============================================================= -->
-                                                    <footer id="footer" class="color-bg">
-                                                        <div class="container">
-                                                            <!-- <div class="link-list-row"> -->
-                                                            <div class="container no-padding">
-                                                                <div class="col-xs-12 col-md-12 ">
-                                                                    <!-- ============================================================= CONTACT INFO ============================================================= -->
-                                                                    <img src="./assets/images/custom/panda_peeping.gif" width="120" style=" z-index: -100;" style="max-width:50%">
-                                                                    <div class="contact-info" style="width:50%;float:right">
-                                                                        <div class="footer-logo logo-main">
-                                                                            <a>DoctorsFor.me</a>
-                                                                            <!-- <img src="./assets/images/custom/text_logo.gif" width="200"> -->
-                                                                            </div> <!-- /.footer-logo  -->
-                                                                            <br/>
-                                                                            <p class="regular-bold"> Office address:</p>
-                                                                            <p>
-                                                                                Administration Building, 400 Bizzell St,
-                                                                                College Station, TX 77843
-                                                                            </p>
-                                                                            <!-- /.social-icons -->
-                                                                        </div>
-                                                                        <!-- ============================================================= CONTACT INFO : END ============================================================= -->            </div>
-                                                                        <div class="col-xs-12 col-md-8 no-margin">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="copyright-bar">
-                                                                        <div class="container">
-                                                                            <div class="col-xs-12 col-sm-11 no-margin">
-                                                                                <div class="copyright">
-                                                                                    &copy; <a href="index.html">DoctorsFor.me</a> - all rights reserved
-                                                                                    <ul class="footer-social" style="text-align: center">
-                                                                                        <li><a href="https://facebook.com" class="fa fa-facebook"></a></li>
-                                                                                        <li><a href="#" class="fa fa-twitter"></a></li>
-                                                                                        <li><a href="#" class="fa fa-linkedin"></a></li>
-                                                                                    </ul>
-                                                                                    </div><!-- /.copyright -->
-                                                                                </div>
-                                                                                </div><!-- /.container -->
-                                                                                </div><!-- /.copyright-bar -->
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    </footer><!-- /#footer -->
-<!-- ============================================================= FOOTER : END ============================================================= -->	</div><!-- /.wrapper -->
+        <!-- Footer start here -->
+		<footer class="color-bg" id="footer">
+			<div class="container">
+				<div class="container no-padding">
+					<div class="col-xs-12 col-md-12">
+						<img src="./assets/images/custom/panda_peeping.gif" style=" z-index: -100; max-width:50%" width="120">
 
-
-</div><!-- /.wrapper -->
-
-	
-
+						<div class="contact-info" style="width:50%;float:right">
+							<div class="footer-logo logo-main">
+								<a>DoctorsFor.me</a>
+							</div>
+							<br>
+							<p class="regular-bold">Office address:</p>
+							<p>Administration Building, 400 Bizzell St, College Station, TX 77843</p>
+						</div>
+					</div>
+					<div class="col-xs-12 col-md-8 no-margin">
+					</div>
+				</div>
+				<div class="copyright-bar">
+					<div class="container">
+						<div class="col-xs-12 col-sm-11 no-margin">
+							<div class="copyright">
+								&copy; <a href="index.html">DoctorsFor.me</a> - all rights reserved
+								<ul class="footer-social" style="text-align: center">
+									<li>
+										<a class="fa fa-facebook" href="https://facebook.com"></a>
+									</li>
+									<li>
+										<a class="fa fa-twitter" href="#"></a>
+									</li>
+									<li>
+										<a class="fa fa-linkedin" href="#"></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+        <!-- Footer end here -->
+	</div>
+    
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
-    <!-- angularJs --> 
-    <script src="assets/scripts/angularController.js"></script>
-	<script src="assets/js/jquery-1.10.2.min.js"></script>
-	<script src="assets/js/jquery-migrate-1.2.1.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
-	<script src="assets/js/gmap3.min.js"></script>
-	<script src="assets/js/bootstrap-hover-dropdown.min.js"></script>
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<script src="assets/js/css_browser_selector.min.js"></script>
-	<script src="assets/js/echo.min.js"></script>
-	<script src="assets/js/jquery.easing-1.3.min.js"></script>
-	<script src="assets/js/bootstrap-slider.min.js"></script>
-    <script src="assets/js/jquery.raty.min.js"></script>
-    <script src="assets/js/jquery.prettyPhoto.min.js"></script>
-    <script src="assets/js/jquery.customSelect.min.js"></script>
-    <script src="assets/js/wow.min.js"></script>
-	<script src="assets/js/scripts.js"></script>
-    
-    
-	
-	<!--<script>
-		$(document).ready(function(){ 
-			$(".changecolor").switchstylesheet( { seperator:"color"} );
-			$('.show-theme-options').click(function(){
-				$(this).parent().toggleClass('open');
-				return false;
-			});
-		});
-
-		$(window).bind("load", function() {
-		   $('.show-theme-options').delay(2000).trigger('click');
-		});
-	</script>-->
-	<!-- For demo purposes – can be removed on production : End -->
-
-	<script src="http://w.sharethis.com/button/buttons.js"></script>
-
+	<script src="assets/scripts/angularController.js">
+	</script> 
+	<script src="assets/js/jquery-1.10.2.min.js">
+	</script> 
+	<script src="assets/js/jquery-migrate-1.2.1.js">
+	</script> 
+	<script src="assets/js/bootstrap.min.js">
+	</script> 
+	<script src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en">
+	</script> 
+	<script src="assets/js/gmap3.min.js">
+	</script> 
+	<script src="assets/js/bootstrap-hover-dropdown.min.js">
+	</script> 
+	<script src="assets/js/owl.carousel.min.js">
+	</script> 
+	<script src="assets/js/css_browser_selector.min.js">
+	</script> 
+	<script src="assets/js/echo.min.js">
+	</script> 
+	<script src="assets/js/jquery.easing-1.3.min.js">
+	</script> 
+	<script src="assets/js/bootstrap-slider.min.js">
+	</script> 
+	<script src="assets/js/jquery.raty.min.js">
+	</script> 
+	<script src="assets/js/jquery.prettyPhoto.min.js">
+	</script> 
+	<script src="assets/js/jquery.customSelect.min.js">
+	</script> 
+	<script src="assets/js/wow.min.js">
+	</script> 
+	<script src="assets/js/scripts.js">
+	</script> 
+	<script src="http://w.sharethis.com/button/buttons.js">
+	</script>
 </body>
 </html>
